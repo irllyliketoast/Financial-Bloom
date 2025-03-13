@@ -1,3 +1,35 @@
+/* 
+Author: Temo Galinda
+
+Description: This User class is part of a user management system. It defines a user with properties 
+like userid, fname (first name), lname (last name), email, password, and datecreated. The class 
+encapsulates these attributes and provides getter and setter methods for modifying and accessing them. 
+It also includes a login method that validates user login by comparing the provided email and password 
+with the stored ones.
+
+Purpose: The purpose of this class is to represent a user in the system, allowing for secure storage 
+and modification of user data while also enabling login functionality. The class ensures that certain 
+attributes (like userid and datecreated) are immutable, reinforcing data integrity. The login method 
+helps verify user credentials.
+
+Key Components:
+    - userid: A unique identifier for the user (immutable).
+    - fname, lname, email, password: Attributes that store user data (mutable except for userid and datecreated).
+    - datecreated: The date when the user was created (immutable).
+    
+Methods:
+    - getUserid(), getFname(), getLname(), getEmail(), getDatecreated(): Getters for accessing user data.
+    - setNewFname(), setNewLname(), setNewEmail(): Setters for updating mutable user data.
+    - login(): Validates user credentials by comparing email and password attempts with the stored data.
+*/ 
+
+/* 
+Update Log:
+Last updated on ...
+Last updated on 3.13.2025 by Laura Estremera: Adjusted file placement.
+Created on 2.20.2025 by Temo Galinda: Initializes user as an object.
+*/
+
 package csc450;
 
 public class User {
