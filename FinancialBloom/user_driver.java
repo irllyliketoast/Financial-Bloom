@@ -1,3 +1,35 @@
+/* 
+Author: Temo Galinda
+
+Description: This Java code defines a user_driver class, which is part of the csc450 package. 
+The program demonstrates how to interact with a User class by creating a User object (test1) 
+and performing operations such as displaying user information, simulating failed and successful 
+login attempts, and updating the user's email.
+
+Purpose: The purpose of this code is to simulate the behavior of a user account system where:
+A user object is created with specific information (e.g., user ID, name, email, password, and account creation date).
+The program showcases various methods available for interacting with the User object, such as:
+    - Retrieving the user's first name, last name, email, and account creation date.
+    - Simulate login attempts with correct and incorrect credentials.
+    - Updating the user's email address.
+This example highlights how to manage user data, perform login checks, and update user information in a system.
+
+Key Components:
+    - User object (test1): A representation of a user with details such as ID, first name, last name, email, password, 
+    and account creation date.
+    - Methods called on test1:
+        - getFname(), getLname(), getEmail(), getDatecreated(): Retrieve specific user information.
+        - login(): Simulates a login attempt and checks if the provided email and password match the stored credentials.
+        setNewEmail(): Updates the email address of the user.
+*/ 
+
+/* 
+Update Log:
+Last updated on ...
+Last updated on 3.13.2025 by Laura Estremera: Adjusted file placement.
+Created on 2.20.2025 by Temo Galinda: Initial code setup for user management system.
+*/
+
 package csc450;
 
 public class user_driver {
