@@ -1,10 +1,13 @@
 /* 
 Script - not implemented 
+
 Author: Daniela Luna
+
 Description: This Java code implements an authentication service within an application. 
 It provides functionalities for user login and password reset. The service is designed to manage user 
 accounts by verifying credentials, locking accounts after too many failed login attempts, and sending 
 password reset emails with temporary passwords.
+
 Purpose:
   - Login functionality: The login method authenticates users by checking their username and password. 
   It handles the scenario where the account gets locked after three consecutive failed login attempts 
@@ -13,18 +16,18 @@ Purpose:
   sending them a temporary password to their registered email address.
   - Email service: The sendResetEmail method handles sending an email to the user with their temporary 
   password, enabling them to regain access to their account.
+  
 Key Components:
   - UserRepository: Interacts with the database to fetch and update user data.
   - JavaMailSender: Sends email notifications to the user.
   - BCryptPasswordEncoder: Ensures passwords are securely stored and validated during login.
-Date created: February 20th 
 */ 
 
 /* 
 Update Log:
 Last updated on ...
-Updated on 3.13.2025 by Laura Estremera: I was moving the file 
-Created on 2.20.2025 by Daniela Luna
+Last updated on 3.13.2025 by Laura Estremera: Adjusted file placement.
+Created on 2.20.2025 by Daniela Luna: Initial code setup for user authentication.
 */
 
 package com.example.auth.service;
