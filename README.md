@@ -1,6 +1,4 @@
-# **Financial Bloom: Budgeting App with Habit Growth Integration**
-
-### **Project Title:** Financial Bloom  
+# **Financial Bloom: Budgeting App with Habit Growth Integration**  
 #### **Scrum Master:** Laura Estremera  
 
 ---
