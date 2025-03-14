@@ -58,6 +58,8 @@ public class User {
 
     public void setNewEmail(String newEmail){this.email = newEmail;}
 
+    public void setNewPassword(String newPass){this.password = newPass;}
+
     public boolean login(String emailAttempt, String passAttempt){
         if(emailAttempt.equals(this.email) && passAttempt.equals(this.password)){return true;}
         else{return false;}
