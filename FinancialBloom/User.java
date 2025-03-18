@@ -25,7 +25,7 @@ Methods:
 
 /* 
 Update Log:
-Last updated on ...
+Last updated on 3.17.2025 by Temo Galinda to set email
 Last updated on 3.13.2025 by Laura Estremera: Adjusted file placement.
 Created on 2.20.2025 by Temo Galinda: Initializes user as an object.
 */
