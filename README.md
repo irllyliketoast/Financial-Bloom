@@ -60,10 +60,10 @@ To create a user-friendly application that encourages financial growth and respo
 ---
 
 ## **Technology Stack**  
-- **Languages:** Java, JavaScript, SQL, HTML, CSS, PHP  
+- **Languages:** Java, SQL, HTML, CSS, PHP  
 - **Frameworks & Libraries:** React, Node.js, Express  
-- **Database:** MySQL or PostgreSQL  
-- **Banking API Integration:** Plaid, Yodlee, or Finicity  
+- **Database:** MySQL 
+- **Banking API Integration:** JBDC 
 - **Authentication:** OAuth2, Multi-factor Authentication (MFA)  
 
 ---
