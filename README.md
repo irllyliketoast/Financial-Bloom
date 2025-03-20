@@ -55,7 +55,7 @@ To create a user-friendly application that encourages financial growth and respo
 - **Security** - Mikaela and Laura  
 - **HTML/CSS** - Mikaela, Chris, and Laura  
 - **Backend** - Daniela and Temo
-- **Database** - Mikaela, Danila, Laura    
+- **Database** - Mikaela, Laura    
 
 ---
 
