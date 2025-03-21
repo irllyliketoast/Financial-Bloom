@@ -51,11 +51,11 @@ To create a user-friendly application that encourages financial growth and respo
 ---
 
 ## **Roles**  
-- **UI/UX** - Daniela and Laura  
+- **UI/UX** - Chris and Laura  
 - **Security** - Mikaela and Laura  
-- **HTML/CSS** - Mikaela, Chris, and Laura  
+- **HTML/CSS** - Chris and Laura  
 - **Backend** - Daniela and Temo
-- **Database** - Mikaela, Laura    
+- **Database** - Mikaela and Laura    
 
 ---
 
