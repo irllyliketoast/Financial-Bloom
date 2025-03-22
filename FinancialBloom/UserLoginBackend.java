@@ -3,111 +3,57 @@ Script - not implemented
 
 Author: Daniela Luna
 
-Description: This Java code implements an authentication service within an application. 
-It provides functionalities for user login and password reset. The service is designed to manage user 
-accounts by verifying credentials, locking accounts after too many failed login attempts, and sending 
-password reset emails with temporary passwords.
+Description: This Java code allows a user to create a New Account. User will be directed here if they
+enter login credentials and email is not found within database.
 
 Purpose:
-  - Login functionality: The login method authenticates users by checking their username and password. 
-  It handles the scenario where the account gets locked after three consecutive failed login attempts 
-  and resets the counter after a successful login.
-  - Password reset functionality: The resetPassword method allows users to reset their password by 
-  sending them a temporary password to their registered email address.
-  - Email service: The sendResetEmail method handles sending an email to the user with their temporary 
-  password, enabling them to regain access to their account.
+  - 
   
 Key Components:
-  - UserRepository: Interacts with the database to fetch and update user data.
-  - JavaMailSender: Sends email notifications to the user.
-  - BCryptPasswordEncoder: Ensures passwords are securely stored and validated during login.
+  - UserRepository: Interacts with the User class to create a new user object and stores the new
+  User object in the database.
 */ 
 
 /* 
 Update Log:
 Last updated on ...
-Last updated on 3.13.2025 by Laura Estremera: Adjusted file placement.
+Last updated on 3.21.2025 by Daniela Luna: Overrode former unimplemented class into CreateAccount class.
 Created on 2.20.2025 by Daniela Luna: Initial code setup for user authentication.
 */
 
-package com.example.auth.service;
+import java.util.Scanner;
+import csc450.User; // is this the correct path?
+import java.util.Random;
+import java.time.LocalDate;
 
-import java.util;
+public class CreateAccount {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+    
+        System.out.println("This page will allow a non-existing user to create a new account\n" +
+                "Please enter the information required.");
 
-@Service
-public class AuthService {
+        Random rand = new Random();
+        int userID = rand.nextInt(900000) + 100000;
+        System.out.println("Your generated user ID is: " + userID);
 
-    @Autowired
-    private UserRepository userRepository;
+        System.out.print("Enter your first name: ");
+        String firstName = input.nextLine();
 
-    @Autowired
-    private JavaMailSender mailSender;
+        System.out.print("Enter your last name: ");
+        String lastName = input.nextLine();
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+        System.out.print("Enter your email address: ");
+        String email = input.nextLine();
 
-    public String login(String username, String password) {
-        Optional<User> userOptional = userRepository.findByUsername(username);
+        System.out.print("Enter your password: ");
+        String password = input.nextLine();
 
-        if (userOptional.isEmpty()) {
-            return "User not found.";
-        }
+        String dateCreated = LocalDate.now().toString();
 
-        User user = userOptional.get();
+        User newUser = new User(userID, firstName, lastName, email, password, dateCreated);
 
-        if (user.isLocked()) {
-            return "Account is locked. Click 'Forgot Password?' to reset.";
-        }
-
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            user.setFailedAttempts(user.getFailedAttempts() + 1);
-
-            if (user.getFailedAttempts() >= 3) {
-                user.setLocked(true);
-                userRepository.save(user);
-                return "Too many failed attempts. Forgot Password?";
-            }
-
-            userRepository.save(user);
-            return "Invalid credentials. Attempt " + user.getFailedAttempts() + "/3.";
-        }
-
-        user.setFailedAttempts(0);
-        userRepository.save(user);
-        return "Login successful!";
-    }
-
-    public String resetPassword(String email) {
-        Optional<User> userOptional = userRepository.findByEmail(email);
-
-        if (userOptional.isEmpty()) {
-            return "Email not found.";
-        }
-
-        User user = userOptional.get();
-        String tempPassword = "Temp1234"; // You can generate a more secure temp password
-
-        user.setPassword(passwordEncoder.encode(tempPassword));
-        user.setLocked(false);
-        user.setFailedAttempts(0);
-        userRepository.save(user);
-
-        sendResetEmail(email, tempPassword);
-        return "Password reset email sent.";
-    }
-
-    private void sendResetEmail(String email, String tempPassword) {
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-            helper.setTo(email);
-            helper.setSubject("Password Reset Request");
-            helper.setText("Your temporary password is: " + tempPassword + ". Please change it after logging in.");
-
-            mailSender.send(message);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+        System.out.println("\nAccount successfully created!");
+        System.out.println("Welcome, " + newUser.getFirstName() + " " + newUser.getLastName() + "!");
     }
 }
