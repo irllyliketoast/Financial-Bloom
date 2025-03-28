@@ -1,113 +1,103 @@
-/* 
-Script - not implemented 
+package csc450;
 
-Author: Daniela Luna
+import java.util.Scanner;
+import java.util.Random;
+import java.time.LocalDate;
 
-Description: This Java code implements an authentication service within an application. 
-It provides functionalities for user login and password reset. The service is designed to manage user 
-accounts by verifying credentials, locking accounts after too many failed login attempts, and sending 
-password reset emails with temporary passwords.
+public class CreateAccount {
+    private User newUser;
 
-Purpose:
-  - Login functionality: The login method authenticates users by checking their username and password. 
-  It handles the scenario where the account gets locked after three consecutive failed login attempts 
-  and resets the counter after a successful login.
-  - Password reset functionality: The resetPassword method allows users to reset their password by 
-  sending them a temporary password to their registered email address.
-  - Email service: The sendResetEmail method handles sending an email to the user with their temporary 
-  password, enabling them to regain access to their account.
-  
-Key Components:
-  - UserRepository: Interacts with the database to fetch and update user data.
-  - JavaMailSender: Sends email notifications to the user.
-  - BCryptPasswordEncoder: Ensures passwords are securely stored and validated during login.
-*/ 
+    public CreateAccount() {
+        Scanner input = new Scanner(System.in);
 
-/* 
-Update Log:
-Last updated on ...
-Last updated on 3.13.2025 by Laura Estremera: Adjusted file placement.
-Created on 2.20.2025 by Daniela Luna: Initial code setup for user authentication.
-*/
+        System.out.println("This page will allow a non-existing user to create a new account\n" +
+                "Please enter the information required.");
 
-package com.example.auth.service;
-
-import java.util;
-
-@Service
-public class AuthService {
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private JavaMailSender mailSender;
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
-    public String login(String username, String password) {
-        Optional<User> userOptional = userRepository.findByUsername(username);
-
-        if (userOptional.isEmpty()) {
-            return "User not found.";
+        String fname = "";
+        while (true) {
+            System.out.print("Enter First Name: ");
+            fname = input.nextLine();
+            if (fname.matches("[a-zA-Z]+")) {
+                break;
+            } else {
+                System.out.println("First name must only contain letters. Please try again.");
+            }
         }
 
-        User user = userOptional.get();
-
-        if (user.isLocked()) {
-            return "Account is locked. Click 'Forgot Password?' to reset.";
+        String lname = "";
+        while (true) {
+            System.out.print("Enter Last Name: ");
+            lname = input.nextLine();
+            if (lname.matches("[a-zA-Z]+")) {
+                break;
+            } else {
+                System.out.println("Last name must only contain letters. Please try again.");
+            }
         }
 
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            user.setFailedAttempts(user.getFailedAttempts() + 1);
+        // Email validation
+        String email = "";
+        while (true) {
+            System.out.print("Enter Email Address: ");
+            email = input.nextLine();
 
-            if (user.getFailedAttempts() >= 3) {
-                user.setLocked(true);
-                userRepository.save(user);
-                return "Too many failed attempts. Forgot Password?";
+            if (!email.matches("^[\\w.-]+@[\\w.-]+\\.com$")) {
+                System.out.println("Invalid format. Email must contain '@' and end with '.com'");
+                continue;
             }
 
-            userRepository.save(user);
-            return "Invalid credentials. Attempt " + user.getFailedAttempts() + "/3.";
+            if (emailExists(email)) {
+                System.out.println("An account with this email address already exists.");
+                System.out.println("Directing you to the login page...");
+                return;
+            }
+
+            break; // Email is valid and not a duplicate
         }
 
-        user.setFailedAttempts(0);
-        userRepository.save(user);
-        return "Login successful!";
+
+        // Password input + validation
+        String password = "";
+        while (true) {
+            System.out.print("Enter your password: ");
+            password = input.nextLine();
+
+            if (password.length() < 7) {
+                System.out.println("Password must be at least 7 characters long.");
+                continue;
+            }
+
+            if (!password.matches(".*[A-Z].*")) {
+                System.out.println("Password must contain at least one uppercase letter.");
+                continue;
+            }
+
+            if (!password.matches(".*[@!\\-.$].*")) {
+                System.out.println("Password must contain at least one special character: @, !, -, ., $");
+                continue;
+            }
+
+            break;
+        }
+
+        Random rand = new Random();
+        int userID = rand.nextInt(900000) + 100000;
+
+        String dateCreated = LocalDate.now().toString();
+        newUser = new User(userID, fname, lname, email, password, dateCreated);
+
+        System.out.println("\nAccount successfully created!");
+        System.out.println("Welcome, " + newUser.getFname() + " " + newUser.getLname() + "!");
     }
 
-    public String resetPassword(String email) {
-        Optional<User> userOptional = userRepository.findByEmail(email);
-
-        if (userOptional.isEmpty()) {
-            return "Email not found.";
-        }
-
-        User user = userOptional.get();
-        String tempPassword = "Temp1234"; // You can generate a more secure temp password
-
-        user.setPassword(passwordEncoder.encode(tempPassword));
-        user.setLocked(false);
-        user.setFailedAttempts(0);
-        userRepository.save(user);
-
-        sendResetEmail(email, tempPassword);
-        return "Password reset email sent.";
+    // Placeholder method — to be replaced with DB check
+    private boolean emailExists(String email) {
+        // This should later query the database for the email
+        // For now, it always returns false so testing can continue
+        return false;
     }
 
-    private void sendResetEmail(String email, String tempPassword) {
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-            helper.setTo(email);
-            helper.setSubject("Password Reset Request");
-            helper.setText("Your temporary password is: " + tempPassword + ". Please change it after logging in.");
-
-            mailSender.send(message);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+    public User getUser() {
+        return newUser;
     }
 }
