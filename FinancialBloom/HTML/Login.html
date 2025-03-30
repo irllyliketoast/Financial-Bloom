@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-	
+  
 	<head>
 	  <link rel="stylesheet" href="../styles/Login.css">
 	  <meta charset="utf-8">
@@ -14,7 +14,7 @@
 	<body>
 		<header class="header">
 			<img src="../graphics/logo.png">
-			<span>Financial Bloom: </span> Grow Your Savings!
+			Financial Bloom
 		</header>
 		
 		<div id="customAlertOverlay" class="alert-overlay">
@@ -27,7 +27,7 @@
 		<div class="wrapper side-panel-open">
 			<div class="main">
 				<form onsubmit="return validateForm()">
-					<h1>Welcome to Financial Bloom</h1>
+					<h1>Welcome to Financial Bloom!</h1>
 					<fieldset id="first">
 						<input type="text" name="username" id="username" placeholder="Username" autofocus><br>
 						<input type="password" name="password" id="password" placeholder="Password"><br>
@@ -41,25 +41,34 @@
 					<img src="../graphics/insta.png">
 					<img src="../graphics/x.png">
 				</section>
-				<button class="side-panel-toggle" type="button">
-					<span class="material-symbols-outlined open">arrow_back_ios</span>
-					<span class="material-symbols-outlined close">arrow_forward_ios</span>
-				</button>
 				<div class="side-panel">
 					<h2>Welcome to Financial Bloom!</h2>
 					<p>Discover a fun and engaging way to take control of your finances through your very own virtual garden. 
 					At Financial Bloom, we guide you on a journey to financial responsibility, where every smart financial decision 
-					helps your garden grow.</p><p>Sign in to get started, set your goals, and cultivate a brighter financial future!</p>
+					helps your garden grow.</p>
+					<p>Sign in to get started, set your goals, and cultivate a brighter financial future!</p>
+					<p>Don't have an account?</p>
+					
+					<!-- Sign-Up Button -->
+					<a href="signup.html" id="SignUp">Sign Up</a>
 				</div>
 			</div>
+		</div>
+		
+		<div class="footer-garden">
+			<img src="../graphics/plant.gif" class="plant">
+			<img src="../graphics/plant.gif" class="plant">
+			<img src="../graphics/plant.gif" class="plant">
+			<img src="../graphics/plant.gif" class="plant">
+			<img src="../graphics/plant.gif" class="plant">
+			<img src="../graphics/plant.gif" class="plant">
+			<img src="../graphics/plant.gif" class="plant">
+			<img src="../graphics/plant.gif" class="plant">
+			<img src="../graphics/plant.gif" class="plant">
 		</div>
 		<footer>2025 Financial Bloom &copy; All rights reserved.</footer>
 		
 		<script>
-			document.querySelector(".side-panel-toggle").addEventListener("click", () => {
-				document.querySelector(".wrapper").classList.toggle("side-panel-open");
-			});
-
 			function validateForm() {
 				let username = document.getElementById("username").value.trim();
 				let password = document.getElementById("password").value.trim();
