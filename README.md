@@ -2,8 +2,6 @@
 <p align="center">
   <img src="https://github.com/irllyliketoast/Financial-Bloom/blob/8d54758f332a49e627a7b761c6542fed6cea7b48/Bloom.jpg" width="1500" height ="750">
 </p>
-
-#### **Scrum Master:** Laura Estremera  
 ---
 
 ## **Project Description**  
@@ -53,12 +51,14 @@ To create a user-friendly application that encourages financial growth and respo
 
 ---
 
-## **Roles**  
-- **UI/UX** - Chris and Laura  
-- **Security** - Mikaela and Laura  
-- **HTML/CSS** - Chris and Laura  
-- **Backend** - Daniela and Temo
-- **Database** - Mikaela and Laura    
+## **Dev Roles** 
+- **Scrum Master:** Laura Estremera  
+- **UI/UX** - Chris Lane and Laura Estremera
+- **Security** - Mikaela Riggan and Laura Estremera
+- **HTML/CSS** - Chris Lane and Laura Estremera
+- **Backend** - Daniela Luna and Temo Gainda
+- **Database** - Mikaela Riggan and Laura Estremera
+- **Compiling User Stories** - Daniela Luna 
 
 ---
 
