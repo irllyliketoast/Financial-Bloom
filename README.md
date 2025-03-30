@@ -1,6 +1,6 @@
 # **Financial Bloom: Budgeting App with Habit Growth Integration**  
 <p align="center">
-  <img src="https://github.com/irllyliketoast/Financial-Bloom/blob/8d54758f332a49e627a7b761c6542fed6cea7b48/Bloom.jpg" width="1500" height ="300">
+  <img src="https://github.com/irllyliketoast/Financial-Bloom/blob/8d54758f332a49e627a7b761c6542fed6cea7b48/Bloom.jpg" width="1500" height ="600">
 </p>
 
 #### **Scrum Master:** Laura Estremera  
