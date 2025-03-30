@@ -1,4 +1,5 @@
 /* Code by: Chris and Laura */
+
 html {
     background-color: #edffd9;
 }
@@ -12,11 +13,6 @@ html {
     background-color: #74984d;
     height: 100px; /* Thicker header */
     color: white;
-}
-
-.header span {
-    font-size: 40px;
-    padding-left: 10px;
 }
 
 .header img {
@@ -81,6 +77,7 @@ html {
     background-color: #74984d;
     color: white;
 }
+
 
 body {
     margin: 0;
@@ -160,6 +157,24 @@ body {
     padding-top: 15px;
 }
 
+.footer-garden {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 70px;
+    position: absolute; /* Make sure it's positioned relative to the page */
+    width: 100%; /* Ensure it spans across */
+    bottom: 45px; /* Move it up so it's above the footer */
+    height: 100px; /* Increase height for visibility */
+    z-index: 10; /* Make sure it appears above other elements */
+}
+
+.footer-garden .plant {
+    height: 90px; /* Increase size */
+    width: auto; /* Keep aspect ratio */
+}
+
+
 .wrapper {
     display: flex;
 }
@@ -167,7 +182,7 @@ body {
 .main {
     display: flex;
     flex-grow: 1;
-    padding: 20px;
+    padding: 10px;
     overflow-y: auto;
     caret-color: transparent;
     border: 3px solid white;
@@ -176,10 +191,11 @@ body {
     max-width: 25%;
     min-width: 490px;
     max-width: 800px;
-    margin: 5% auto; /* Reduced margin to bring it closer to the header */
+    margin: 2% auto; /* Reduced margin to bring it closer to the top */
     font-family: "Roboto";
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
 }
+
 
 .main section {
     border-left: 1px solid #74984d;
@@ -193,40 +209,62 @@ body {
     color: #74984d;
 }
 
-.side-panel-toggle {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    display: grid;
-    place-items: center;
-    border: none;
-    border-radius: 5px 0px 0px 5px;
-    background-color: #74984d;
+.social-media {
+    text-align: center; /* Center the text */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: center;
+    margin: 20px auto; /* Add margin to center */
+    width: fit-content; /* Fit to content width */
+}
+  
+.social-media img {
+    margin: 5px; /* Add spacing between icons */
 }
 
-.side-panel-toggle:hover {
-    background-color: #6d8f49;
+
+#SignUp {
+    display: block;
+    margin-top: auto; /* Pushes it to the bottom */
+    align-self: center; /* Centers it horizontally */
+    padding: 10px 20px;
+    background-color: #74984d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none; /* Remove underline */
 }
 
 .side-panel {
-    display: none;
-    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     background-color: #74984d;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
     text-wrap: wrap;
     max-width: 300px;
     padding: 10px;
+    height: 95%; /* Ensure it takes full height */
+}
+
+#SignUp:hover {
+    background-color: #5f7d3b; /* Darken on hover */
 }
 
 .side-panel h2 {
     text-align: center; /* Center the h2 */
-    margin-bottom: 10px; /* Add space below the h2 */
+    margin-bottom: 5px; /* Add space below the h2 */
     color: white; /* White text for contrast */
 }
 
 .side-panel p {
     padding: 0 15px; /* Apply equal padding on both sides */
-	margin-bottom: 10px; /* Adjust space as needed */
+	margin-bottom: 5px; /* Adjust space as needed */
     color: white; /* Ensure text is readable */
     font-size: 16px;
     line-height: 1.5; /* Add line height for readability */
