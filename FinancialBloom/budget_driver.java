@@ -6,6 +6,7 @@ public class budget_driver {
     static String[] unSucessfulIncomeCatNames = {"Monthly Wage"};
     static double[] successfulIncomeCatAmounts = {4160.00, 400.00};
     static double[] successfulExpenseCatAmounts = {-1200.00, -150.00, -300.00, -400.00};
+    static double[] unSuccessfulExpenseCatAmounts = {-1200.00, -150.00, -300.00};
     
     public static boolean categoryCheck(String[] catNames, double[] catAmnts){
         //This is for making sure the name list
@@ -25,13 +26,21 @@ public class budget_driver {
         }
         return cats;
     }
+    public static String errorCheck(Boolean check){
+        if(check)
+            return "Categories and numbers match.";
+        else
+            return "Error - categories and numbers do not match.";
+    }
     public static void main(String[] args){
         System.out.println("Testing for budget and category classes.");
         System.out.println("Test 1 - Making sure categories and amounts are equivalent.");
-        System.out.println("Testing 2 correct lists - should print true.");
-        System.out.println(categoryCheck(sucessfulIncomeCatNames, successfulIncomeCatAmounts));
-        System.out.println("Testing 2 incorrect lists - should print false.");
-        System.out.println(categoryCheck(unSucessfulIncomeCatNames, successfulIncomeCatAmounts));
+        System.out.println("Testing correct lists - should print success message.");
+        System.out.println(errorCheck(categoryCheck(sucessfulIncomeCatNames, successfulIncomeCatAmounts)));
+        System.out.println("Testing incorrect lists - Category names < category amounts - should print error message.");
+        System.out.println(errorCheck(categoryCheck(unSucessfulIncomeCatNames, successfulIncomeCatAmounts)));
+        System.out.println("Testing incorrect lists - Category names > category amounts - should print error message.");
+        System.out.println(errorCheck(categoryCheck(sucessfulExpenseCatNames, unSuccessfulExpenseCatAmounts)));
         System.out.println("Test 2 - Creating the categories for the budgets.");
         Category[] expenseList = categoryListMaker(sucessfulExpenseCatNames, successfulExpenseCatAmounts);
         System.out.println("Printing Expense Categories");
