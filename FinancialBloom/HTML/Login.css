@@ -2,6 +2,23 @@ html{
 	background-color: #edffd9;
     
 }
+
+.header {
+	text-align: center;
+        font-size: 40px;
+        font-weight: bold;
+}
+
+.header span {
+        font-size: 55px;
+}
+    
+.social-media {
+	 display: flex;
+        justify-content: center;
+        gap: 10px;
+}
+
 body{
     margin: 0;
     line-height: 1.5;
