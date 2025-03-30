@@ -64,7 +64,7 @@ To create a user-friendly application that encourages financial growth and respo
 - **Frameworks & Libraries:** JavaMail
 - **Database:** MySQL 
 - **Banking API Integration:** JBDC 
-- **Authentication:** OAuth2, Multi-factor Authentication (MFA)  
+- **Authentication:** DUO
 
 ---
 
