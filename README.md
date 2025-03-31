@@ -125,7 +125,7 @@ To create a user-friendly application that encourages financial growth and respo
 - Users can opt into daily tips to help stay on budget.  
 
 ---
-## **Future Enhancements (Optional)**  
+## **Future Enhancements**  
 - Integrating AI to provide personalized financial recommendations based on user behavior.  
 - Expand the garden metaphor with different plant growth mechanics tied to specific savings goals.  
 - Multi-currency support for international users.
