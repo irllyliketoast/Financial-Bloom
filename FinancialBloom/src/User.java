@@ -1,5 +1,6 @@
 /* 
-Author: Temo Galinda
+Code Author: Temo Galinda
+Description Author: Laura Estremera
 
 Description: This User class is part of a user management system. It defines a user with properties 
 like userid, fname (first name), lname (last name), email, password, and datecreated. The class 
@@ -25,7 +26,8 @@ Methods:
 
 /* 
 Update Log:
-Last updated on 3.17.2025 by Temo Galinda to set email
+Last updated on 4.3.2025 by Laura Estremera and Daniela Luna: Naming conventions.
+Last updated on 3.17.2025 by Temo Galinda: Adjusted to set email.
 Last updated on 3.13.2025 by Laura Estremera: Adjusted file placement.
 Created on 2.20.2025 by Temo Galinda: Initializes user as an object.
 */
