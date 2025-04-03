@@ -33,28 +33,28 @@ Created on 2.20.2025 by Temo Galinda: Initializes user as an object.
 package csc450;
 
 public class User {
-    private final int userid; // This will never be changed
-    private String fname; // This will be malleable
-    private String lname; // This will be malleable
+    private final int userID; // This will never be changed
+    private String fName; // This will be malleable
+    private String lName; // This will be malleable
     private String email; // This will be malleable
     private String password; // Will be a hash of the password in the final implementation
-    private final String datecreated; //This will also never change
-    public User(int userid, String fname, String lname, String email, String password, String datecreated){
-        this.userid = userid;
-        this.fname = fname;
-        this.lname = lname;
+    private final String dateCreated; //This will also never change
+    public User(int userID, String fName, String lName, String email, String password, String dateCreated){
+        this.userID = userID;
+        this.fname = fName;
+        this.lname = lName;
         this.email = email;
         this.password = password;
-        this.datecreated = datecreated;
+        this.datecreated = dateCreated;
     }
-    public int getUserid() {return this.userid;}
-    public String getFname() {return this.fname;}
-    public String getLname() {return this.lname;}
+    public int getUserID() {return this.userID;}
+    public String getFName() {return this.fName;}
+    public String getLName() {return this.lName;}
     public String getEmail() {return this.email;}
-    public String getDatecreated() {return this.datecreated;}
-    public void setNewFname(String newFname){this.fname = newFname;}
+    public String getDateCreated() {return this.dateCreated;}
+    public void setNewFname(String newFname){this.fname = newFName;}
 
-    public void setNewLname(String newLname){this.lname = newLname;}
+    public void setNewLname(String newLname){this.lname = newLName;}
 
     public void setNewEmail(String newEmail){this.email = newEmail;}
 
