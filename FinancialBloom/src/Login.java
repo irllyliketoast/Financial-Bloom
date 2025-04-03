@@ -1,5 +1,6 @@
 /* 
-Author: Temo Galinda
+Code Author: Temo Galinda
+Description Author: Laura Estremera
 
 Description: This Login class simulates a login experience for the Financial Garden system. It interacts 
 with the User class to validate user credentials by prompting the user for an email and password. The 
