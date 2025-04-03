@@ -1,10 +1,13 @@
 package csc450;
 
+import java.sql.*;
 import java.util.Scanner;
 import java.util.Random;
 import java.time.LocalDate;
 
+
 public class CreateAccount {
+
     private User newUser;
 
     public CreateAccount() {
@@ -13,7 +16,7 @@ public class CreateAccount {
         System.out.println("This page will allow a non-existing user to create a new account\n" +
                 "Please enter the information required.");
 
-        String fname = "";
+        String fname;
         while (true) {
             System.out.print("Enter First Name: ");
             fname = input.nextLine();
@@ -24,7 +27,7 @@ public class CreateAccount {
             }
         }
 
-        String lname = "";
+        String lname;
         while (true) {
             System.out.print("Enter Last Name: ");
             lname = input.nextLine();
@@ -36,7 +39,7 @@ public class CreateAccount {
         }
 
         // Email validation
-        String email = "";
+        String email;
         while (true) {
             System.out.print("Enter Email Address: ");
             email = input.nextLine();
@@ -57,7 +60,7 @@ public class CreateAccount {
 
 
         // Password input + validation
-        String password = "";
+        String password;
         while (true) {
             System.out.print("Enter your password: ");
             password = input.nextLine();
@@ -76,7 +79,16 @@ public class CreateAccount {
                 System.out.println("Password must contain at least one special character: @, !, -, ., $");
                 continue;
             }
-
+            while (true) {
+                String passwordConfirm;
+                System.out.print("Enter your password confirmation: ");
+                passwordConfirm = input.nextLine();
+                if (!passwordConfirm.equals(password)) {
+                    System.out.println("Passwords do not match. Please try again.");
+                    continue;
+                }
+                break;
+            }
             break;
         }
 
@@ -96,8 +108,31 @@ public class CreateAccount {
         // For now, it always returns false so testing can continue
         return false;
     }
-
     public User getUser() {
         return newUser;
     }
+
+    // The save method
+    private void saveUserToDatabase(User user) {
+        String insertQuery = "INSERT INTO User (userid, fname, lname, email, password, datecreated) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(insertQuery)
+        ) {
+            stmt.setInt(1, user.getUserid());
+            stmt.setString(2, user.getFname());
+            stmt.setString(3, user.getLname());
+            stmt.setString(4, user.getEmail());
+            stmt.setString(5, user.password); // no getter, use direct access if allowed
+            stmt.setString(6, user.getDatecreated());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        saveUserToDatabase(newUser);
+    }
 }
+
+

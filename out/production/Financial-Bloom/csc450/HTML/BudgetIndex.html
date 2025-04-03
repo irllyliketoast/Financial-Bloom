@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="../Styles/Budget.css">
+  <meta charset="utf-8">
+  <title>Financial Bloom</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Liter&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=door_back,flyover,home,other_houses,settings,share,subscriptions,wallet" rel="stylesheet" />
+
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html"><span class="material-symbols-outlined">home</span>&nbsp;Dashboard</a></li>
+      <li id="current"><span class="material-symbols-outlined">wallet</span>&nbsp;Budget</li>
+      <li><span class="material-symbols-outlined">share</span>&nbsp;Share</li>
+      <li><span class="material-symbols-outlined">subscriptions</span>&nbsp;Subscriptions&nbsp;&nbsp;</li>
+      <li><span class="material-symbols-outlined">flyover</span>&nbsp;Garden Path</li>
+      <li><span class="material-symbols-outlined">other_houses</span>&nbsp;Greenhouse</li>
+      <li><span class="material-symbols-outlined">settings</span>&nbsp;Settings</li>
+      <li><span class="material-symbols-outlined">door_back</span>&nbsp;Exit</li>
+    </ul>
+  </nav>
+  <main>
+    <div class="search-bar">
+      <input type="text" placeholder="Search Financial Bloom...">
+    </div>
+    <div class="pie">
+      <table class="charts-css pie show-heading" id="pie">
+        <caption> March Spending Breakdown </caption>
+        <tr>
+          <td style="--start: 0; --end: 0.3;"> <span class="data" id="personal"> $300 </span> </td>
+        </tr>
+        <tr>
+          <td style="--start: 0.3; --end: 0.4;"> <span class="data" id="food"> $100 </span> </td>
+        </tr>
+        <tr>
+          <td style="--start: 0.4; --end: 0.8;"> <span class="data" id="travel"> $400 </span> </td>
+        </tr>
+        <tr>
+          <td style="--start: 0.8; --end: 1"> <span class="data" id="leisure"> $200 </span> </td>
+        </tr>
+      </table>
+    </div>
+    <div class="bar">
+      <table class="charts-css column show-heading">
+        <caption> Monthly Spread </caption>
+        <tr>
+          <td style="--size: 0.8"> <span class="data"> Jan </span> </td>
+        </tr>
+        <tr>
+          <td style="--size: 0.9"> <span class="data"> Feb </span> </td>
+        </tr>
+        <tr>
+          <td style="--size: 0.7"> <span class="data"> Mar </span> </td>
+        </tr>
+        <tr>
+          <td style="--size: 0.4"> <span class="data"> Apr </span> </td>
+        </tr>
+        <tr>
+          <td style="--size: 0.3"> <span class="data"> May </span> </td>
+        </tr>
+        <tr>
+          <td style="--size: 0.05"> <span class="data"> Jun </span> </td>
+        </tr>
+      </table>
+
+    </div>
+    <footer>Financial Bloom &trade; 2025</footer>
+  </main>
+  <aside></aside>
+</body>
+
+</html>

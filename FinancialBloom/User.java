@@ -32,12 +32,13 @@ Created on 2.20.2025 by Temo Galinda: Initializes user as an object.
 
 package csc450;
 
+
 public class User {
     private final int userid; // This will never be changed
     private String fname; // This will be malleable
     private String lname; // This will be malleable
     private String email; // This will be malleable
-    private String password; // Will be a hash of the password in the final implementation
+    String password; // Will be a hash of the password in the final implementation
     private final String datecreated; //This will also never change
     public User(int userid, String fname, String lname, String email, String password, String datecreated){
         this.userid = userid;

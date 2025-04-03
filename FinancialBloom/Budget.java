@@ -1,5 +1,6 @@
 package csc450;
 
+
 public class Budget {
     private String name;
     private double totalIncome;

@@ -1,0 +1,275 @@
+
+* {
+    font-family: "Silkscreen", sans-serif;
+}
+
+html {
+    background-color: #edffd9;
+}
+
+body {
+    margin: 0;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    background-color: #74984d;
+    height: 100px;
+    color: white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Added shadow */
+}
+
+.header img {
+    max-width: 65px;
+    padding-right: 10px;
+}
+
+/* Footer */
+footer {
+    font-style: italic;
+    height: 30px;
+    background-color: #74984d;
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding-top: 15px;
+    position: relative;
+    margin-top: auto; /* Ensures footer stays at the bottom */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Added shadow */
+}
+
+/* Link Styling */
+a {
+    text-decoration: none; /* Removes the underline */
+    color: #74984d; /* Sets the initial font color to #74984d */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+a:hover {
+    color: white; /* Changes the font color to white on hover */
+    background-color: #74984d; /* Sets the background color of the link to #74984d on hover */
+    padding: 2px 4px; /* Adds a bit of padding around the text */
+    border-radius: 4px; /* Optional: Rounded corners for the hover effect */
+}
+
+/* Sticky Form on the Left */
+.sign-up-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%; /* Take full height */
+    background-color: white;
+    padding: 20px;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the content */
+    align-items: center; /* Horizontally center the content */
+    overflow-y: auto;
+}
+
+/* The form container */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center the form vertically */
+    align-items: center; /* Center the form horizontally */
+    height: 100%; /* Ensure it takes the full height of the form */
+    width: 100%; /* Make sure the container takes the full width */
+}
+
+/* Form and other content inside it */
+.sign-up-form h1 {
+    color: #74984d;
+    text-align: center;
+    font-size: 24px;
+}
+
+.sign-up-form form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign-up-form input {
+    width: 90%;
+    padding: 10px;
+    margin: 5px auto;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.sign-up-form input[type="submit"] {
+    width: 90%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #edffd9;
+    color: #74984d;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Hover effect only on the submit button */
+.sign-up-form input[type="submit"]:hover {
+    background-color: #74984d;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dark overlay background */
+.alert-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark transparent background */
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Centered white alert box */
+.alert-box {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    min-width: 300px;
+    font-size: 16px;
+}
+
+/* Green "OK" button */
+.alert-box button {
+    margin-top: 10px;
+    background-color: #74984d; /* Green */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.alert-box button:hover {
+    background-color: #5f7d3b;
+}
+
+/* Shake animation for invalid fields */
+.shake {
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+/* Main Scrollable Content */
+.info-content {
+    margin-left: 340px; /* Adjust for sticky form */
+    padding: 20px;
+    max-width: calc(100% - 340px); /* Ensure content fills the remaining width */
+    margin-bottom: 0; /* Remove margin-bottom to reduce space */
+    padding-top: 120px; /* Prevent content from being hidden behind header */
+    text-align: left; /* Ensures the text is left-aligned within the container */
+}
+
+/* Center align headers inside the info-content */
+.info-content h1, .info-content h2, .info-content h3 {
+    text-align: center; /* Center align headers */
+}
+
+/* Social Media - Inside scrollable content */
+.social-media {
+    display: flex;
+    justify-content: center; /* Center the icons horizontally */
+    align-items: center; /* Center the icons vertically */
+    gap: 15px; /* Add space between the icons */
+    padding-top: 5px; /* Reduced space */
+    padding-bottom: 10px; /* Reduced space */
+    width: fit-content; /* Fit the container to the width of the icons */
+    margin: 0 auto; /* Center the social media section */
+}
+
+/* New Follow Us section (Horizontally aligned icons) */
+.social-media img {
+    width: 70px; /* Adjusted for larger icons */
+    height: auto;
+    cursor: pointer;
+}
+
+/* Follow Us Text */
+.follow-us {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 0; /* Removed bottom margin */
+}
+
+/* Adjusting the margin of the section containing 'Still have questions?' */
+.info-content p:last-of-type {
+    margin-top: 5px; /* Reduced space between 'Still have questions?' and the following content */
+}
+
+/* Removing unnecessary margin and padding in between content sections */
+section, div {
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove extra space between .info-content sections */
+.info-content + .info-content {
+    margin-top: 0; /* Remove any margin between consecutive sections */
+}
+
+/* Ensure the inner div doesn't have unnecessary space */
+.info-content > div {
+    margin: 0;
+    padding: 0;
+}
+
+/* Reduce default space between section and div */
+section .info-content, div .info-content {
+    margin-top: 0;
+}
+
+/* Add minor space between text and content (for legibility) */
+.info-content p, .info-content h1, .info-content h2, .info-content h3 {
+    margin-bottom: 5px; /* Reduced margin for text elements */
+}
