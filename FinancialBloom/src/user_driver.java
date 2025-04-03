@@ -65,10 +65,10 @@ public class user_driver {
 
         if (user != null) {
             System.out.println("Testing account data:");
-            System.out.println("User's name: " + user.getFname() + " " + user.getLname());
+            System.out.println("User's name: " + user.getFName() + " " + user.getLName());
             System.out.println("Email: " + user.getEmail());
-            System.out.println("Account Created: " + user.getDatecreated());
-            System.out.println("User ID: " + user.getUserid());
+            System.out.println("Account Created: " + user.getDateCreated());
+            System.out.println("User ID: " + user.getUserID());
         }
     }
 }
