@@ -52,9 +52,9 @@ public class User {
     public String getLName() {return this.lName;}
     public String getEmail() {return this.email;}
     public String getDateCreated() {return this.dateCreated;}
-    public void setNewFname(String newFname){this.fname = newFName;}
+    public void setNewFName(String newFName){this.fName = newFName;}
 
-    public void setNewLname(String newLname){this.lname = newLName;}
+    public void setNewLName(String newLName){this.lName = newLName;}
 
     public void setNewEmail(String newEmail){this.email = newEmail;}
 
