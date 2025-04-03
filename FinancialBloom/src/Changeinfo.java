@@ -1,5 +1,6 @@
 /* 
-Author: Temo Galinda
+Code Author: Temo Galinda
+Description Author: Laura Estremera
 
 Description: The Changeinfo class allows a user to update their first name, last name, and email while 
 ensuring name inputs contain only alphabetical characters. The system prompts the user for new values, 
