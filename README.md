@@ -53,7 +53,7 @@ To create a user-friendly application that encourages financial growth and respo
 ---
 
 ## **Dev Roles** 
-- **Scrum Master:** Laura Estremera
+- **Scrum Master** - Laura Estremera
 - **UI/UX** - Chris Lane and Laura Estremera
 - **Security** - Mikaela Riggan and Laura Estremera
 - **Frontend** - Chris Lane and Laura Estremera
