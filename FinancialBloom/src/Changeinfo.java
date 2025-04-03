@@ -68,8 +68,8 @@ public class Changeinfo {
                 String attempt = attemptScanner.nextLine();
                 if(isAlpha(attempt)){
                     fail = false;
-                    testUser.setNewFname(attempt);
-                    System.out.println("New first name successfully set: " + testUser.getFname());
+                    testUser.setNewFName(attempt);
+                    System.out.println("New first name successfully set: " + testUser.getFName());
                 }
                 else{
                     System.out.println("Attempt unsuccessful - invalid characters in first name form.");
@@ -81,8 +81,8 @@ public class Changeinfo {
                 String attempt = attemptScanner.nextLine();
                 if(isAlpha(attempt)){
                     fail = false;
-                    testUser.setNewLname(attempt);
-                    System.out.println("New last name successfully set: " + testUser.getLname());
+                    testUser.setNewLName(attempt);
+                    System.out.println("New last name successfully set: " + testUser.getLName());
                 }
                 else{
                     System.out.println("Attempt unsuccessful - invalid characters in first name form.");
@@ -98,8 +98,8 @@ public class Changeinfo {
                 // In the future email will correctly be validated, but it appears to require a library.
             }
             System.out.println("End of testing.");
-            System.out.println(testUser.getFname());
-            System.out.println(testUser.getLname());
+            System.out.println(testUser.getFName());
+            System.out.println(testUser.getLName());
             System.out.println(testUser.getEmail());
     }
 }
