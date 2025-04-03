@@ -1,5 +1,6 @@
 /* 
-Author: Temo Galinda
+Code Author: Temo Galinda
+Description Author: Laura Estremera
 
 Description: This Java code defines a user_driver class, which is part of the csc450 package. 
 The program demonstrates how to interact with a User class by creating a User object (test1) 
@@ -25,7 +26,7 @@ Key Components:
 
 /* 
 Update Log:
-Last updated on ...
+Last updated on 3.27.2025 by Daniela Luna: Implemented further error checking & updated user driver to account for create account testing.
 Last updated on 3.13.2025 by Laura Estremera: Adjusted file placement.
 Created on 2.20.2025 by Temo Galinda: Initial code setup for user management system.
 */
