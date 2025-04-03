@@ -66,10 +66,10 @@ public class Login{
         passScanner.close();
         if(successful){
             System.out.println("Login Successful!");
-            System.out.println("Information for user " + testUser.getFname() + " " + testUser.getLname());
+            System.out.println("Information for user " + testUser.getFName() + " " + testUser.getLName());
             System.out.println("Email: " + testUser.getEmail());
-            System.out.println("Date Created: " + testUser.getDatecreated());
-            System.out.println("User Id:  " + testUser.getUserid());
+            System.out.println("Date Created: " + testUser.getDateCreated());
+            System.out.println("User Id:  " + testUser.getUserID());
         }
         else{
             System.out.println("Sorry, but you have reached the maximum attempts of " + attempts + ".");
