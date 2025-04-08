@@ -1,4 +1,4 @@
-//Proposed changes to createAccount file :)
+//Proposed changes to createAccount file :) - Mikaela
 
 //-sanitized inputs (already partially done, TY Temo!)
 // -passwords salted and stored using SHA255 hashing
