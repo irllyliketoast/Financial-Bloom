@@ -1,3 +1,12 @@
+//Proposed changes to createAccount file :)
+
+//-sanitized inputs (already partially done, TY Temo!)
+// -passwords salted and stored using SHA255 hashing
+// -increased security and flexibility for email validation 
+// -added maximum inputs for security 
+// -user ID generation now uses secureRandom which is a less predictable
+// library
+
 package csc450;
 
 import java.security.SecureRandom;
@@ -27,10 +36,10 @@ public class CreateAccount {
         int userID = generateSecureUserID();
         String dateCreated = LocalDate.now().toString();
 
-        newUser = new User(userID, fname, lname, email, hashedPassword, dateCreated);
+        newUser = new User(userID, Fname, Lname, email, hashedPassword, dateCreated);
 
         System.out.println("\nAccount successfully created!");
-        System.out.println("Welcome, " + newUser.getFname() + " " + newUser.getLname() + "!");
+        System.out.println("Welcome, " + newUser.getFName() + " " + newUser.getLName() + "!");
     }
 
     private String promptValidatedName(Scanner input, String fieldName) {
