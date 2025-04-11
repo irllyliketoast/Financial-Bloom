@@ -1,128 +1,171 @@
+<!-- 
+  Base HTML structure by Chris Lane.
+  Styling, user interface design, animations, and JavaScript functionality
+  implemented and customized by Laura Estremera.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-	  <link rel="stylesheet" href="../Styles/SignUp.css">
-	  <meta charset="utf-8">
-	  <title>Financial Bloom - Sign Up</title>
-	  <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-	</head>
-  
-	<body>
-	  <header class="header">
-		<img src="../Graphics/logo.png">
-		Financial Bloom
-	  </header>
-	  
-	  <div class="wrapper">
-		<div class="sign-up-form">
-		  <h1>Create an Account</h1>
-		  <form onsubmit="return validateSignUp()">
-			<input type="email" id="email" placeholder="Email" required><br>
-			<input type="text" id="username" placeholder="Username" required><br>
-			<input type="password" id="password" placeholder="Password" required><br>
-			<input type="password" id="confirmPassword" placeholder="Confirm Password" required><br>
-			<input type="submit" value="Sign Up">
-		  </form>
-		</div>
-		
-		<div id="customAlertOverlaySignUp" class="alert-overlay">
-			<div id="customAlertSignUp" class="alert-box">
-				<p id="alertMessageSignUp"></p>
-				<button onclick="closeAlertSignUp()">OK</button>
-			</div>
-		</div>
+<head>
+  <!-- Meta settings and font imports -->
+  <meta charset="utf-8">
+  <title>Financial Bloom - Sign Up</title>
 
-		<div class="info-content">
-		  <h3>Welcome to Financial Bloom!</h3>
-		  <p>Discover a fun and engaging way to take control of your finances through your very own virtual garden. At Financial Bloom, we guide you on a journey to financial responsibility, where every smart financial decision helps your garden grow.</p>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="../Styles/SignUp.css">
 
-		  <h3>What Makes Us Different?</h3>
-		  <p>At Financial Bloom, we believe that managing your money should be more than just a chore – it should be an enjoyable and rewarding experience. By combining financial education with a gamified approach, we turn budgeting, saving, and paying off debt into a game that motivates you to make smart financial choices.</p>
-		  <p>As you improve your financial health, watch your virtual garden flourish. Every positive financial decision contributes to the growth of beautiful plants, making your journey to financial wellness not only effective but visually rewarding.</p>
+  <!-- Preconnect to Google Fonts for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-		  <h3>How We Help You</h3>
-		  <p>Our easy-to-use app helps you track your income, expenses, debt, and savings while allowing you to set personalized budgets. With tailored suggestions and a dynamic garden that reflects your financial habits, you’ll receive motivation every step of the way.</p>
-		  <p>Key Features Include:</p>
-		  <ul>
-			<li><strong>Track Your Spending:</strong> Get insights on where your money is going and how to improve.</li>
-			<li><strong>Set Financial Goals:</strong> Create custom budgets, savings plans, and milestones for debt reduction.</li>
-			<li><strong>Visual Garden Growth:</strong> Watch your virtual garden thrive as you meet your financial targets.</li>
-		  </ul>
+  <!-- Font families used -->
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+</head>
 
-		  <h3>Start Your Journey Today</h3>
-		  <p>Sign up now to begin cultivating your financial future with the help of Financial Bloom. Whether you're just starting your financial journey or looking to refine your habits, we're here to help you grow and thrive.</p>
-		  
-		  <p>Ready to get started? Create an account or <a href="Login.html">log in</a> to access your personalized dashboard!</p>
+<body>
 
-		  <p><strong>Still have questions?</strong> Check out our <a href="tutorial-link">interactive tutorial</a> to guide you through everything you need to know about the app’s features and how to make the most of your experience.</p>
-		</div>
-		
-		<section class="info-content">
-		  <p class="follow-us">Follow us on:</p>
-		  <section class="social-media">
-			  <img src="../Graphics/faceBook.png" alt="Facebook">
-			  <img src="../Graphics/insta.png" alt="Instagram">
-			  <img src="../Graphics/x.png" alt="X">
-		  </section>
-		</section>
-	  </div>
-	  
-	  <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
-	  
-		<script>
-		function validateSignUp() {
-			let password = document.getElementById("password");
-			let confirmPassword = document.getElementById("confirmPassword");
-			let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
+  <!-- Top header bar -->
+  <header class="header">
+    <img src="../Graphics/logo.png" alt="Financial Bloom logo">
+    Financial Bloom
+  </header>
 
-			// Validate password format
-			if (!passwordRegex.test(password.value)) {
-				showAlertSignUp("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
-				shakeInput(password, confirmPassword); // Shake both fields
-				password.value = ""; // Reset password
-				confirmPassword.value = ""; // Reset confirm password
-				return false;
-			}
+  <!-- Page wrapper: holds form + information panels -->
+  <div class="wrapper">
 
-			// Validate if passwords match
-			if (password.value !== confirmPassword.value) {
-				showAlertSignUp("Passwords do not match.");
-				shakeInput(password, confirmPassword); // Shake both fields
-				password.value = ""; // Reset password field
-				confirmPassword.value = ""; // Reset confirm password field
-				return false;
-			}
+    <!-- Left-side sign-up form -->
+    <div class="sign-up-form">
+      <h1>Create an Account</h1>
 
-			return true;
-		}
+      <!-- Form with event-based validation -->
+      <form onsubmit="return validateSignUp(event)">
+        <input type="email" id="email" placeholder="Email" required><br>
+        <input type="text" id="username" placeholder="Username" required><br>
+        <input type="password" id="password" placeholder="Password" required><br>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required><br>
+        <input type="submit" value="Sign Up">
+      </form>
+    </div>
 
-		// Function to display the alert (same as login alert style)
-		function showAlertSignUp(message) {
-			document.getElementById("alertMessageSignUp").innerText = message;
-			document.getElementById("customAlertOverlaySignUp").style.display = "flex"; // Show alert
-		}
+    <!-- Custom alert box overlay -->
+    <div id="customAlertOverlaySignUp" class="alert-overlay">
+      <div id="customAlertSignUp" class="alert-box">
+        <p id="alertMessageSignUp"></p>
+        <button onclick="closeAlertSignUp()">OK</button>
+      </div>
+    </div>
 
-		// Function to close the alert
-		function closeAlertSignUp() {
-			document.getElementById("customAlertOverlaySignUp").style.display = "none"; // Hide alert
-		}
+    <!-- Right-side informational content -->
+    <div class="info-content">
+      <h3>Welcome to Financial Bloom!</h3>
+      <p>Discover a fun and engaging way to take control of your finances through your very own virtual garden. At Financial Bloom, we guide you on a journey to financial responsibility, where every smart financial decision helps your garden grow.</p>
 
-		// Function to apply shake effect to both fields simultaneously
-		function shakeInput(passwordField, confirmPasswordField) {
-			passwordField.classList.add("shake");
-			confirmPasswordField.classList.add("shake");
+      <h3>What Makes Us Different?</h3>
+      <p>At Financial Bloom, we believe that managing your money should be more than just a chore – it should be an enjoyable and rewarding experience. By combining financial education with a gamified approach, we turn budgeting, saving, and paying off debt into a game that motivates you to make smart financial choices.</p>
+      <p>As you improve your financial health, watch your virtual garden flourish. Every positive financial decision contributes to the growth of beautiful plants, making your journey to financial wellness not only effective but visually rewarding.</p>
 
-			// Remove shake class after animation duration (0.3s)
-			setTimeout(() => {
-				passwordField.classList.remove("shake");
-				confirmPasswordField.classList.remove("shake");
-			}, 300);  // Match the animation duration here
-		}
-		</script>
-		
-	</body>
-	
+      <h3>How We Help You</h3>
+      <p>Our easy-to-use app helps you track your income, expenses, debt, and savings while allowing you to set personalized budgets. With tailored suggestions and a dynamic garden that reflects your financial habits, you’ll receive motivation every step of the way.</p>
+
+      <p>Key Features Include:</p>
+      <ul>
+        <li><strong>Track Your Spending:</strong> Get insights on where your money is going and how to improve.</li>
+        <li><strong>Set Financial Goals:</strong> Create custom budgets, savings plans, and milestones for debt reduction.</li>
+        <li><strong>Visual Garden Growth:</strong> Watch your virtual garden thrive as you meet your financial targets.</li>
+      </ul>
+
+      <h3>Start Your Journey Today</h3>
+      <p>Sign up now to begin cultivating your financial future with the help of Financial Bloom. Whether you're just starting your financial journey or looking to refine your habits, we're here to help you grow and thrive.</p>
+
+      <p>Ready to get started? Create an account or <a href="Login.html">log in</a> to access your personalized dashboard!</p>
+
+      <p><strong>Still have questions?</strong> Check out our <a href="tutorial-link">interactive tutorial</a> to guide you through everything you need to know about the app’s features and how to make the most of your experience.</p>
+    </div>
+
+    <!-- Social media icons section -->
+    <section class="info-content">
+      <p class="follow-us">Follow us on:</p>
+      <section class="social-media">
+        <img src="../Graphics/faceBook.png" alt="Facebook">
+        <img src="../Graphics/insta.png" alt="Instagram">
+        <img src="../Graphics/x.png" alt="X">
+      </section>
+    </section>
+  </div>
+
+  <!-- Page footer -->
+  <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
+
+  <!-- JavaScript validation and UI control -->
+  <script>
+    // Validates the sign-up form fields
+    function validateSignUp(event) {
+      event.preventDefault(); // Prevents form submission
+
+      let password = document.getElementById("password");
+      let confirmPassword = document.getElementById("confirmPassword");
+
+      // Regex for strong password rules
+      let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
+
+      // Check password format
+      if (!passwordRegex.test(password.value)) {
+        showAlertSignUp("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
+        shakeInput(password, confirmPassword);
+        password.value = "";
+        confirmPassword.value = "";
+        return false;
+      }
+
+      // Check if both passwords match
+      if (password.value !== confirmPassword.value) {
+        showAlertSignUp("Passwords do not match.");
+        shakeInput(password, confirmPassword);
+        password.value = "";
+        confirmPassword.value = "";
+        return false;
+      }
+
+      // Redirect to login page on success
+      window.location.href = "Login.html";
+      return false;
+    }
+
+    // Displays the alert box with bounce animation
+    function showAlertSignUp(message) {
+      const alertBox = document.getElementById("customAlertSignUp");
+      const overlay = document.getElementById("customAlertOverlaySignUp");
+
+      document.getElementById("alertMessageSignUp").innerText = message;
+
+      // Reset and restart animation each time it's shown
+      alertBox.style.animation = 'none';
+      void alertBox.offsetWidth;
+      alertBox.style.animation = 'bounceIn 0.3s ease';
+
+      overlay.style.display = "flex"; // Show alert
+    }
+
+    // Closes the alert overlay
+    function closeAlertSignUp() {
+      document.getElementById("customAlertOverlaySignUp").style.display = "none";
+    }
+
+    // Applies a shake effect to password fields
+    function shakeInput(passwordField, confirmPasswordField) {
+      passwordField.classList.add("shake");
+      confirmPasswordField.classList.add("shake");
+
+      // Remove animation class after effect finishes
+      setTimeout(() => {
+        passwordField.classList.remove("shake");
+        confirmPasswordField.classList.remove("shake");
+      }, 300);
+    }
+  </script>
+
+</body>
+
 </html>
