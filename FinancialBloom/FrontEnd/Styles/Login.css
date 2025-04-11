@@ -1,21 +1,51 @@
-/* Code by: Chris and Laura */
+/* 
+  Base layout structure by Chris Lane.
+  Visual design, styling customization, responsive formatting, and animation 
+  enhancements by Laura Estremera.
+*/
 
-* {
-    font-family: "Silkscreen", sans-serif;
-}
+/* ------------------ Global & Page Background ------------------ */
 
+/* Set a full-page garden-themed background image */
 html {
-    background-color: #edffd9;
+    background: url('../Graphics/GardenBackground.jpg') no-repeat center center fixed;
+    background-size: cover;
 }
+
+/* Reset default margins and control line spacing */
+body {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ------------------ Typography ------------------ */
+
+/* Use 'Silkscreen' font for all major UI elements */
+h1, h2, h3, h4, h5, h6,
+button,
+input[type="submit"],
+input[type="text"],
+input[type="password"],
+#SignUp,
+section.social-media {
+    font-family: 'Silkscreen', sans-serif;
+}
+
+/* Use 'Play' font for side-panel paragraph content */
+.side-panel p {
+    font-family: 'Play', sans-serif;
+}
+
+/* ------------------ Header ------------------ */
 
 .header {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    justify-content: center;
+    align-items: center;
     font-size: 40px;
     font-weight: bold;
     background-color: #74984d;
-    height: 100px; /* Thicker header */
+    height: 100px;
     color: white;
 }
 
@@ -24,7 +54,9 @@ html {
     padding-right: 10px;
 }
 
-/* Dark overlay background */
+/* ------------------ Custom Alert Styling ------------------ */
+
+/* Full-screen dark overlay for custom alerts */
 .alert-overlay {
     display: none;
     position: fixed;
@@ -32,14 +64,29 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Dark transparent background */
+    background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(3px);
     z-index: 1000;
     justify-content: center;
     align-items: center;
 }
 
-/* Centered white alert box */
+/* Bouncy keyframe animation for alert popups */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Alert box design */
 .alert-box {
     background-color: white;
     color: black;
@@ -48,28 +95,36 @@ html {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
     min-width: 300px;
+    max-width: 400px;
+    font-family: 'Play', sans-serif;
     font-size: 16px;
+    word-wrap: break-word;
+    animation: bounceIn 0.3s ease;
 }
 
-/* Green "OK" button */
+/* OK button in alert box */
 .alert-box button {
     margin-top: 10px;
-    background-color: #74984d; /* Green */
+    background-color: #74984d;
     color: white;
     border: none;
     padding: 8px 15px;
     border-radius: 4px;
     cursor: pointer;
+    font-family: 'Silkscreen', sans-serif;
+    font-size: 14px;
 }
 
 .alert-box button:hover {
     background-color: #5f7d3b;
 }
 
+/* ------------------ Login Form Styling ------------------ */
+
 #LogIn, #reset {
     margin: 10px auto 0px;
     width: 91%;
-    padding: 5px 5px;
+    padding: 5px;
     border: none;
     border-radius: 4px;
     background-color: transparent;
@@ -82,11 +137,7 @@ html {
     color: white;
 }
 
-
-body {
-    margin: 0;
-    line-height: 1.5;
-}
+/* ------------------ Form Elements ------------------ */
 
 & h1 {
     font-size: 41px;
@@ -109,30 +160,23 @@ body {
     padding: 10px 5px;
     border: 1px solid black;
     border-radius: 4px;
-    padding-inline-end: 0;
 }
 
 & #continue {
     margin: 10px auto;
     width: 91%;
-    padding: 5px 5px;
+    padding: 5px;
     border: none;
     border-radius: 4px;
     background-color: #74984d;
     color: white;
 }
 
-& #reset {
-    margin: 10px auto 0px;
-    width: 91%;
-    padding: 5px 5px;
-    border: none;
-    border-radius: 4px;
-}
-
 & input:focus, input:hover {
     caret-color: black;
 }
+
+/* ------------------ Header & Footer ------------------ */
 
 & header {
     width: 100%;
@@ -160,24 +204,8 @@ body {
     text-align: center;
     padding-top: 15px;
 }
-/*
-.footer-garden {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 70px;
-    position: absolute;          Make sure it's positioned relative to the page 
-    width: 100%;                 Ensure it spans across
-    bottom: 45px;                Move it up so it's above the footer 
-    height: 100px;               Increase height for visibility
-    z-index: 10;                 Make sure it appears above other elements
-}
 
-.footer-garden .plant {
-    height: 90px;                Increase size 
-    width: auto;                 Keep aspect ratio
-}
-*/
+/* ------------------ Page Structure ------------------ */
 
 .wrapper {
     display: flex;
@@ -192,13 +220,11 @@ body {
     border: 3px solid white;
     border-radius: 5px;
     background-color: white;
-    max-width: 25%;
-    min-width: 490px;
     max-width: 800px;
+    min-width: 490px;
     margin: 10px auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
 }
-
 
 .main section {
     border-left: 1px solid #74984d;
@@ -212,25 +238,28 @@ body {
     color: #74984d;
 }
 
+/* ------------------ Social Media ------------------ */
+
 .social-media {
-    text-align: center; /* Center the text */
+    text-align: center;
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center content horizontally */
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    margin: 20px auto; /* Add margin to center */
-    width: fit-content; /* Fit to content width */
-}
-  
-.social-media img {
-    margin: 5px; /* Add spacing between icons */
+    margin: 20px auto;
+    width: fit-content;
 }
 
+.social-media img {
+    margin: 5px;
+}
+
+/* ------------------ Sign-Up Button ------------------ */
 
 #SignUp {
     display: block;
-    margin-top: auto; /* Pushes it to the bottom */
-    align-self: center; /* Centers it horizontally */
+    margin-top: auto;
+    align-self: center;
     padding: 10px 20px;
     background-color: #74984d;
     color: white;
@@ -239,8 +268,14 @@ body {
     text-align: center;
     cursor: pointer;
     font-size: 16px;
-    text-decoration: none; /* Remove underline */
+    text-decoration: none;
 }
+
+#SignUp:hover {
+    background-color: #5f7d3b;
+}
+
+/* ------------------ Side Panel ------------------ */
 
 .side-panel {
     display: flex;
@@ -252,26 +287,24 @@ body {
     text-wrap: wrap;
     max-width: 300px;
     padding: 10px;
-    height: 95%; /* Ensure it takes full height */
-}
-
-#SignUp:hover {
-    background-color: #5f7d3b; /* Darken on hover */
+    height: 95%;
 }
 
 .side-panel h2 {
-    text-align: center; /* Center the h2 */
-    margin-bottom: 5px; /* Add space below the h2 */
-    color: white; /* White text for contrast */
+    text-align: center;
+    margin-bottom: 5px;
+    color: white;
 }
 
 .side-panel p {
-    padding: 0 15px; /* Apply equal padding on both sides */
-	margin-bottom: 5px; /* Adjust space as needed */
-    color: white; /* Ensure text is readable */
+    padding: 0 15px;
+    margin-bottom: 5px;
+    color: white;
     font-size: 16px;
-    line-height: 1.5; /* Add line height for readability */
+    line-height: 1.5;
 }
+
+/* ------------------ Side Panel Toggle States ------------------ */
 
 .side-panel-open .side-panel {
     display: initial;
@@ -292,3 +325,23 @@ body {
 .side-panel-open .side-panel-toggle .close {
     display: block;
 }
+
+/* ------------------ Optional: Footer Garden (commented out) ------------------ */
+/*
+.footer-garden {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 70px;
+    position: absolute;
+    width: 100%;
+    bottom: 45px;
+    height: 100px;
+    z-index: 10;
+}
+
+.footer-garden .plant {
+    height: 90px;
+    width: auto;
+}
+*/
