@@ -1,117 +1,159 @@
+<!-- 
+  Base HTML structure by Chris Lane.
+  Styling, JavaScript functionality, and formatting done by Laura Estremera.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   
-	<head>
-	  <link rel="stylesheet" href="../Styles/Login.css">
-	  <meta charset="utf-8">
-	  <title>Financial Bloom - Log In</title>
-	  <link rel="preconnect" href="https://fonts.googleapis.com">
-	  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-	</head>
-	  
-	<body>
-		<header class="header">
-			<img src="../Graphics/logo.png">
-			Financial Bloom
-		</header>
-		
-		<div id="customAlertOverlay" class="alert-overlay">
-			<div id="customAlert" class="alert-box">
-				<p id="alertMessage"></p>
-				<button onclick="closeAlert()">OK</button>
-			</div>
-		</div>
+<head>
+  <!-- Meta settings and font imports -->
+  <meta charset="utf-8">
+  <title>Financial Bloom - Log In</title>
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="../Styles/Login.css">
 
-		<div class="wrapper side-panel-open">
-			<div class="main">
-				<form onsubmit="return validateForm()">
-					<h1>Welcome to Financial Bloom!</h1>
-					<fieldset id="first">
-						<input type="text" name="username" id="username" placeholder="Username" autofocus><br>
-						<input type="password" name="password" id="password" placeholder="Password"><br>
-						<input type="submit" value="Log In" id="LogIn">
-						<input type="submit" value="Forgot username or password?" id="reset" formaction="">
-					</fieldset>
-				</form>
-				<section class="social-media">
-					Follow us on:<br>
-					<img src="../Graphics/faceBook.png">
-					<img src="../Graphics/insta.png">
-					<img src="../Graphics/x.png">
-				</section>
-				<div class="side-panel">
-					<h2>Welcome to Financial Bloom!</h2>
-					<p>Discover a fun and engaging way to take control of your finances through your very own virtual garden. 
-					At Financial Bloom, we guide you on a journey to financial responsibility, where every smart financial decision 
-					helps your garden grow.</p>
-					<p>Sign in to get started, set your goals, and cultivate a brighter financial future!</p>
-					<p>Don't have an account?</p>
-					
-					<!-- Sign-Up Button -->
-					<a href="SignUp.html" id="SignUp">Sign Up</a>
-				</div>
-			</div>
-		</div>
-		
-		<!-- <div class="footer-garden">
-			<img src="../graphics/plant.gif" class="plant">
-			<img src="../graphics/plant.gif" class="plant">
-			<img src="../graphics/plant.gif" class="plant">
-			<img src="../graphics/plant.gif" class="plant">
-			<img src="../graphics/plant.gif" class="plant">
-			<img src="../graphics/plant.gif" class="plant">
-			<img src="../graphics/plant.gif" class="plant">
-			<img src="../graphics/plant.gif" class="plant">
-			<img src="../graphics/plant.gif" class="plant">
-		</div> --> 
-		
-		<footer>2025 Financial Bloom &copy; All rights reserved.</footer>
-		
-		<script>
-			function validateForm() {
-				let username = document.getElementById("username").value.trim();
-				let password = document.getElementById("password").value; // Do not trim the password here
-				let usernameRegex = /^\S+$/;
-				let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
+  <!-- Preconnecting to Google Fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-				// Check if password is exactly 6 spaces
-				if (password === "      ") {  // Exactly 6 spaces
-					showAlert("Invalid password. Passwords cannot contain spaces.");
-					return false;
-				}
+  <!-- Fonts used: Silkscreen for UI, Play for paragraph text -->
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+</head>
+  
+<body>
+  <!-- Fixed header with logo and title -->
+  <header class="header">
+    <img src="../Graphics/logo.png" alt="Financial Bloom logo">
+    Financial Bloom
+  </header>
+  
+  <!-- Custom Alert Overlay -->
+  <div id="customAlertOverlay" class="alert-overlay">
+    <div id="customAlert" class="alert-box">
+      <p id="alertMessage"></p>
+      <button onclick="closeAlert()">OK</button>
+    </div>
+  </div>
 
-				if (username === "" && password === "") {
-					showAlert("Please enter a username and password.");
-					return false;
-				}
-				if (username === "") {
-					showAlert("Please enter a username.");
-					return false;
-				}
-				if (password === "") {
-					showAlert("Please enter a password.");
-					return false;
-				}
-				if (!usernameRegex.test(username)) {
-					showAlert("Username cannot contain spaces.");
-					return false;
-				}
-				if (!passwordRegex.test(password)) {
-					showAlert("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
-					return false;
-				}
-				return true;
-			}
+  <!-- Wrapper holds the main login form and side panel -->
+  <div class="wrapper side-panel-open">
+    <div class="main">
+      
+      <!-- Login form -->
+      <form onsubmit="return validateForm()">
+        <h1>Welcome to Financial Bloom!</h1>
+        <fieldset id="first">
+          <input type="text" name="username" id="username" placeholder="Username" autofocus><br>
+          <input type="password" name="password" id="password" placeholder="Password"><br>
+          <input type="submit" value="Log In" id="LogIn">
+          <input type="submit" value="Forgot username or password?" id="reset" formaction="">
+        </fieldset>
+      </form>
 
-			function showAlert(message) {
-				document.getElementById("alertMessage").innerText = message;
-				document.getElementById("customAlertOverlay").style.display = "flex"; // Show alert
-			}
+      <!-- Social media section -->
+      <section class="social-media">
+        Follow us on:<br>
+        <img src="../Graphics/faceBook.png" alt="Facebook">
+        <img src="../Graphics/insta.png" alt="Instagram">
+        <img src="../Graphics/x.png" alt="X">
+      </section>
 
-			function closeAlert() {
-				document.getElementById("customAlertOverlay").style.display = "none"; // Hide alert
-			}
-		</script>
-	</body>
+      <!-- Side panel with intro text and sign-up CTA -->
+      <div class="side-panel">
+        <h2>Welcome to Financial Bloom!</h2>
+        <p>Discover a fun and engaging way to take control of your finances through your very own virtual garden. 
+        At Financial Bloom, we guide you on a journey to financial responsibility, where every smart financial decision 
+        helps your garden grow.</p>
+        <p>Sign in to get started, set your goals, and cultivate a brighter financial future!</p>
+        <p>Don't have an account?</p>
+
+        <!-- Sign-Up Button -->
+        <a href="SignUp.html" id="SignUp">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional footer garden feature (commented out) -->
+  <!--
+  <div class="footer-garden">
+    <img src="../graphics/plant.gif" class="plant">
+    More plant gifs if desired
+  </div>
+  -->
+
+  <!-- Site footer -->
+  <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
+
+  <!-- JavaScript for form validation and custom alerts -->
+  <script>
+    // Validates login form input
+    function validateForm() {
+      let username = document.getElementById("username").value.trim();
+      let password = document.getElementById("password").value; // Don't trim password (spaces may be part of regex)
+
+      let usernameRegex = /^\S+$/;
+      let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
+
+      // Check for all empty
+      if (username === "" && password === "") {
+        showAlert("Please enter a username and password.");
+        return false;
+      }
+
+      if (username === "") {
+        showAlert("Please enter a username.");
+        return false;
+      }
+
+      if (password === "") {
+        showAlert("Please enter a password.");
+        return false;
+      }
+
+      // Prevent passwords with only spaces
+      if (password === "      ") {
+        showAlert("Invalid password. Passwords cannot contain spaces.");
+        return false;
+      }
+
+      // Validate username format (no spaces)
+      if (!usernameRegex.test(username)) {
+        showAlert("Username cannot contain spaces.");
+        return false;
+      }
+
+      // Validate password complexity
+      if (!passwordRegex.test(password)) {
+        showAlert("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
+        return false;
+      }
+
+      // All checks passed
+      return true;
+    }
+
+    // Displays custom alert box with bounce animation
+    function showAlert(message) {
+      const alertBox = document.getElementById("customAlert");
+      const overlay = document.getElementById("customAlertOverlay");
+
+      document.getElementById("alertMessage").innerText = message;
+
+      // Reset animation so it plays each time
+      alertBox.style.animation = 'none';
+      void alertBox.offsetWidth; // Trigger reflow
+      alertBox.style.animation = 'bounceIn 0.3s ease';
+
+      overlay.style.display = "flex"; // Show alert overlay
+    }
+
+    // Closes the custom alert overlay
+    function closeAlert() {
+      document.getElementById("customAlertOverlay").style.display = "none";
+    }
+  </script>
+</body>
 </html>
