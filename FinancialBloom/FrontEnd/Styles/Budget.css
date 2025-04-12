@@ -1,128 +1,156 @@
+/* ------------------ Global Layout ------------------ */
+
 html {
-    background-color: white;
-  }
-  body {
-    font-family: Roboto;
-    margin: 0;
-    line-height: 1.5;
-    display: grid;
-    grid-template-columns: 8% 67% 25%;
-    grid-template-rows: 1fr;
-    grid-template-areas: "nav main aside";
-  
-    & nav {
-      display: flex;
-      flex-direction: column;
-      height: 96.4%;
-      background-color: #74984d;
-      border-radius: 0px 5px 0px 0px;
-      box-shadow: 10px 10px 17px -6px rgba(0, 0, 0, 0.44);
-      text-wrap: wrap;
-      align-items: end;
-  
-      & ul {
-        height: 100%;
-        padding-inline-start: 5px;
-        list-style: none;
-  
-        & li {
-          margin-bottom: 20%;
-          
-        }
-        & li:last-child {
-          position: absolute;
-          bottom: 0;
-          margin-bottom: 60px;
-        }
-        & span {
-          float: left;
-        }
-        & li#current {
-          color: #658741;
-          background-color: #edffd9;
-          border-radius: 5px 0px 0px 5px;
-          box-shadow: none;
-        }
-        
-        }
-        & a:visited {
-        text-decoration: none;
-        color: black;
-        }
-        & a:link{
-        text-decoration: none;
-        }
-        a:hover{
-        color:white;
-        }
-    }
-    & main {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 0.1fr 1.7fr 1.2fr 0.3fr;
-      gap: 4px 0px;
-      grid-template-areas:
-        "search-bar"
-        "pie"
-        "bar"
-        "footer";
-      justify-items: center;
-      align-items: center;
-      .search-bar {
-        border-bottom: 2px solid #74984d;
-        box-shadow: 10px 10px 17px -6px rgba(0, 0, 0, 0.44);
-        width: 80%;
-        align-self: center;
-        background-color: #edffd9;
-        padding-left: 5px;
-      }
-      .pie {
-        border-bottom: 2px solid #74984d;
-        box-shadow: 10px 10px 17px -6px rgba(0, 0, 0, 0.44);
-        border-radius: 5px;
-        width: 75%;
-        background-color: #edffd9;
-      }
-      .pie #pie {
-        border: none;
-        box-shadow: none;
-      }
-      .bar {
-        border-bottom: 2px solid #74984d;
-        box-shadow: 10px 10px 17px -6px rgba(0, 0, 0, 0.44);
-        width: 75%;
-        background-color: #edffd9;
-        border-radius: 5px;
-      }
-      .bar tbody td {
-        color: white;
-        margin-inline-start: 10px;
-        margin-inline-end: 20px;
-        border-radius: 5px;
-        box-shadow: 1px -1px 1px lightgrey, 2px -2px 1px lightgrey,
-          3px -3px 1px lightgrey, 4px -4px 1px lightgrey, 5px -5px 1px lightgrey,
-          6px -6px 1px lightgrey, 7px -7px 1px lightgrey, 8px -8px 1px lightgrey,
-          9px -9px 1px lightgrey, 10px -10px 1px lightgrey;
-      }
-  
-      & input {
-        border: none;
-        border-radius: 5px;
-      }
-      & footer {
-        font-style: italic;
-  
-        background-color: #74984d;
-        width: 100%;
-        color: white;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-      }
-    }
-    & aside {
-      height: 100vh;
-      background-color: #fafafa;
-    }
-  }
-  
+  background-color: #edffd9;
+}
+
+body {
+  margin: 0;
+  line-height: 1.5;
+  font-family: 'Silkscreen', sans-serif;
+  display: grid;
+  grid-template-columns: 140px 1fr 30%;
+  grid-template-areas: "nav main aside";
+  min-height: 100vh;
+}
+
+/* ------------------ Sidebar Nav ------------------ */
+
+nav {
+  grid-area: nav;
+  background-color: #74984d;
+  padding-top: 100px;
+  padding-left: 10px;
+  padding-right: 5px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  margin-bottom: 20px;
+}
+
+nav ul li#current {
+  background-color: #edffd9;
+  color: #74984d;
+  border-radius: 4px;
+  padding: 5px;
+  font-weight: bold;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #edffd9;
+}
+
+/* ------------------ Header ------------------ */
+
+.header {
+  grid-column: span 3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #74984d;
+  height: 100px;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header img {
+  max-width: 65px;
+  margin-right: 10px;
+}
+
+/* ------------------ Main Content ------------------ */
+
+main {
+  grid-area: main;
+  padding: 120px 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+main .search-bar,
+main .pie,
+main .bar {
+  background-color: white;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #74984d;
+}
+
+main .search-bar input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #74984d;
+  border-radius: 4px;
+  font-family: 'Play', sans-serif;
+}
+
+main .bar table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+main .bar td {
+  background-color: #74984d;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: 'Play', sans-serif;
+  text-align: center;
+}
+
+/* ------------------ Footer ------------------ */
+
+footer {
+  font-style: italic;
+  height: 30px;
+  background-color: #74984d;
+  color: white;
+  text-align: center;
+  padding-top: 15px;
+  position: sticky;
+  margin-top: auto;
+  grid-column: span 3;
+}
+
+/* ------------------ Right Side / Unity Game ------------------ */
+
+aside {
+  grid-area: aside;
+  background-color: #fafafa;
+  padding-top: 120px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+aside iframe {
+  width: 100%;
+  height: 90vh;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
