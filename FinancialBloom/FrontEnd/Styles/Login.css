@@ -39,14 +39,15 @@ section.social-media {
 /* ------------------ Header ------------------ */
 
 .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    font-weight: bold;
-    background-color: #74984d;
-    height: 100px;
-    color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  background-color: #74984d;
+  height: 100px;
+  color: white;
+  font-family: 'Silkscreen', sans-serif; /* ← this is what's missing */
 }
 
 .header img {
