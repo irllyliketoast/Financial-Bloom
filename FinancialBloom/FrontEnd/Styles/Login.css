@@ -137,15 +137,41 @@ section.social-media {
     color: white;
 }
 
+/* ------------------ Logo ------------------ */
+
+.logo-title {
+  font-family: 'Silkscreen', sans-serif !important;
+  font-size: 32px;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  background-color: #74984d;
+  height: 100px;
+  color: white;
+  gap: 10px; /* spacing between logo and text */
+}
+
+.header img {
+  max-width: 65px;
+}
+
 /* ------------------ Form Elements ------------------ */
 
-& h1 {
-    font-size: 41px;
-    font-weight: bold;
-    text-align: center;
-    text-wrap: wrap;
-    color: #36454F;
+h1 {
+  font-size: 41px;
+  font-weight: bold;
+  text-align: center;
+  text-wrap: wrap;
+  color: #36454F;
+  font-family: 'Silkscreen', sans-serif;
 }
+
 
 & fieldset {
     border: none;
