@@ -37,7 +37,8 @@ Security Considerations:
 */
 
 /*  
-Update Log:  
+Update Log:
+Updated on 4.14.2025 by Temo Galindo: Added another test for input validation.
 Created on 4.10.2025 by Temo Galindo: Initial implementation of add_to_budget for Budget class validation.  
 */
 package csc450;
@@ -45,26 +46,44 @@ package csc450;
 public class add_to_budget {
     public static void main(String[] args){
         Category income1 = new Category("Monthly Salary", 4160.00);
-        Category income2 = new Category("Soap Business", 250.00);
         Category expense1 = new Category("Monthly Bills", -1750.00);
-        Category expense2 = new Category("Car Repair", -450.00);
         Category[] incomes = {income1};
         Category[] expenses = {expense1};
+        String name = "Soap Business";
+        Double amount = null;
+        Category income2;
+        Category expense2;
+        if(name != null && amount != null){
+            income2 = new Category(name, amount);
+        }
+        else{
+            System.out.println("Error - please make sure all fields are filled out for income.");
+            amount = 250.00;
+            income2 = new Category(name, amount);
+        }
+        name = null;
+        amount = -450.00;
+        if(name != null && amount != null){
+            expense2 = new Category(name, amount);
+            
+        }else{
+            System.out.println("Error - please make sure all fields are filled out for expense.");
+            name = "Car Repair";
+            expense2 = new Category(name, amount);
+        }
         Budget baseBudget = new Budget("Test Budget", incomes, expenses);
         System.out.printf("%s: %s\n", "Base Budget Name", baseBudget.getName());
         System.out.printf("%s: $%.2f\n", "Base Budget Total Income", baseBudget.getIncome());
         System.out.printf("%s: $%.2f\n", "Base Budget Total Expense", baseBudget.getExpense());
         System.out.printf("%s: $%s\n", "Base Budget Balance", baseBudget.getBalance());
-        System.out.println("Test 1: Adding an income.");
         System.out.println("--Now Adding--");
-        System.out.printf("%s: %s $%.2f\n", "Income", income2.getName(), income2.getAmount());
+        System.out.printf("%s: %s, $%.2f\n", "Income", income2.getName(), income2.getAmount());
         baseBudget.addCategory(income2);
         System.out.printf("%s: $%.2f\n", "Modified Budget Total Income", baseBudget.getIncome());
         System.out.printf("%s: $%.2f\n", "Modified Budget Total Expense", baseBudget.getExpense());
         System.out.printf("%s: $%s\n", "Modified Budget Balance", baseBudget.getBalance());
-        System.out.println("Test 2: Adding an expense.");
         System.out.println("--Now Adding--");
-        System.out.printf("%s: %s -$%.2f\n", "Expense", expense2.getName(), expense2.getAmount());
+        System.out.printf("%s: %s, -$%.2f\n", "Expense", expense2.getName(), expense2.getAmount());
         baseBudget.addCategory(expense2);
         System.out.printf("%s: $%.2f\n", "Final Budget Total Income", baseBudget.getIncome());
         System.out.printf("%s: $%.2f\n", "Final Budget Total Expense", baseBudget.getExpense());
@@ -73,3 +92,4 @@ public class add_to_budget {
     }
     
 }
+
