@@ -40,11 +40,11 @@ Security Considerations:
 
 /*  
 Update Log:
+Updated on 4.14.2025 by Temo Galindo: Added the instance variable goal, which is a milestone, associated settors and getters, as well a second constructor so that if goal is left off then it is initialized to null.
 Updated on 4.10.2025 by Temo Galindo: Changed the arrays to arraylists for easier addition of income or expense, added addCategory method, changed balance from an instance variable to a method.
 Updated on 4.08.2025 by Laura Estremera: Included description.  
 Created on 4.05.2025 by Daniela Luna: Initial implementation of Budget class with category-based financial tracking.  
 */
-
 package csc450;
 import java.util.ArrayList;
 
@@ -52,6 +52,7 @@ public class Budget {
     private String name;
     private double totalIncome;
     private double totalExpense;
+    private Milestone goal;
     private ArrayList<Category> incomeStreams;
     private ArrayList<Category> expenseStreams;
     public Budget(String nName, Category[] incomes, Category[] expenses){
@@ -70,11 +71,30 @@ public class Budget {
         for(Category expense: this.expenseStreams){
             this.totalExpense += expense.getAmount();
         }
+        this.goal = null;
+    }
+    public Budget(String nName, Category[] incomes, Category[] expenses, Milestone newGoal){
+        this.incomeStreams = new ArrayList<>();
+        this.expenseStreams = new ArrayList<>();
+        this.name = nName;
+        for(Category income: incomes){
+            this.incomeStreams.add(income);
+        }
+        for(Category expense: expenses){
+            this.expenseStreams.add(expense);
+        }
+        for(Category income: this.incomeStreams){
+            this.totalIncome += income.getAmount();
+        }
+        for(Category expense: this.expenseStreams){
+            this.totalExpense += expense.getAmount();
+        }
+        this.goal = newGoal;
     }
     public String getName() {return this.name;}
     public double getIncome() {return this.totalIncome;}
     public double getExpense() {return this.totalExpense;}
-    public double getBalance() {return this.totalIncome + this.totalExpense;} // Changed to a method so it is always using the updated values.
+    public double getBalance() {return this.totalIncome + this.totalExpense;}
     public void setName(String newName) {this.name = newName;}
     public void setIncomeStream(Category[] newIncomeStream) {
         this.incomeStreams.clear();
@@ -108,5 +128,7 @@ public class Budget {
     }
     public ArrayList<Category> getIncomeStreams() {return this.incomeStreams;}
     public ArrayList<Category> getExpenseStreams() {return this.expenseStreams;}
+    public void setGoal(Milestone newGoal) {this.goal = newGoal;}
+    public Milestone getGoal() {return this.goal;}
 
 }
