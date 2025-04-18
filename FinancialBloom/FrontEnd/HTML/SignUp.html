@@ -40,13 +40,15 @@
       <h1>Create an Account</h1>
 
       <!-- Form with event-based validation -->
-      <form onsubmit="return validateSignUp(event)">
-        <input type="email" id="email" placeholder="Email" required><br>
-        <input type="text" id="username" placeholder="Username" required><br>
-        <input type="password" id="password" placeholder="Password" required><br>
-        <input type="password" id="confirmPassword" placeholder="Confirm Password" required><br>
-        <input type="submit" value="Sign Up">
-      </form>
+		<form onsubmit="return validateSignUp(event)">
+		  <input type="text" id="firstName" placeholder="First Name" required><br>
+		  <input type="text" id="lastName" placeholder="Last Name" required><br>
+		  <input type="email" id="email" placeholder="Email" required><br>
+		  <input type="text" id="username" placeholder="Username" required><br>
+		  <input type="password" id="password" placeholder="Password" required><br>
+		  <input type="password" id="confirmPassword" placeholder="Confirm Password" required><br>
+		  <input type="submit" value="Sign Up">
+		</form>
     </div>
 
     <!-- Custom alert box overlay -->
