@@ -57,17 +57,17 @@ To create a user-friendly application that encourages financial growth and respo
 - **UI/UX** - Chris Lane and Laura Estremera
 - **Security** - Mikaela Riggan and Laura Estremera
 - **Frontend** - Chris Lane and Laura Estremera
-- **Backend** - Daniela Luna and Temo Gainda and Mikaela Riggan
-- **Frontend Database** - Laura Estremera
-- **Backend Security** - Daniela Luna
+    - **Unity and HTML** - Chris Lane
+    - **HTML, CSS, and JS** - Laura Estremera
+- **Backend** - Daniela Luna and Temo Gaindo and Mikaela Riggan
 
 ---
 
 ## **Technology Stack**  
 - **Languages:** Java, SQL, HTML, CSS, JS
-- **Frameworks & Libraries:** JavaMail
+- **Frameworks & Libraries:** React, SpringBoot
 - **Database:** MySQL 
-- **Banking API Integration:** JBDC 
+- **Banking API Integration:** RESTful
 - **Authentication:** DUO
 
 ---
