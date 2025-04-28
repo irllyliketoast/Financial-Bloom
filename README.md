@@ -59,7 +59,8 @@ To create a user-friendly application that encourages financial growth and respo
 - **Frontend** - Chris Lane and Laura Estremera
     - **C# and HTML** - Chris Lane
     - **HTML, CSS, and JS** - Laura Estremera
-- **Backend** - Daniela Luna and Temo Gaindo and Mikaela Riggan
+- **Backend** - Daniela Luna and Temo Gaindo
+- **Server and Api Configuration** - Daniela Luna
 
 ---
 
