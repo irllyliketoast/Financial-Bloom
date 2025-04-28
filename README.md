@@ -54,8 +54,8 @@ To create a user-friendly application that encourages financial growth and respo
 
 ## **Dev Roles** 
 - **Scrum Master** - Laura Estremera
-- **UI/UX** - Chris Lane and Laura Estremera
 - **Security** - Mikaela Riggan and Laura Estremera
+- **UI/UX** - Chris Lane and Laura Estremera
 - **Frontend** - Chris Lane and Laura Estremera
     - **C# and HTML** - Chris Lane
     - **HTML, CSS, and JS** - Laura Estremera
@@ -64,10 +64,10 @@ To create a user-friendly application that encourages financial growth and respo
 ---
 
 ## **Technology Stack**  
-- **Languages:** Java, SQL, HTML, CSS, JS. C#
-- **Frameworks & Libraries:** React, SpringBoot, Unity
+- **Languages:** Java, SQL, HTML, CSS, JS, C#
+- **Frameworks & Libraries:** SpringBoot, Unity
 - **Database:** MySQL 
-- **Banking API Integration:** RESTful
+- **API:** RESTful
 - **Authentication:** DUO
 
 ---
