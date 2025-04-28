@@ -96,22 +96,23 @@
     Financial Bloom ™ 2025
   </footer>
 
-  <!-- JavaScript to Fetch Data -->
-  <script
-    async function fetchDashboardData() {
-      try {
-        const response = await fetch('/api/dashboardData');
-        const data = await response.json();
+<!-- JavaScript to Fetch Data -->
+<script>
+  async function fetchDashboardData() {
+    try {
+      const response = await fetch('/api/dashboardData');
+      const data = await response.json();
 
-        // Update Stats
-        document.getElementById('income-amount').innerText = `$${data.income || 0}`;
-        document.getElementById('expenses-amount').innerText = `$${data.expenses || 0}`;
-        document.getElementById('net-amount').innerText = `$${data.net || 0}`;
+      // Update Stats
+      document.getElementById('income-amount').innerText = `$${data.income || 0}`;
+      document.getElementById('expenses-amount').innerText = `$${data.expenses || 0}`;
+      document.getElementById('net-amount').innerText = `$${data.net || 0}`;
 
-        // Update Pie Chart
-        const chart = document.getElementById('spending-chart');
-        chart.innerHTML = '<caption>Expenses</caption>'; // Reset
-        let start = 0;
+      // Update Pie Chart
+      const chart = document.getElementById('spending-chart');
+      chart.innerHTML = '<caption>Expenses</caption>'; // Reset
+      let start = 0;
+      if (data.pieData && data.pieData.length > 0) {
         data.pieData.forEach(item => {
           const percent = item.amount / data.expenses;
           const end = start + percent;
@@ -120,28 +121,34 @@
           chart.appendChild(tr);
           start = end;
         });
+      }
 
-        // Update Milestone Contributions
-        const milestoneBody = document.getElementById('milestone-body');
-        milestoneBody.innerHTML = ''; // Reset
+      // Update Milestone Contributions
+      const milestoneBody = document.getElementById('milestone-body');
+      milestoneBody.innerHTML = ''; // Reset
+      if (data.milestones && data.milestones.length > 0) {
         data.milestones.forEach(entry => {
           const row = `<tr><td>${entry.name}</td><td>$${entry.contribution}</td></tr>`;
           milestoneBody.innerHTML += row;
         });
-
-      } catch (error) {
-        console.error('Failed to load dashboard data:', error);
       }
+
+    } catch (error) {
+      console.error('Failed to load dashboard data:', error);
     }
+  }
 
-    // Load data when page loads
-    window.onload = fetchDashboardData;
+  // Load data when page loads
+  window.addEventListener('DOMContentLoaded', fetchDashboardData);
 
-    // Sanitize search input
-    document.getElementById('dashboardSearch').addEventListener('input', function(e) {
-        this.value = this.value.replace(/[<>"'`]/g, '');
+  // Optional: Sanitize search input IF it exists
+  const searchInput = document.getElementById('dashboardSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      this.value = this.value.replace(/[<>"'`]/g, '');
     });
-  </script>
+  }
+</script>
 
 </body>
 </html>
