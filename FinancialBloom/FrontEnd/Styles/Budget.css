@@ -1,29 +1,44 @@
-/* ------------------ Global Layout ------------------ */
-
-html {
+/* By Laura Estremera */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Play', sans-serif;
   background-color: #edffd9;
 }
 
-body {
-  margin: 0;
-  line-height: 1.5;
-  font-family: 'Silkscreen', sans-serif;
-  display: grid;
-  grid-template-columns: 140px 1fr 30%;
-  grid-template-areas: "nav main aside";
-  min-height: 100vh;
+/* Header */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #74984d;
+  height: 80px;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
-/* ------------------ Sidebar Nav ------------------ */
+.header img {
+  max-width: 60px;
+  margin-right: 10px;
+}
 
+/* Sidebar */
 nav {
-  grid-area: nav;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 150px;
+  height: calc(100% - 80px);
   background-color: #74984d;
-  padding-top: 100px;
-  padding-left: 10px;
-  padding-right: 5px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-  color: white;
+  padding-top: 30px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.2);
 }
 
 nav ul {
@@ -31,134 +46,107 @@ nav ul {
   padding: 0;
 }
 
-nav ul li {
+nav li {
   margin-bottom: 20px;
-}
-
-nav ul li#current {
-  background-color: #edffd9;
-  color: #74984d;
-  border-radius: 4px;
-  padding: 5px;
-  font-weight: bold;
 }
 
 nav a {
   text-decoration: none;
   color: white;
-  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  transition: background-color 0.3s;
 }
 
 nav a:hover {
-  color: #edffd9;
+  background-color: #5f7d3b;
+  border-radius: 4px;
 }
 
-/* ------------------ Header ------------------ */
-
-.header {
-  grid-column: span 3;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #74984d;
-  height: 100px;
-  width: 100%;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  color: white;
-  font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+#current a {
+  background-color: #edffd9;
+  color: #74984d;
+  border-radius: 4px;
 }
 
-.header img {
-  max-width: 65px;
-  margin-right: 10px;
-}
-
-/* ------------------ Main Content ------------------ */
-
+/* Main Layout */
 main {
-  grid-area: main;
-  padding: 120px 30px 20px;
+  margin-left: 160px;
+  padding: 100px 20px 20px 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 20px;
 }
 
-main .search-bar,
-main .pie,
-main .bar {
+/* Unity Section */
+.unity-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Tables Section */
+.tables-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Table Containers */
+.table-container {
+  flex: 1 1 45%;
   background-color: white;
   padding: 20px;
-  width: 90%;
-  max-width: 600px;
+  border: 1px solid #74984d;
   border-radius: 8px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
-  border: 1px solid #74984d;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-main .search-bar input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #74984d;
-  border-radius: 4px;
-  font-family: 'Play', sans-serif;
-}
-
-main .bar table {
+/* Table Styling */
+table {
   width: 100%;
   border-collapse: collapse;
 }
 
-main .bar td {
-  background-color: #74984d;
-  color: white;
+th, td {
+  border: 1px solid #74984d;
   padding: 10px;
-  border-radius: 4px;
-  font-family: 'Play', sans-serif;
   text-align: center;
+  font-family: 'Play', sans-serif;
 }
 
-/* ------------------ Footer ------------------ */
+input, select {
+  width: 90%;
+  padding: 5px;
+  font-family: 'Play', sans-serif;
+}
 
+/* Button Styling */
+button {
+  background-color: #74984d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #5f7d3b;
+}
+
+/* Footer */
 footer {
-  font-style: italic;
-  height: 30px;
+  margin-top: auto;
   background-color: #74984d;
   color: white;
   text-align: center;
-  padding-top: 15px;
-  position: sticky;
-  margin-top: auto;
-  grid-column: span 3;
-}
-
-/* ------------------ Right Side / Unity Game ------------------ */
-
-aside {
-  grid-area: aside;
-  background-color: #fafafa;
-  padding-top: 120px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-aside iframe {
+  height: 30px;
+  padding-top: 5px;
+  position: fixed;
+  bottom: 0;
   width: 100%;
-  height: 90vh;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-}
-
-iframe {
-  width: 100%;
-  height: 600px;
-  border: none;
-  display: block;
-  margin: 20px auto;
 }
