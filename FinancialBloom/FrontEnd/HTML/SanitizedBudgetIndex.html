@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Financial Bloom - Budget Dashboard</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../financialbloom-frontend/src/Styles/Budget.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+  <style>
+    .nav-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: white;
+      border: none;
+      font-size: 24px;
+      border-radius: 4px;
+      z-index: 1100;
+      padding: 6px 10px;
+      cursor: pointer;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .hide-nav nav {
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="nav-visible">
+
+<!-- Toggle Nav Button -->
+<button class="nav-toggle" onclick="toggleNav()">☰</button>
+
+<!-- Fixed Header -->
+<header class="header">
+  <img src="../financialbloom-frontend/src/Graphics/logo.png" alt="Financial Bloom logo">
+  Financial Bloom
+</header>
+
+<!-- Navigation Sidebar -->
+<nav>
+  <ul>
+    <li><a href="index.html"><span class="material-symbols-outlined">home</span>&nbsp;Dashboard</a></li>
+    <li id="current"><span class="material-symbols-outlined">wallet</span>&nbsp;Budget</li>
+    <li><a href="#"><span class="material-symbols-outlined">share</span>&nbsp;Share</a></li>
+    <li><a href="#"><span class="material-symbols-outlined">subscriptions</span>&nbsp;Subscriptions</a></li>
+    <li><a href="#"><span class="material-symbols-outlined">flyover</span>&nbsp;Garden Path</a></li>
+    <li><a href="#"><span class="material-symbols-outlined">other_houses</span>&nbsp;Greenhouse</a></li>
+    <li><a href="#"><span class="material-symbols-outlined">settings</span>&nbsp;Settings</a></li>
+    <li><a href="#"><span class="material-symbols-outlined">door_back</span>&nbsp;Exit</a></li>
+  </ul>
+</nav>
+
+<!-- Main Content -->
+<main>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search Financial Bloom...">
+  </div>
+
+  <div class="pie">
+    <table class="charts-css pie show-heading" id="pie">
+      <caption>March Spending Breakdown</caption>
+      <tr><td style="--start: 0; --end: 0.3;"><span class="data">$300</span></td></tr>
+      <tr><td style="--start: 0.3; --end: 0.4;"><span class="data">$100</span></td></tr>
+      <tr><td style="--start: 0.4; --end: 0.8;"><span class="data">$400</span></td></tr>
+      <tr><td style="--start: 0.8; --end: 1;"><span class="data">$200</span></td></tr>
+    </table>
+  </div>
+
+  <div class="bar">
+    <table class="charts-css column show-heading">
+      <caption>Monthly Spread</caption>
+      <tr><td style="--size: 0.8;"><span class="data">Jan</span></td></tr>
+      <tr><td style="--size: 0.9;"><span class="data">Feb</span></td></tr>
+      <tr><td style="--size: 0.7;"><span class="data">Mar</span></td></tr>
+      <tr><td style="--size: 0.4;"><span class="data">Apr</span></td></tr>
+      <tr><td style="--size: 0.3;"><span class="data">May</span></td></tr>
+      <tr><td style="--size: 0.05;"><span class="data">Jun</span></td></tr>
+    </table>
+  </div>
+
+  <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
+</main>
+
+<!-- Unity Game Embed -->
+<aside>
+  <iframe src="https://cmlane48.itch.io/financial-bloom" title="Garden Game"></iframe>
+</aside>
+
+<!-- Nav Toggle Script -->
+<script>
+  function toggleNav() {
+    document.body.classList.toggle("hide-nav");
+  }
+
+  // Sanitize search input
+  document.getElementById('searchInput').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[<>"'`]/g, '');
+  });
+</script>
+
+</body>
+</html>
