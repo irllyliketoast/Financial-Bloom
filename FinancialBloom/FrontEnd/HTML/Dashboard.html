@@ -136,6 +136,11 @@
 
     // Load data when page loads
     window.onload = fetchDashboardData;
+
+    // Sanitize search input
+    document.getElementById('dashboardSearch').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[<>"'`]/g, '');
+    });
   </script>
 
 </body>
