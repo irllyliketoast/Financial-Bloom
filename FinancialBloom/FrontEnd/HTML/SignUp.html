@@ -26,171 +26,201 @@
 
 <body>
 
-<!-- Top header bar -->
-<header class="header">
-  <img src="../Graphics/logo.png" alt="Financial Bloom logo">
-  Financial Bloom
-</header>
+  <!-- Top header bar -->
+  <header class="header">
+    <img src="../Graphics/logo.png" alt="Financial Bloom logo">
+    Financial Bloom
+  </header>
 
-<!-- Page wrapper: holds form + information panels -->
-<div class="wrapper">
+  <!-- Page wrapper: holds form + information panels -->
+  <div class="wrapper">
 
-  <!-- Left-side sign-up form -->
-  <div class="sign-up-form">
-    <h1>Create an Account</h1>
+    <!-- Left-side sign-up form -->
+    <div class="sign-up-form">
+      <h1>Create an Account</h1>
 
-    <!-- Form with event-based validation -->
-    <form onsubmit="return validateSignUp(event)">
-      <input type="text" id="firstName" placeholder="First Name" required><br>
-      <input type="text" id="lastName" placeholder="Last Name" required><br>
-      <input type="email" id="email" placeholder="Email" required><br>
-      <input type="text" id="username" placeholder="Username" required><br>
-      <input type="password" id="password" placeholder="Password" required><br>
-      <input type="password" id="confirmPassword" placeholder="Confirm Password" required><br>
-      <input type="submit" value="Sign Up">
-    </form>
-  </div>
-
-  <!-- Custom alert box overlay -->
-  <div id="customAlertOverlaySignUp" class="alert-overlay">
-    <div id="customAlertSignUp" class="alert-box">
-      <p id="alertMessageSignUp"></p>
-      <button onclick="closeAlertSignUp()">OK</button>
+      <!-- Form with event-based validation -->
+		<form onsubmit="return validateSignUp(event)">
+		  <input type="text" id="firstName" placeholder="First Name" required><br>
+		  <input type="text" id="lastName" placeholder="Last Name" required><br>
+		  <input type="email" id="email" placeholder="Email" required><br>
+		  <input type="text" id="username" placeholder="Username" required><br>
+		  <input type="password" id="password" placeholder="Password" required><br>
+		  <input type="password" id="confirmPassword" placeholder="Confirm Password" required><br>
+		  <input type="submit" value="Sign Up">
+		</form>
     </div>
-  </div>
 
-  <!-- Right-side informational content -->
-  <div class="info-content">
-    <h3>Welcome to Financial Bloom!</h3>
-    <p>Discover a fun and engaging way to take control of your finances through your very own virtual garden. At Financial Bloom, we guide you on a journey to financial responsibility, where every smart financial decision helps your garden grow.</p>
+    <!-- Custom alert box overlay -->
+    <div id="customAlertOverlaySignUp" class="alert-overlay">
+      <div id="customAlertSignUp" class="alert-box">
+        <p id="alertMessageSignUp"></p>
+        <button onclick="closeAlertSignUp()">OK</button>
+      </div>
+    </div>
 
-    <h3>What Makes Us Different?</h3>
-    <p>At Financial Bloom, we believe that managing your money should be more than just a chore – it should be an enjoyable and rewarding experience. By combining financial education with a gamified approach, we turn budgeting, saving, and paying off debt into a game that motivates you to make smart financial choices.</p>
-    <p>As you improve your financial health, watch your virtual garden flourish. Every positive financial decision contributes to the growth of beautiful plants, making your journey to financial wellness not only effective but visually rewarding.</p>
+    <!-- Right-side informational content -->
+    <div class="info-content">
+      <h3>Welcome to Financial Bloom!</h3>
+      <p>Discover a fun and engaging way to take control of your finances through your very own virtual garden. At Financial Bloom, we guide you on a journey to financial responsibility, where every smart financial decision helps your garden grow.</p>
 
-    <h3>How We Help You</h3>
-    <p>Our easy-to-use app helps you track your income, expenses, debt, and savings while allowing you to set personalized budgets. With tailored suggestions and a dynamic garden that reflects your financial habits, you’ll receive motivation every step of the way.</p>
+      <h3>What Makes Us Different?</h3>
+      <p>At Financial Bloom, we believe that managing your money should be more than just a chore – it should be an enjoyable and rewarding experience. By combining financial education with a gamified approach, we turn budgeting, saving, and paying off debt into a game that motivates you to make smart financial choices.</p>
+      <p>As you improve your financial health, watch your virtual garden flourish. Every positive financial decision contributes to the growth of beautiful plants, making your journey to financial wellness not only effective but visually rewarding.</p>
 
-    <p>Key Features Include:</p>
-    <ul>
-      <li><strong>Track Your Spending:</strong> Get insights on where your money is going and how to improve.</li>
-      <li><strong>Set Financial Goals:</strong> Create custom budgets, savings plans, and milestones for debt reduction.</li>
-      <li><strong>Visual Garden Growth:</strong> Watch your virtual garden thrive as you meet your financial targets.</li>
-    </ul>
+      <h3>How We Help You</h3>
+      <p>Our easy-to-use app helps you track your income, expenses, debt, and savings while allowing you to set personalized budgets. With tailored suggestions and a dynamic garden that reflects your financial habits, you'll receive motivation every step of the way.</p>
 
-    <h3>Start Your Journey Today</h3>
-    <p>Sign up now to begin cultivating your financial future with the help of Financial Bloom. Whether you're just starting your financial journey or looking to refine your habits, we're here to help you grow and thrive.</p>
+      <p>Key Features Include:</p>
+      <ul>
+        <li><strong>Track Your Spending:</strong> Get insights on where your money is going and how to improve.</li>
+        <li><strong>Set Financial Goals:</strong> Create custom budgets, savings plans, and milestones for debt reduction.</li>
+        <li><strong>Visual Garden Growth:</strong> Watch your virtual garden thrive as you meet your financial targets.</li>
+      </ul>
 
-    <p>Ready to get started? Create an account or <a href="Login.html">log in</a> to access your personalized dashboard!</p>
+      <h3>Start Your Journey Today</h3>
+      <p>Sign up now to begin cultivating your financial future with the help of Financial Bloom. Whether you're just starting your financial journey or looking to refine your habits, we're here to help you grow and thrive.</p>
 
-    <p><strong>Still have questions?</strong> Check out our <a href="tutorial-link">interactive tutorial</a> to guide you through everything you need to know about the app’s features and how to make the most of your experience.</p>
-  </div>
+      <p>Ready to get started? Create an account or <a href="Login.html">log in</a> to access your personalized dashboard!</p>
 
-  <!-- Social media icons section -->
-  <section class="info-content">
-    <p class="follow-us">Follow us on:</p>
-    <section class="social-media">
-      <img src="../Graphics/faceBook.png" alt="Facebook">
-      <img src="../Graphics/insta.png" alt="Instagram">
-      <img src="../Graphics/x.png" alt="X">
+      <p><strong>Still have questions?</strong> Check out our <a href="tutorial-link">interactive tutorial</a> to guide you through everything you need to know about the app's features and how to make the most of your experience.</p>
+    </div>
+
+    <!-- Social media icons section -->
+    <section class="info-content">
+      <p class="follow-us">Follow us on:</p>
+      <section class="social-media">
+        <img src="../Graphics/faceBook.png" alt="Facebook">
+        <img src="../Graphics/insta.png" alt="Instagram">
+        <img src="../Graphics/x.png" alt="X">
+      </section>
     </section>
-  </section>
-</div>
+  </div>
 
-<!-- Page footer -->
-<footer>2025 Financial Bloom &copy; All rights reserved.</footer>
+  <!-- Page footer -->
+  <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
 
-<!-- JavaScript validation and UI control -->
-<script>
-  // Validates the sign-up form fields
-  async function validateSignUp(event) {
-    event.preventDefault();
-
-    let firstName = document.getElementById("firstName").value.trim();
-    let lastName = document.getElementById("lastName").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let username = document.getElementById("username").value.trim();
-    let passwordField = document.getElementById("password");
-    let confirmPasswordField = document.getElementById("confirmPassword");
-
-    let password = passwordField.value.trim();
-    let confirmPassword = confirmPasswordField.value.trim();
-
-    let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
-
-    if (!passwordRegex.test(password)) {
-      showAlertSignUp("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
-      shakeInput(passwordField, confirmPasswordField);
-      return;
+  <!-- JavaScript validation and UI control -->
+  <script>
+    // Sanitization functions
+    function sanitizeInput(input) {
+      return input.replace(/[<>"'`]/g, '');
     }
 
-    if (password !== confirmPassword) {
-      showAlertSignUp("Passwords do not match.");
-      shakeInput(passwordField, confirmPasswordField);
-      return;
+    function sanitizeName(name) {
+      return name.replace(/[^a-zA-Z\s\-']/g, '');
     }
 
-    try {
-      const response = await fetch('http://localhost:8080/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fName: firstName,
-          lName: lastName,
-          email: email,
-          username: username,
-          password: password
-        }),
-        credentials: 'include',
-      });
+    function sanitizeEmail(email) {
+      return email.replace(/[^a-zA-Z0-9@._-]/g, '');
+    }
 
-      if (response.ok) {
-        window.location.href = "Login.html";
-      } else {
-        const errorData = await response.json();
-        showAlertSignUp(errorData.message || "Sign up failed. Please try again.");
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    // Validates the sign-up form fields
+    function validateSignUp(event) {
+      event.preventDefault(); // Prevents form submission
+
+      // Sanitize inputs
+      let firstName = sanitizeName(document.getElementById("firstName").value.trim());
+      let lastName = sanitizeName(document.getElementById("lastName").value.trim());
+      let email = sanitizeEmail(document.getElementById("email").value.trim());
+      let username = sanitizeInput(document.getElementById("username").value.trim());
+      let password = document.getElementById("password").value;
+      let confirmPassword = document.getElementById("confirmPassword").value;
+
+      // Validate names
+      if (!/^[a-zA-Z\s\-']+$/.test(firstName) || !/^[a-zA-Z\s\-']+$/.test(lastName)) {
+        showAlertSignUp("Names can only contain letters, spaces, hyphens, and apostrophes.");
+        return false;
       }
-    } catch (error) {
-      console.error("Signup error:", error);
-      showAlertSignUp("Error connecting to server. Please try again later.");
+
+      // Validate email
+      if (!isValidEmail(email)) {
+        showAlertSignUp("Please enter a valid email address.");
+        return false;
+      }
+
+      // Regex for strong password rules
+      let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
+
+      // Check password format
+      if (!passwordRegex.test(password)) {
+        showAlertSignUp("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
+        shakeInput(password, confirmPassword);
+        password.value = "";
+        confirmPassword.value = "";
+        return false;
+      }
+
+      // Check if both passwords match
+      if (password !== confirmPassword) {
+        showAlertSignUp("Passwords do not match.");
+        shakeInput(password, confirmPassword);
+        password.value = "";
+        confirmPassword.value = "";
+        return false;
+      }
+
+      // Redirect to login page on success
+      window.location.href = "Login.html";
+      return false;
     }
-  }
 
+    // Displays the alert box with bounce animation
+    function showAlertSignUp(message) {
+      const alertBox = document.getElementById("customAlertSignUp");
+      const overlay = document.getElementById("customAlertOverlaySignUp");
 
-  // Displays the alert box with bounce animation
-  function showAlertSignUp(message) {
-    const alertBox = document.getElementById("customAlertSignUp");
-    const overlay = document.getElementById("customAlertOverlaySignUp");
+      document.getElementById("alertMessageSignUp").innerText = message;
 
-    document.getElementById("alertMessageSignUp").innerText = message;
+      // Reset and restart animation each time it's shown
+      alertBox.style.animation = 'none';
+      void alertBox.offsetWidth;
+      alertBox.style.animation = 'bounceIn 0.3s ease';
 
-    // Reset and restart animation each time it's shown
-    alertBox.style.animation = 'none';
-    void alertBox.offsetWidth;
-    alertBox.style.animation = 'bounceIn 0.3s ease';
+      overlay.style.display = "flex"; // Show alert
+    }
 
-    overlay.style.display = "flex"; // Show alert
-  }
+    // Closes the alert overlay
+    function closeAlertSignUp() {
+      document.getElementById("customAlertOverlaySignUp").style.display = "none";
+    }
 
-  // Closes the alert overlay
-  function closeAlertSignUp() {
-    document.getElementById("customAlertOverlaySignUp").style.display = "none";
-  }
+    // Applies a shake effect to password fields
+    function shakeInput(passwordField, confirmPasswordField) {
+      passwordField.classList.add("shake");
+      confirmPasswordField.classList.add("shake");
 
-  // Applies a shake effect to password fields
-  function shakeInput(passwordField, confirmPasswordField) {
-    passwordField.classList.add("shake");
-    confirmPasswordField.classList.add("shake");
-
-    // Remove animation class after effect finishes
-    setTimeout(() => {
-      passwordField.classList.remove("shake");
-      confirmPasswordField.classList.remove("shake");
-    }, 300);
-  }
-</script>
+      // Remove animation class after effect finishes
+      setTimeout(() => {
+        passwordField.classList.remove("shake");
+        confirmPasswordField.classList.remove("shake");
+      }, 300);
+    }
+	
+	// Example fetch call to your Spring Boot API
+	fetch('https://your-railway-backend-url.com/api/updateSavings', {
+	  method: 'POST',
+	  headers: {
+		'Content-Type': 'application/json',
+	  },
+	  body: JSON.stringify({
+		username: 'testuser',
+		savings: 500
+	  })
+	})
+	.then(response => response.json())
+	.then(data => {
+	  console.log('Success:', data);
+	  // update Unity iFrame or show a message in frontend
+	})
+	.catch((error) => {
+	  console.error('Error:', error);
+	});
+  </script>
 
 </body>
 
