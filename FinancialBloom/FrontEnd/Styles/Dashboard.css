@@ -16,7 +16,7 @@ html, body {
   height: 80px;
   font-size: 30px;
   font-weight: bold;
-  color: white;
+  color: white; /* <-- ADD THIS */
   position: fixed;
   width: 100%;
   top: 0;
