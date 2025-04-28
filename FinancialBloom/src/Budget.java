@@ -40,11 +40,13 @@ Security Considerations:
 
 /*  
 Update Log:
+Updated on 4.28.2025 by Mikaela Riggan: Added debt methods and savings methods to the Budget class. Tracks debt as negative values and allows payments to reduce it. Savings has posiitive values and allows withdrawals.
 Updated on 4.14.2025 by Temo Galindo: Added the instance variable goal, which is a milestone, associated settors and getters, as well a second constructor so that if goal is left off then it is initialized to null.
 Updated on 4.10.2025 by Temo Galindo: Changed the arrays to arraylists for easier addition of income or expense, added addCategory method, changed balance from an instance variable to a method.
 Updated on 4.08.2025 by Laura Estremera: Included description.  
 Created on 4.05.2025 by Daniela Luna: Initial implementation of Budget class with category-based financial tracking.  
 */
+
 package csc450;
 import java.util.ArrayList;
 
@@ -52,83 +54,154 @@ public class Budget {
     private String name;
     private double totalIncome;
     private double totalExpense;
+    private double totalDebt;
+    private double totalSavings;
     private Milestone goal;
     private ArrayList<Category> incomeStreams;
     private ArrayList<Category> expenseStreams;
-    public Budget(String nName, Category[] incomes, Category[] expenses){
+    private ArrayList<Category> debtStreams;
+    private ArrayList<Category> savingsStreams;
+
+    public Budget(String nName, Category[] incomes, Category[] expenses) {
+        this(nName, incomes, expenses, null);
+    }
+
+    public Budget(String nName, Category[] incomes, Category[] expenses, Milestone newGoal) {
         this.incomeStreams = new ArrayList<>();
         this.expenseStreams = new ArrayList<>();
+        this.debtStreams = new ArrayList<>();
+        this.savingsStreams = new ArrayList<>();
         this.name = nName;
-        for(Category income: incomes){
-            this.incomeStreams.add(income);
-        }
-        for(Category expense: expenses){
-            this.expenseStreams.add(expense);
-        }
-        for(Category income: this.incomeStreams){
-            this.totalIncome += income.getAmount();
-        }
-        for(Category expense: this.expenseStreams){
-            this.totalExpense += expense.getAmount();
-        }
-        this.goal = null;
-    }
-    public Budget(String nName, Category[] incomes, Category[] expenses, Milestone newGoal){
-        this.incomeStreams = new ArrayList<>();
-        this.expenseStreams = new ArrayList<>();
-        this.name = nName;
-        for(Category income: incomes){
-            this.incomeStreams.add(income);
-        }
-        for(Category expense: expenses){
-            this.expenseStreams.add(expense);
-        }
-        for(Category income: this.incomeStreams){
-            this.totalIncome += income.getAmount();
-        }
-        for(Category expense: this.expenseStreams){
-            this.totalExpense += expense.getAmount();
-        }
-        this.goal = newGoal;
-    }
-    public String getName() {return this.name;}
-    public double getIncome() {return this.totalIncome;}
-    public double getExpense() {return this.totalExpense;}
-    public double getBalance() {return this.totalIncome + this.totalExpense;}
-    public void setName(String newName) {this.name = newName;}
-    public void setIncomeStream(Category[] newIncomeStream) {
-        this.incomeStreams.clear();
-        for(Category income: newIncomeStream){
-            this.incomeStreams.add(income);
-        }
+        
+        // Initialize totals
         this.totalIncome = 0.0;
-        for(Category income: this.incomeStreams){
-            this.totalIncome += income.getAmount();
-        }
-    }
-    public void setExpenseStream(Category[] newExpenseStream){
-        this.expenseStreams.clear();
-        for(Category expense: newExpenseStream){
-            this.expenseStreams.add(expense);
-        }
         this.totalExpense = 0.0;
-        for(Category expense: this.expenseStreams){
-            this.totalIncome += expense.getAmount();
-        }
-    }
-    public void addCategory(Category newCat){
-        if(newCat.getAmount() > 0){
-            this.incomeStreams.add(newCat);
-            this.totalIncome += newCat.getAmount();
-        }else{
-            this.expenseStreams.add(newCat);
-            this.totalExpense += newCat.getAmount();
+        this.totalDebt = 0.0;
+        this.totalSavings = 0.0;
+
+        // Process incomes
+        for (Category income : incomes) {
+            addIncome(income);
         }
         
+        // Process expenses
+        for (Category expense : expenses) {
+            addExpense(expense);
+        }
+        
+        this.goal = newGoal;
     }
-    public ArrayList<Category> getIncomeStreams() {return this.incomeStreams;}
-    public ArrayList<Category> getExpenseStreams() {return this.expenseStreams;}
-    public void setGoal(Milestone newGoal) {this.goal = newGoal;}
-    public Milestone getGoal() {return this.goal;}
 
+    // ========== Income Methods ==========
+    public void addIncome(Category income) {
+        if (income.getAmount() <= 0) {
+            throw new IllegalArgumentException("Income amount must be positive");
+        }
+        this.incomeStreams.add(income);
+        this.totalIncome += income.getAmount();
+    }
+
+    // ========== Expense Methods ==========
+    public void addExpense(Category expense) {
+        if (expense.getAmount() >= 0) {
+            throw new IllegalArgumentException("Expense amount must be negative");
+        }
+        this.expenseStreams.add(expense);
+        this.totalExpense += expense.getAmount();
+    }
+
+    // ========== Debt Methods ==========
+    public void addDebt(Category debt) {
+        if (debt.getAmount() >= 0) {
+            throw new IllegalArgumentException("Debt amount should be negative");
+        }
+        this.debtStreams.add(debt);
+        this.totalDebt += debt.getAmount();
+        // Debt is also considered an expense
+        addExpense(debt);
+    }
+
+    public void makeDebtPayment(Category payment) {
+        if (payment.getAmount() <= 0) {
+            throw new IllegalArgumentException("Payment amount should be positive");
+        }
+        // Record as expense (money leaving your account)
+        Category paymentExpense = new Category("Debt Payment: " + payment.getName(), -payment.getAmount());
+        addExpense(paymentExpense);
+        
+        // Reduce the debt (since we're paying it down)
+        this.totalDebt += payment.getAmount(); // Debt is negative, so adding positive reduces it
+    }
+
+    // ========== Savings Methods ==========
+    public void addToSavings(Category savings) {
+        if (savings.getAmount() <= 0) {
+            throw new IllegalArgumentException("Savings amount must be positive");
+        }
+        this.savingsStreams.add(savings);
+        this.totalSavings += savings.getAmount();
+        // Savings come from income, so we need to record it as an expense (money leaving available funds)
+        Category savingsExpense = new Category("Savings: " + savings.getName(), -savings.getAmount());
+        addExpense(savingsExpense);
+    }
+
+    public void withdrawFromSavings(Category withdrawal) {
+        if (withdrawal.getAmount() <= 0) {
+            throw new IllegalArgumentException("Withdrawal amount must be positive");
+        }
+        if (withdrawal.getAmount() > this.totalSavings) {
+            throw new IllegalArgumentException("Cannot withdraw more than available savings");
+        }
+        this.totalSavings -= withdrawal.getAmount();
+        // Withdrawal becomes available as income
+        Category withdrawalIncome = new Category("Savings Withdrawal: " + withdrawal.getName(), withdrawal.getAmount());
+        addIncome(withdrawalIncome);
+    }
+
+    // ========== Getters ==========
+    public String getName() { return this.name; }
+    public double getIncome() { return this.totalIncome; }
+    public double getExpense() { return this.totalExpense; }
+    public double getDebt() { return this.totalDebt; }
+    public double getSavings() { return this.totalSavings; }
+    public double getBalance() { return this.totalIncome + this.totalExpense; }
+    public Milestone getGoal() { return this.goal; }
+    public ArrayList<Category> getIncomeStreams() { return this.incomeStreams; }
+    public ArrayList<Category> getExpenseStreams() { return this.expenseStreams; }
+    public ArrayList<Category> getDebtStreams() { return this.debtStreams; }
+    public ArrayList<Category> getSavingsStreams() { return this.savingsStreams; }
+
+    // ========== Setters ==========
+    public void setName(String newName) { this.name = newName; }
+    public void setGoal(Milestone newGoal) { this.goal = newGoal; }
+
+    public double getAvailableFunds() {
+        return this.totalIncome + this.totalExpense; // Expenses are negative
+    }
+
+    // ========== Bulk Operations ==========
+    public void setIncomeStream(Category[] newIncomeStream) {
+        this.incomeStreams.clear();
+        this.totalIncome = 0.0;
+        for (Category income : newIncomeStream) {
+            addIncome(income);
+        }
+    }
+
+    public void setExpenseStream(Category[] newExpenseStream) {
+        this.expenseStreams.clear();
+        this.totalExpense = 0.0;
+        for (Category expense : newExpenseStream) {
+            addExpense(expense);
+        }
+    }
+
+    // Helper method to add any category (determines type based on amount)
+    public void addCategory(Category newCat) {
+        if (newCat.getAmount() > 0) {
+            addIncome(newCat);
+        } else {
+            addExpense(newCat);
+        }
+    }
 }
