@@ -91,64 +91,84 @@
     </div>
   </main>
 
+    <!-- Loading Spinner Overlay for Dashboard -->
+  <div id="dashboardLoadingOverlay" class="alert-overlay" style="display: none;">
+    <div class="alert-box">
+      <p>Loading Dashboard Data...</p>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer>
     Financial Bloom ™ 2025
   </footer>
 
 <!-- JavaScript to Fetch Data -->
-<script>
-  async function fetchDashboardData() {
-    try {
-      const response = await fetch('/api/dashboardData');
-      const data = await response.json();
-
-      // Update Stats
-      document.getElementById('income-amount').innerText = `$${data.income || 0}`;
-      document.getElementById('expenses-amount').innerText = `$${data.expenses || 0}`;
-      document.getElementById('net-amount').innerText = `$${data.net || 0}`;
-
-      // Update Pie Chart
-      const chart = document.getElementById('spending-chart');
-      chart.innerHTML = '<caption>Expenses</caption>'; // Reset
-      let start = 0;
-      if (data.pieData && data.pieData.length > 0) {
-        data.pieData.forEach(item => {
-          const percent = item.amount / data.expenses;
-          const end = start + percent;
-          const tr = document.createElement('tr');
-          tr.innerHTML = `<td style="--start: ${start}; --end: ${end};"><span>${item.name}</span></td>`;
-          chart.appendChild(tr);
-          start = end;
-        });
+  <script>
+    async function fetchDashboardData() {
+      try {
+        showDashboardLoading(); // 🔥 Show spinner immediately
+  
+        const response = await fetch('/api/dashboardData');
+        const data = await response.json();
+  
+        hideDashboardLoading(); // ✅ Hide spinner after data arrives
+  
+        // Update Stats
+        document.getElementById('income-amount').innerText = `$${data.income || 0}`;
+        document.getElementById('expenses-amount').innerText = `$${data.expenses || 0}`;
+        document.getElementById('net-amount').innerText = `$${data.net || 0}`;
+  
+        // Update Pie Chart
+        const chart = document.getElementById('spending-chart');
+        chart.innerHTML = '<caption>Expenses</caption>'; // Reset
+        let start = 0;
+        if (data.pieData && data.pieData.length > 0) {
+          data.pieData.forEach(item => {
+            const percent = item.amount / data.expenses;
+            const end = start + percent;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td style="--start: ${start}; --end: ${end};"><span>${item.name}</span></td>`;
+            chart.appendChild(tr);
+            start = end;
+          });
+        }
+  
+        // Update Milestone Contributions
+        const milestoneBody = document.getElementById('milestone-body');
+        milestoneBody.innerHTML = ''; // Reset
+        if (data.milestones && data.milestones.length > 0) {
+          data.milestones.forEach(entry => {
+            const row = `<tr><td>${entry.name}</td><td>$${entry.contribution}</td></tr>`;
+            milestoneBody.innerHTML += row;
+          });
+        }
+  
+      } catch (error) {
+        hideDashboardLoading(); // Even on error, hide loading spinner
+        console.error('Failed to load dashboard data:', error);
       }
-
-      // Update Milestone Contributions
-      const milestoneBody = document.getElementById('milestone-body');
-      milestoneBody.innerHTML = ''; // Reset
-      if (data.milestones && data.milestones.length > 0) {
-        data.milestones.forEach(entry => {
-          const row = `<tr><td>${entry.name}</td><td>$${entry.contribution}</td></tr>`;
-          milestoneBody.innerHTML += row;
-        });
-      }
-
-    } catch (error) {
-      console.error('Failed to load dashboard data:', error);
     }
-  }
-
-  // Load data when page loads
-  window.addEventListener('DOMContentLoaded', fetchDashboardData);
-
-  // Optional: Sanitize search input IF it exists
-  const searchInput = document.getElementById('dashboardSearch');
-  if (searchInput) {
-    searchInput.addEventListener('input', function(e) {
-      this.value = this.value.replace(/[<>"'`]/g, '');
-    });
-  }
-</script>
+  
+    function showDashboardLoading() {
+      document.getElementById('dashboardLoadingOverlay').style.display = "flex";
+    }
+  
+    function hideDashboardLoading() {
+      document.getElementById('dashboardLoadingOverlay').style.display = "none";
+    }
+  
+    // Load data when page loads
+    window.addEventListener('DOMContentLoaded', fetchDashboardData);
+  
+    // Optional: Sanitize search input IF it exists
+    const searchInput = document.getElementById('dashboardSearch');
+    if (searchInput) {
+      searchInput.addEventListener('input', function(e) {
+        this.value = this.value.replace(/[<>"'`]/g, '');
+      });
+    }
+  </script>
 
 </body>
 </html>
