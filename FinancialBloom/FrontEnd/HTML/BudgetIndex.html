@@ -1,3 +1,4 @@
+<!-- By Laura Estremera -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,113 +6,174 @@
   <meta charset="utf-8">
   <title>Financial Bloom - Budget Dashboard</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="../financialbloom-frontend/src/Styles/Budget.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="../Styles/Budget.css">
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-
-  <style>
-    .nav-toggle {
-      display: none;
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background-color: white;
-      border: none;
-      font-size: 24px;
-      border-radius: 4px;
-      z-index: 1100;
-      padding: 6px 10px;
-      cursor: pointer;
-      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .hide-nav nav {
-      display: none;
-    }
-  </style>
 </head>
 
 <body class="nav-visible">
 
-<!-- Toggle Nav Button -->
-<button class="nav-toggle" onclick="toggleNav()">☰</button>
+  <!-- Header -->
+  <header class="header">
+    <img src="../Graphics/logo.png" alt="Financial Bloom logo">
+    Financial Bloom
+  </header>
 
-<!-- Fixed Header -->
-<header class="header">
-  <img src="../financialbloom-frontend/src/Graphics/logo.png" alt="Financial Bloom logo">
-  Financial Bloom
-</header>
+  <!-- Sidebar -->
+  <nav>
+    <ul>
+      <li><a href="Dashboard.html"><span class="material-symbols-outlined">home</span> Dashboard</a></li>
+      <li id="current"><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
+      <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
+      <li><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
+      <li><a href="Login.html"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
+    </ul>
+  </nav>
 
-<!-- Navigation Sidebar -->
-<nav>
-  <ul>
-    <li><a href="index.html"><span class="material-symbols-outlined">home</span>&nbsp;Dashboard</a></li>
-    <li id="current"><span class="material-symbols-outlined">wallet</span>&nbsp;Budget</li>
-    <li><a href="#"><span class="material-symbols-outlined">share</span>&nbsp;Share</a></li>
-    <li><a href="#"><span class="material-symbols-outlined">subscriptions</span>&nbsp;Subscriptions</a></li>
-    <li><a href="#"><span class="material-symbols-outlined">flyover</span>&nbsp;Garden Path</a></li>
-    <li><a href="#"><span class="material-symbols-outlined">other_houses</span>&nbsp;Greenhouse</a></li>
-    <li><a href="#"><span class="material-symbols-outlined">settings</span>&nbsp;Settings</a></li>
-    <li><a href="#"><span class="material-symbols-outlined">door_back</span>&nbsp;Exit</a></li>
-  </ul>
-</nav>
+  <main>
+    <!-- Unity Embed -->
+    <section class="unity-container">
+      <iframe src="https://cmlane48.itch.io/financial-bloom" frameborder="0" width="960" height="600" style="border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.2);"></iframe>
+    </section>
 
-<!-- Main Content -->
-<main>
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search Financial Bloom...">
+    <!-- Tables Section -->
+    <section class="tables-section">
+
+      <!-- Income/Debt Tracker -->
+      <div class="table-container">
+        <h2>Income, Debt, Expenses Tracker</h2>
+        <button onclick="addIncomeDebtRow()">➕ Add Row</button>
+        <table id="income-debt-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Name</th>
+              <th>Amount ($)</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Starter rows will be injected by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Milestone Tracker -->
+      <div class="table-container">
+        <h2>Milestones Tracker</h2>
+        <button onclick="addMilestoneRow()">➕ Add Row</button>
+        <table id="milestone-table">
+          <thead>
+            <tr>
+              <th>Milestone Name</th>
+              <th>Amount Saved ($)</th>
+              <th>Goal Amount ($)</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Starter rows will be injected by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    Financial Bloom ™ 2025
+  </footer>
+
+  <!-- Alert box placeholder for edits -->
+  <div id="customAlertOverlay" class="alert-overlay" style="display: none;">
+    <div id="customAlert" class="alert-box">
+      <p id="alertMessage"></p>
+      <button onclick="confirmSave()">OK</button>
+      <button onclick="cancelSave()">Cancel</button>
+    </div>
   </div>
 
-  <div class="pie">
-    <table class="charts-css pie show-heading" id="pie">
-      <caption>March Spending Breakdown</caption>
-      <tr><td style="--start: 0; --end: 0.3;"><span class="data">$300</span></td></tr>
-      <tr><td style="--start: 0.3; --end: 0.4;"><span class="data">$100</span></td></tr>
-      <tr><td style="--start: 0.4; --end: 0.8;"><span class="data">$400</span></td></tr>
-      <tr><td style="--start: 0.8; --end: 1;"><span class="data">$200</span></td></tr>
-    </table>
-  </div>
+  <!-- JavaScript -->
+  <script>
+	// Maximum number of rows
+	const maxRows = 30;
 
-  <div class="bar">
-    <table class="charts-css column show-heading">
-      <caption>Monthly Spread</caption>
-      <tr><td style="--size: 0.8;"><span class="data">Jan</span></td></tr>
-      <tr><td style="--size: 0.9;"><span class="data">Feb</span></td></tr>
-      <tr><td style="--size: 0.7;"><span class="data">Mar</span></td></tr>
-      <tr><td style="--size: 0.4;"><span class="data">Apr</span></td></tr>
-      <tr><td style="--size: 0.3;"><span class="data">May</span></td></tr>
-      <tr><td style="--size: 0.05;"><span class="data">Jun</span></td></tr>
-    </table>
-  </div>
+	// Initial row creation on load
+	document.addEventListener('DOMContentLoaded', () => {
+	  addIncomeDebtRow();
+	  addIncomeDebtRow();
+	  addMilestoneRow();
+	  addMilestoneRow();
+	});
 
-  <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
-</main>
+	// Functions for Income/Debt Table
+	function addIncomeDebtRow() {
+	  const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
+	  if (table.rows.length >= maxRows) {
+		alert("You can only add up to 30 rows.");
+		return;
+	  }
 
-<!-- Unity Game Embed -->
-<aside>
-  <iframe src="https://cmlane48.itch.io/financial-bloom" title="Garden Game"></iframe>
-</aside>
+	  const row = table.insertRow();
 
-<!-- Nav Toggle Script -->
-<script>
-  function toggleNav() {
-    document.body.classList.toggle("hide-nav");
-  }
+	  const typeCell = row.insertCell(0);
+	  const nameCell = row.insertCell(1);
+	  const amountCell = row.insertCell(2);
+	  const deleteCell = row.insertCell(3);
 
-  // Sanitize search input
-  document.getElementById('searchInput').addEventListener('input', function(e) {
-    this.value = this.value.replace(/[<>"'`]/g, '');
-  });
-</script>
+	  // Dropdown for Type
+	  const typeSelect = document.createElement('select');
+	  ['Income', 'Debt', 'Savings', 'Expense'].forEach(optionText => {
+		const option = document.createElement('option');
+		option.value = optionText;
+		option.innerText = optionText;
+		typeSelect.appendChild(option);
+	  });
+	  typeCell.appendChild(typeSelect);
+
+	  // Name Input
+	  const nameInput = document.createElement('input');
+	  nameInput.type = "text";
+	  nameInput.placeholder = "Enter name...";
+	  nameInput.oninput = sanitizeInputLive;
+	  nameCell.appendChild(nameInput);
+
+	  // Amount Input
+	  const amountInput = document.createElement('input');
+	  amountInput.type = "number";
+	  amountInput.placeholder = "$0";
+	  amountInput.oninput = sanitizeInputLive;
+	  amountCell.appendChild(amountInput);
+
+	  // Delete Button
+	  const deleteBtn = document.createElement('button');
+	  deleteBtn.innerText = "🗑️";
+	  deleteBtn.onclick = () => row.remove();
+	  deleteCell.appendChild(deleteBtn);
+	}
+
+	// Functions for Milestone Table
+	function addMilestoneRow() {
+	  const table = document.getElementById('milestone-table').getElementsByTagName('tbody')[0];
+	  if (table.rows.length >= maxRows) {
+		alert("You can only add up to 30 rows.");
+		return;
+	  }
+
+	  const row = table.insertRow();
+
+	  const milestoneNameCell = row.insertCell(0);
+	  const amountSavedCell = row.insertCell(1);
+	  const goalAmountCell = row.
+  </script>
 
 </body>
 </html>
