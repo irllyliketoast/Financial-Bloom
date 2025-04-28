@@ -1,16 +1,10 @@
-<!-- 
-  Base HTML structure by Chris Lane.
-  Styling, JavaScript functionality, and formatting done by Laura Estremera.
--->
-
 <!DOCTYPE html>
 <html lang="en">
-  
+
 <head>
-  <!-- Meta settings and font imports -->
   <meta charset="utf-8">
   <title>Financial Bloom - Log In</title>
-  
+
   <!-- External CSS -->
   <link rel="stylesheet" href="../Styles/Login.css">
 
@@ -22,13 +16,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
 </head>
-  
+
 <body>
-  <!-- Fixed header with logo and title -->
-	<header class="header">
-	  <img src="../Graphics/logo.png" alt="Financial Bloom logo">
-	  <h1 class="logo-title">Financial Bloom</h1>
-	</header>
+
+  <!-- Fixed header -->
+  <header class="header">
+    <img src="../Graphics/logo.png" alt="Financial Bloom logo">
+    <h1 class="logo-title">Financial Bloom</h1>
+  </header>
 
   <!-- Custom Alert Overlay -->
   <div id="customAlertOverlay" class="alert-overlay">
@@ -38,12 +33,19 @@
     </div>
   </div>
 
-  <!-- Wrapper holds the main login form and side panel -->
+  <!-- Loading Spinner Overlay -->
+  <div id="loadingOverlay" class="alert-overlay" style="display: none;">
+    <div class="alert-box">
+      <p>Loading...</p>
+    </div>
+  </div>
+
+  <!-- Main login wrapper -->
   <div class="wrapper side-panel-open">
     <div class="main">
-      
+
       <!-- Login form -->
-      <form onsubmit="return validateForm()">
+      <form onsubmit="validateForm(event)">
         <h1>Welcome to Financial Bloom!</h1>
         <fieldset id="first">
           <input type="text" name="username" id="username" placeholder="Username" autofocus><br>
@@ -53,7 +55,7 @@
         </fieldset>
       </form>
 
-      <!-- Social media section -->
+      <!-- Social Media Section -->
       <section class="social-media">
         Follow us on:<br>
         <img src="../Graphics/faceBook.png" alt="Facebook">
@@ -61,119 +63,108 @@
         <img src="../Graphics/x.png" alt="X">
       </section>
 
-      <!-- Side panel with intro text and sign-up CTA -->
+      <!-- Side panel -->
       <div class="side-panel">
         <h2>Welcome to Financial Bloom!</h2>
-        <p>Discover a fun and engaging way to take control of your finances through your very own virtual garden. 
-        At Financial Bloom, we guide you on a journey to financial responsibility, where every smart financial decision 
-        helps your garden grow.</p>
+        <p>Discover a fun and engaging way to take control of your finances through your very own virtual garden.</p>
         <p>Sign in to get started, set your goals, and cultivate a brighter financial future!</p>
         <p>Don't have an account?</p>
-
-        <!-- Sign-Up Button -->
         <a href="SignUp.html" id="SignUp">Sign Up</a>
       </div>
     </div>
   </div>
 
-  <!-- Optional footer garden feature (commented out) -->
-  <!--
-  <div class="footer-garden">
-    <img src="../graphics/plant.gif" class="plant">
-    More plant gifs if desired
-  </div>
-  -->
-
-  <!-- Site footer -->
+  <!-- Footer -->
   <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
 
-  <!-- JavaScript for form validation and custom alerts -->
+  <!-- JavaScript -->
   <script>
-    // Validates login form input
-    function validateForm() {
+    async function validateForm(event) {
+      event.preventDefault(); // Stop normal form submit
+
       let username = document.getElementById("username").value.trim();
-      let password = document.getElementById("password").value; // Don't trim password (spaces may be part of regex)
+      let password = document.getElementById("password").value;
 
       let usernameRegex = /^\S+$/;
       let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
 
-      // Check for all empty
       if (username === "" && password === "") {
         showAlert("Please enter a username and password.");
         return false;
       }
-
       if (username === "") {
         showAlert("Please enter a username.");
         return false;
       }
-
       if (password === "") {
         showAlert("Please enter a password.");
         return false;
       }
-
-      // Prevent passwords with only spaces
-      if (password === "      ") {
-        showAlert("Invalid password. Passwords cannot contain spaces.");
-        return false;
-      }
-
-      // Validate username format (no spaces)
       if (!usernameRegex.test(username)) {
         showAlert("Username cannot contain spaces.");
         return false;
       }
-
-      // Validate password complexity
       if (!passwordRegex.test(password)) {
         showAlert("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
         return false;
       }
 
-      // All checks passed
-      return true;
+      // All client-side validations passed
+      try {
+        showLoading(); // Show loading spinner
+
+        const response = await fetch('https://your-backend-url.com/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password })
+        });
+
+        hideLoading(); // Hide loading spinner
+
+        if (response.ok) {
+          const result = await response.json();
+          if (result.success) {
+            // ✅ Login Successful - Redirect to Dashboard
+            window.location.href = "Dashboard.html";
+          } else {
+            showAlert("Invalid username or password. Please try again.");
+          }
+        } else {
+          showAlert("Server error. Please try again later.");
+        }
+      } catch (error) {
+        hideLoading();
+        console.error('Login failed:', error);
+        showAlert("Could not connect to server. Please try again later.");
+      }
+
+      return false;
     }
 
-    // Displays custom alert box with bounce animation
     function showAlert(message) {
       const alertBox = document.getElementById("customAlert");
       const overlay = document.getElementById("customAlertOverlay");
-
       document.getElementById("alertMessage").innerText = message;
-
-      // Reset animation so it plays each time
       alertBox.style.animation = 'none';
-      void alertBox.offsetWidth; // Trigger reflow
+      void alertBox.offsetWidth;
       alertBox.style.animation = 'bounceIn 0.3s ease';
-
-      overlay.style.display = "flex"; // Show alert overlay
+      overlay.style.display = "flex";
     }
 
-    // Closes the custom alert overlay
     function closeAlert() {
       document.getElementById("customAlertOverlay").style.display = "none";
     }
-	
-	// Example fetch call to your Spring Boot API
-	fetch('https://your-railway-backend-url.com/api/updateSavings', {
-	  method: 'POST',
-	  headers: {
-		'Content-Type': 'application/json',
-	  },
-	  body: JSON.stringify({
-		username: 'testuser',
-		savings: 500
-	  })
-	})
-	.then(response => response.json())
-	.then(data => {
-	  console.log('Success:', data);
-	  // update Unity iFrame or show a message in frontend
-	})
-	.catch((error) => {
-	  console.error('Error:', error);
-	});
+
+    function showLoading() {
+      document.getElementById("loadingOverlay").style.display = "flex";
+    }
+
+    function hideLoading() {
+      document.getElementById("loadingOverlay").style.display = "none";
+    }
   </script>
+
 </body>
 </html>
