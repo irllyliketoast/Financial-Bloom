@@ -169,7 +169,9 @@ section.social-media {
   font-family: 'Silkscreen', sans-serif !important;
   font-size: 32px;
   margin: 0;
+  color: white; /* <-- ADD THIS */
 }
+
 
 .header {
   display: flex;
@@ -261,6 +263,7 @@ h1 {
 
 .wrapper {
     display: flex;
+	padding-top: 40px;
 }
 
 .main {
