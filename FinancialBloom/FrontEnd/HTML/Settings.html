@@ -22,7 +22,7 @@
 </head>
 
 <body>
-
+<div id="customCursor"></div>
   <!-- Header -->
   <header class="header">
     <img src="../Graphics/logo.png" alt="Financial Bloom logo">
@@ -80,6 +80,12 @@
 		  console.error('Failed to load user profile:', error);
 		}
 	  }
+	  // 🖱️ Custom Cursor Follower Script
+	  const cursor = document.getElementById('customCursor');
+	  document.addEventListener('mousemove', (e) => {
+	    cursor.style.left = `${e.clientX}px`;
+	    cursor.style.top = `${e.clientY}px`;
+	  });
 
 	  window.addEventListener('DOMContentLoaded', loadUserProfile);
   </script>
