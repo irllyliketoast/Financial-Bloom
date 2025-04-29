@@ -1,0 +1,349 @@
+/* 
+  Base structure and layout organized by Chris Lane.
+  All styling, animation, formatting, and typographic refinements 
+  implemented and customized by Laura Estremera.
+*/
+
+/* ------------------ Global Layout ------------------ */
+
+/* Light green background for the entire page */
+* {
+/* Hides the default cursor and forces use of the custom one */
+  cursor: none !important;
+}
+/* ===== Custom Cursor ===== */
+#customCursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  background-image: url('../Graphics/custom-cursor.png'); /* Custom image */
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none; /* So it doesn’t interfere with clicking */
+    z-index: 99999; /* bump it above all other UI */
+  transform: translate(-50%, -50%); /* Centers image on mouse */
+  transition: transform 0.2s ease;
+}
+html {
+    background-color: #edffd9;
+}
+
+/* Set up full-height flex layout with vertical stacking */
+body {
+    margin: 0;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ------------------ Typography ------------------ */
+
+/* Use Silkscreen font for most UI elements */
+body,
+h1, h2, h3, h4, h5, h6,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="submit"],
+button,
+a,
+header,
+footer,
+.social-media,
+.follow-us {
+    font-family: 'Silkscreen', sans-serif;
+}
+
+/* Override: Use Play font for paragraphs and lists inside .info-content */
+.info-content p:not(.follow-us),
+.info-content ul,
+.info-content ul li {
+    font-family: 'Play', sans-serif;
+}
+
+/* ------------------ Header ------------------ */
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    background-color: #74984d;
+    height: 100px;
+    color: white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header img {
+    max-width: 65px;
+    padding-right: 10px;
+}
+
+/* ------------------ Footer ------------------ */
+
+footer {
+    font-style: italic;
+    height: 30px;
+    background-color: #74984d;
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding-top: 15px;
+    position: relative;
+    margin-top: auto;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ------------------ Link Styling ------------------ */
+
+a {
+    text-decoration: none;
+    color: #74984d;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a:hover {
+    color: white;
+    background-color: #74984d;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+/* ------------------ Sign-Up Form Layout ------------------ */
+
+/* Sticky left-side form */
+.sign-up-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
+
+/* Optional wrapper if used for positioning */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+/* ------------------ Form Styling ------------------ */
+
+.sign-up-form h1 {
+    color: #74984d;
+    text-align: center;
+    font-size: 24px;
+}
+
+.sign-up-form form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign-up-form input {
+    width: 90%;
+    padding: 10px;
+    margin: 5px auto;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+/* Submit button design */
+.sign-up-form input[type="submit"] {
+    width: 90%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #edffd9;
+    color: #74984d;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Hover effect for submit button */
+.sign-up-form input[type="submit"]:hover {
+    background-color: #74984d;
+    color: white;
+}
+
+/* ------------------ Custom Alert Box ------------------ */
+
+/* Full-screen overlay behind the alert */
+.alert-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Bounce animation for alert entrance */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Alert box styling */
+.alert-box {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    min-width: 300px;
+    max-width: 400px;
+    font-family: 'Play', sans-serif;
+    font-size: 16px;
+    word-wrap: break-word;
+    animation: bounceIn 0.3s ease;
+}
+
+/* OK button inside alert box */
+.alert-box button {
+    margin-top: 10px;
+    background-color: #74984d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Silkscreen', sans-serif;
+    font-size: 14px;
+}
+
+.alert-box button:hover {
+    background-color: #5f7d3b;
+}
+
+/* ------------------ Error Shake Animation ------------------ */
+
+.shake {
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0%   { transform: translateX(0); }
+    25%  { transform: translateX(-5px); }
+    50%  { transform: translateX(5px); }
+    75%  { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+/* ------------------ Info Content Styling ------------------ */
+
+/* Right-hand main content */
+.info-content {
+    margin-left: 340px;
+    padding: 20px;
+    max-width: calc(100% - 340px);
+    margin-bottom: 0;
+    padding-top: 120px;
+    text-align: left;
+}
+
+/* Center headers inside the content */
+.info-content h1, .info-content h2, .info-content h3 {
+    text-align: center;
+}
+
+/* ------------------ Social Media Section ------------------ */
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.social-media img {
+    width: 70px;
+    height: auto;
+    cursor: pointer;
+}
+
+/* "Follow us" text styling */
+.follow-us {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+/* ------------------ Spacing Adjustments ------------------ */
+
+.info-content p:last-of-type {
+    margin-top: 5px;
+}
+
+/* Remove default spacing between elements */
+section, div {
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove vertical gaps between multiple .info-content sections */
+.info-content + .info-content {
+    margin-top: 0;
+}
+
+/* Ensure nested divs don’t introduce spacing */
+.info-content > div {
+    margin: 0;
+    padding: 0;
+}
+
+/* Normalize spacing between sections */
+section .info-content,
+div .info-content {
+    margin-top: 0;
+}
+
+/* Compact text layout */
+.info-content p,
+.info-content h1,
+.info-content h2,
+.info-content h3 {
+    margin-bottom: 5px;
+}
