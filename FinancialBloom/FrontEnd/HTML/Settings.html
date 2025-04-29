@@ -1,136 +1,88 @@
+<!-- By Laura Estremera -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Meta settings and font imports -->
-    <meta charset="utf-8">
-    <title>Financial Bloom - Settings</title>
-    
-    <!-- External CSS -->
-    <link rel="stylesheet" href="../styles/settings.css">
-  
-    <!-- Preconnecting to Google Fonts for faster loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-    <!-- Fonts used: Silkscreen for UI, Play for paragraph text -->
-    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Liter&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <!-- Icons for nav bar -->
-    <link rel ="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=door_back,flyover,home,other_houses,settings,share,subscriptions,wallet" rel="stylesheet" />
-  </head>
+
+<head>
+  <meta charset="utf-8">
+  <title>Financial Bloom - Settings</title>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="../Styles/Settings.css">
+
+  <!-- Preconnecting to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Font families used -->
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
 
 <body>
-      <nav>
-        <ul>
-          <li><a href="../index.html"><span class="material-symbols-outlined">home</span>&nbsp;Dashboard</a></li>
-          <li><a href="../budget/index.html"><span class="material-symbols-outlined">wallet</span>&nbsp;Budget</a></li>       
-          <li><span class="material-symbols-outlined">share</span>&nbsp;Share</li>         
-          <li id="current"><a href="index.html"><span class="material-symbols-outlined">settings</span>&nbsp;Settings</a></li>       
-          <li><span class="material-symbols-outlined">door_back</span>&nbsp;Exit</li>
-        </ul>
-      </nav>
-      <main>
-        <h1>Profile</h1>
-        <div class="profile-container">
-            <div class="profile">
-                <form>
-                    <p>
-                        <label for = "firstName">First Name:</label> 
-                        <input type="text" name="firstName">
-                    </p>
-                    <p>
-                        <label for = "lastName">Last Name:</label> 
-                        <input type="text" name="lastName">
-                    </p>
-                    <p>
-                        <label for = "address">Address:</label> 
-                        <input type="text" name="address">
-                    </p>
-                    <p>
-                        <label for = "email">Email Address:</label>
-                        <input type="email" name="email">
-                    </p>
-                    <p>
-                        <label for = "phoneNumber">Phone Number:</label>
-                        <input type="text" name="phoneNumber">
-                    </p>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
-        </div>
-        <h1>Financial Information</h1>
-        <div class="finances-container">
-            <div class="finances">
-                <form>
-                    <p>
-                        <label for = "income">Estimated Income:</label>
-                        <input type="text" name="income">
-                    </p>
-                    <p>
-                        <label for = "debts">Estimated Debts:</label>
-                        <input type="text" name="debts">
-                    </p>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
-        </div>
-        <h1>Budget</h1>
-        <div class="budget-container">
-            <div class="budget">
-                <form>
-                    <p>
-                        <label for = "groceries">Groceries:</label>
-                        <input type = "text" name = "groceries" placeholder="Experts Suggest 15%">
-                    </p>
-                    <p>
-                        <label for = "car">Car:</label>
-                        <input type = "text" name = "car" placeholder="Experts Suggest 10%">
-                    </p>
-                    <p>
-                        <label for = "home">Home:</label>
-                        <input type = "text" name = "home" placeholder="Experts Suggest 28%">
-                    </p>
-                    <p>
-                        <label for = "debts">Debts:</label>
-                        <input type = "text" name = "debts" placeholder="Experts Suggest 10%">
-                    </p>
-                    <p>
-                        <label for = "savings">Savings:</label>
-                        <input type = "text" name = "savings" placeholder="Experts Suggest 10%">
-                    </p>
-                    <p>
-                        <label for = "fun">Fun Money:</label>
-                        <input type = "text" name = "fun" placeholder="No more than 27%">
-                    </p>
-                    <p>
-                        <label for = "emFund">Emergency Fund:</label>
-                        <input type = "text" name = "emFund" placeholder="3-6 Months of Bills">
-                    </p>
-                    <input type="submit" value="Submit">
 
-                </form>
-            </div>
-        </div>
-        <footer>Financial Bloom &trade; 2025</footer>
-      </main>
-      
-      <aside>
-        <h1>How to Budget?</h1>
-        <p>
-            &nbsp;&nbsp;A common rule of thumb in budgeting is called the 50/20/30 rule. What this means is that when budgeting it is suggested to spend: 50% of your income for your needs, 20% for your savings, and 30% for leisure/luxury.
-        </p>
-        <p>
-            &nbsp;&nbsp;In the budget section to the left groceries, car, and home are considered needs. The 20% of your income for savings is split between debts and savings. This form evenly splits the two, however this is not a rule, you should use your best judgement to maximize your savings contributions.
-        </p>
-        <p>
-            &nbsp;&nbsp;Finally about 30% of your income may go to luxury/leisure spending. This category includes anything not considered a need, this includes but is not limited to: eating out, travel, fun activites (such as going to the movies), and even healthy expenses such as a gym membership.      
-        </p>
-        <p>
-        &nbsp;&nbsp;The last category is your emergency fund. It is extremely important to keep between 3-6 months of your expenses in an emergency fund. A savings account should not be withdrawn from unless it is a planned purchase not included in your monthly needs. This type of expense is generally reserved for down payments (or even better cash purchases). If you are no longer bringing in income, you should not be using your savings to pay your bills. Your emergency fund is the cushion between your monthly expenses and your savings account. 
-        </p>
-      </aside>
-      
-  </body>
-  </html>
+  <!-- Header -->
+  <header class="header">
+    <img src="../Graphics/logo.png" alt="Financial Bloom logo">
+    Financial Bloom
+  </header>
+
+  <!-- Sidebar -->
+  <nav>
+    <ul>
+      <li><a href="Dashboard.html"><span class="material-symbols-outlined">home</span> Dashboard</a></li>
+      <li><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
+      <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
+      <li id="current"><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
+      <li><a href="Login.html"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
+    </ul>
+  </nav>
+<div class="page-wrapper">
+  <main>
+    <!-- Profile Information Section -->
+	<section class="profile-section">
+	  <h1>Profile</h1>
+	  <div class="profile-info">
+		<p><strong>First Name:</strong> <span id="first-name">Loading...</span></p>
+		<p><strong>Last Name:</strong> <span id="last-name">Loading...</span></p>
+		<p><strong>Username:</strong> <span id="username">Loading...</span></p>
+		<p><strong>Email Address:</strong> <span id="email">Loading...</span></p>
+	  </div>
+
+	  <!-- Avatar Display -->
+	  <div class="avatar-card">
+		<h2>Your Character</h2>
+		<img id="avatar-img" src="../Graphics/avatar-placeholder.png" alt="Character Avatar">
+	  </div>
+	</section>
+  </main>
+</div>
+
+  <!-- Footer -->
+  <footer>
+    Financial Bloom ™ 2025
+  </footer>
   
+  <script>
+	  async function loadUserProfile() {
+		try {
+		  const response = await fetch('/api/userProfile');
+		  const user = await response.json();
+
+		  document.getElementById('first-name').innerText = user.firstName;
+		  document.getElementById('last-name').innerText = user.lastName;
+		  document.getElementById('username').innerText = user.username;
+		  document.getElementById('email').innerText = user.email;
+		  document.getElementById('avatar-img').src = user.avatarUrl || "../Graphics/avatar-placeholder.png";
+		} catch (error) {
+		  console.error('Failed to load user profile:', error);
+		}
+	  }
+
+	  window.addEventListener('DOMContentLoaded', loadUserProfile);
+  </script>
+
+</body>
+</html>
