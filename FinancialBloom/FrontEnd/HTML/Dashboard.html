@@ -4,22 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <title>Financial Bloom - Dashboard</title>
-  
+
   <!-- External CSS -->
   <link rel="stylesheet" href="../Styles/Dashboard.css">
 
-<!-- Preconnecting to Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Preconnecting to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- Font families used -->
-<link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Font families used -->
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
 
-  
   <!-- Charts.css -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
-  
+
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
@@ -91,7 +90,7 @@
     <div class="right-section">
       <!-- Unity Game Embed -->
       <div id="unity-container">
-        <iframe src="https://cmlane48.itch.io/financial-bloom" frameborder="0" width="800" height="650" style="border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.2);"></iframe>
+        <iframe src="https://cmlane48.itch.io/financial-bloom" frameborder="0" width="800" height="500" style="border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.2);"></iframe>
       </div>
     </div>
   </main>
@@ -101,8 +100,8 @@
     Financial Bloom ™ 2025
   </footer>
 
-  <!-- JavaScript to Fetch Data -->
-  <script
+  <!-- JavaScript to Fetch Dashboard Data -->
+  <script>
     async function fetchDashboardData() {
       try {
         const response = await fetch('/api/dashboardData');
@@ -117,30 +116,34 @@
         const chart = document.getElementById('spending-chart');
         chart.innerHTML = '<caption>Expenses</caption>'; // Reset
         let start = 0;
-        data.pieData.forEach(item => {
-          const percent = item.amount / data.expenses;
-          const end = start + percent;
-          const tr = document.createElement('tr');
-          tr.innerHTML = `<td style="--start: ${start}; --end: ${end};"><span>${item.name}</span></td>`;
-          chart.appendChild(tr);
-          start = end;
-        });
+        if (data.pieData && data.pieData.length > 0) {
+          data.pieData.forEach(item => {
+            const percent = item.amount / data.expenses;
+            const end = start + percent;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td style="--start: ${start}; --end: ${end};"><span>${item.name}</span></td>`;
+            chart.appendChild(tr);
+            start = end;
+          });
+        }
 
         // Update Milestone Contributions
         const milestoneBody = document.getElementById('milestone-body');
         milestoneBody.innerHTML = ''; // Reset
-        data.milestones.forEach(entry => {
-          const row = `<tr><td>${entry.name}</td><td>$${entry.contribution}</td></tr>`;
-          milestoneBody.innerHTML += row;
-        });
+        if (data.milestones && data.milestones.length > 0) {
+          data.milestones.forEach(entry => {
+            const row = `<tr><td>${entry.name}</td><td>$${entry.contribution}</td></tr>`;
+            milestoneBody.innerHTML += row;
+          });
+        }
 
       } catch (error) {
         console.error('Failed to load dashboard data:', error);
       }
     }
 
-    // Load data when page loads
-    window.onload = fetchDashboardData;
+    // Load dashboard data when page loads
+    window.addEventListener('DOMContentLoaded', fetchDashboardData);
   </script>
 
 </body>
