@@ -54,10 +54,11 @@ To create a user-friendly application that encourages financial growth and respo
 
 ## **Dev Roles** 
 - **Scrum Master** - Laura Estremera
-- **Security** - Mikaela Riggan and Laura Estremera
+- **Backend Security** - Mikaela Riggan
+- **Frontend Security** - Laura Estremera
 - **UI/UX** - Chris Lane and Laura Estremera
 - **Frontend** - Chris Lane and Laura Estremera
-    - **C# and HTML** - Chris Lane
+    - **C#** - Chris Lane
     - **HTML, CSS, and JS** - Laura Estremera
 - **Backend** - Daniela Luna and Temo Gaindo
 - **Server and Api Configuration** - Daniela Luna
@@ -68,7 +69,7 @@ To create a user-friendly application that encourages financial growth and respo
 - **Languages:** Java, SQL, HTML, CSS, JS, C#
 - **Frameworks & Libraries:** SpringBoot, Unity
 - **Database:** MySQL 
-- **API:** RESTful
+- **API:** RESTful, JavaFetch
 - **Authentication:** DUO
 
 ---
@@ -83,11 +84,8 @@ To create a user-friendly application that encourages financial growth and respo
 ## **Non-functional Requirements**  
 - The system logs out the user after a certain amount of time of inactivity.  
 - The system has a hash table that stores log-in information securely.  
-- The system sends push notifications with tips, ideas, and encouragement.  
-- The system has different plants for different categories of expenses.  
-- Plants get smaller as the user’s priorities move away from their goals.  
+- The system has different plants for different categories of expenses.   
 - The system has a tutorial feature that users can view before signing up.  
-- If the user closes their account, the system automatically deletes login info.  
 - If someone enters an existing username, an "username already exists" error will pop up.  
 - Password recovery feature for users.  
 
@@ -109,21 +107,6 @@ To create a user-friendly application that encourages financial growth and respo
 - **Users can customize their dashboard (Useful)**  
 - **Users can choose between different savings plans (Important)**  
 - **Users can close their account (Useful)**  
-
----
-
-## **Dashboard Page (After the Home Page):**  
-- Users can create and modify a monthly budget that reflects their goals.  
-- Users can follow preset budgets or create their own.  
-- Users can add debts and income to their account.  
-- Users can set up milestones for debt or savings goals.  
-- Users choose which type of plant represents their milestones.  
-- Users can apply other forms of income to the monthly budget (side gigs, odd jobs, gifts, etc.).  
-- Users can deduct emergency money from savings/budget.  
-- Users can compare or share their gardens with others.  
-- Users can celebrate progress by “watering” their garden and logging it.  
-- Users can log debts to track, represented by a "rock" in the garden.  
-- Users can opt into daily tips to help stay on budget.  
 
 ---
 ## **Future Enhancements**  
