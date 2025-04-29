@@ -1,150 +1,150 @@
-html {
-	background-color: white;
-    caret-color: transparent;
+/* By Laura Estremera */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  font-family: 'Play', sans-serif;
+  background-color: #edffd9;
 }
 
-body {
-
-	font-family: 'Play', sans-serif;
-	margin: 0;
-	line-height: 1.5;
-    /* Sets up the grid layout to be 3 columns with one row */
-	display: grid;
-	grid-template-columns: 8% 50% 42%;
-	grid-template-rows: 1fr;
-	grid-template-areas:
-		"nav main aside";
-
-	& nav {
-
-        background-color: #74984d;
-		border-radius: 0px 5px 0px 0px;
-		box-shadow: 10px 10px 17px -6px rgba(0, 0, 0, 0.44);
-
-		display: flex;
-		flex-direction: column;
-
-		height: 96.4%;
-        max-width: 142px;
-		min-width: 139px;		
-
-		& ul {
-			padding-inline-start: 5px;
-			list-style: none;
-
-			& li {
-				margin-bottom: 20%;
-			}
-
-			& li:last-child {
-				position: absolute;
-				bottom: 0;
-				margin-bottom: 90px;
-			}
-
-			& span {
-				float: left;
-			}
-
-			& li#current {
-				color: #658741;
-				background-color: #edffd9;
-				border-radius: 5px 0px 0px 5px;
-				box-shadow: none;
-
-			}
-            
-            & li#current a:hover{
-                color: black;
-            }
-
-			& a:visited {
-				text-decoration: none;
-				color: black;
-			}
-
-			& a {
-				text-decoration: none;
-				color: black;
-			}
-
-			& a:hover {
-				color: white;
-			}
-		}
-
-
-	}
-
-	& main {
-
-		margin-left: 4.1%;
-		margin-right: 1%;
-		display: flex;
-		flex-direction: column;
-		width: 75%;
-		
-        & form{
-            display: table;
-            border-spacing: 10px;
-        }
-        & p{
-            display: table-row;
-        }
-        & label{
-            display: table-cell;
-            
-        }
-        & input{
-            display: table-cell;
-            caret-color: black;
-
-        }
-        & .profile{
-
-            width: 55%;
-        }
-        & .finances{
-            display: flex;
-            flex-direction: row;
-            width: 80%;
-            flex-wrap: wrap;
-        }
-        & .budget{
-            display: flex;
-            flex-direction: row;
-            width: 80%;
-            flex-wrap: wrap;
-        }
-        & .profile-container, .finances-container , .budget-container{
-            border-radius: 5px;
-            background-color: #edffd9;
-            box-shadow: 10px 10px 17px -6px rgba(0, 0, 0, 0.44);
-            border-bottom: 2px solid #74984d;
-        }
-        & .budget-container{
-            margin-bottom: 20px;
-        }
-		& footer {
-            margin-left: none;
-            text-indent: none;
-			font-style: italic;
-			color: #74984d;
-			background-color: #edffd9;
-			text-align: center;
-			margin: 0;
-			padding: 0;
-		}
-
-	}
-
-	& aside {
-		height: 100vh;
-		background-color: #FAFAFA;
-		max-width: 552px;
-        padding: 10px;
-
-	}
-
-
+/* Page Wrapper Flex Layout */
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #74984d;
+  height: 80px;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  font-family: 'Silkscreen', sans-serif;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.header img {
+  max-width: 60px;
+  margin-right: 10px;
+}
+
+/* Sidebar */
+nav {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 150px;
+  height: calc(100% - 80px);
+  background-color: #74984d;
+  padding-top: 30px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav li {
+  margin-bottom: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-family: 'Silkscreen', sans-serif;
+  transition: background-color 0.3s;
+}
+
+nav a:hover {
+  background-color: #5f7d3b;
+  border-radius: 4px;
+}
+
+#current a {
+  background-color: #edffd9;
+  color: #74984d;
+  border-radius: 4px;
+}
+
+/* Main Content Layout */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 20px 20px 20px;
+  gap: 30px;
+}
+
+/* Profile Section */
+.profile-section {
+  width: 100%;
+  max-width: 700px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.profile-section h1 {
+  font-family: 'Silkscreen', sans-serif;
+  color: #74984d;
+  margin-bottom: 20px;
+}
+
+.profile-info p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.profile-info strong {
+  font-family: 'Silkscreen', sans-serif;
+  color: #5f7d3b;
+}
+
+/* Avatar Section */
+.avatar-card {
+  margin-top: 30px;
+  background-color: #edffd9;
+  border: 1px solid #74984d;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.avatar-card h2 {
+  font-family: 'Silkscreen', sans-serif;
+  color: #74984d;
+  margin-bottom: 10px;
+}
+
+.avatar-card img {
+  max-width: 120px;
+}
+
+/* Footer */
+footer {
+  background-color: #74984d;
+  color: white;
+  text-align: center;
+  height: 30px;
+  padding-top: 5px;
+  width: 100%;
+  font-style: italic;
+}
+
