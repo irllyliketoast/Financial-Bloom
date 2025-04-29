@@ -9,13 +9,13 @@
   <!-- External CSS -->
   <link rel="stylesheet" href="../Styles/Budget.css">
 
-<!-- Preconnecting to Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Preconnecting to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- Font families used -->
-<link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Font families used -->
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -41,13 +41,8 @@
   </nav>
 
   <main>
-    <!-- Unity Embed -->
-    <section class="unity-container">
-      <iframe src="https://cmlane48.itch.io/financial-bloom" frameborder="0" width="960" height="600" style="border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.2);"></iframe>
-    </section>
-
-    <!-- Tables Section -->
-    <section class="tables-section">
+    <div class="left-section">
+      <!-- Tables Section -->
 
       <!-- Income/Debt Tracker -->
       <div class="table-container">
@@ -63,7 +58,7 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Starter rows will be injected by JavaScript -->
+            <!-- Starter rows injected by JavaScript -->
           </tbody>
         </table>
       </div>
@@ -82,12 +77,27 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Starter rows will be injected by JavaScript -->
+            <!-- Starter rows injected by JavaScript -->
           </tbody>
         </table>
       </div>
 
-    </section>
+    </div>
+
+    <div class="right-section">
+      <!-- Budgeting Advice Side Panel -->
+      <div class="advice-panel">
+        <h2>How to Budget?</h2>
+        <p>A common rule of thumb in budgeting is called the 50/20/30 rule:</p>
+        <ul>
+          <li>50% of income for needs (groceries, car, home)</li>
+          <li>20% of income for savings (debts, savings)</li>
+          <li>30% for leisure/luxury (eating out, travel, gym)</li>
+        </ul>
+        <p>Emergency Fund: Keep 3-6 months of expenses saved for emergencies like job loss or unexpected bills.</p>
+        <p>Be realistic: Start small, track expenses, adjust as needed. Consistency matters more than perfection!</p>
+      </div>
+    </div>
 
   </main>
 
@@ -96,21 +106,12 @@
     Financial Bloom ™ 2025
   </footer>
 
-  <!-- Alert box placeholder for edits -->
-  <div id="customAlertOverlay" class="alert-overlay" style="display: none;">
-    <div id="customAlert" class="alert-box">
-      <p id="alertMessage"></p>
-      <button onclick="confirmSave()">OK</button>
-      <button onclick="cancelSave()">Cancel</button>
-    </div>
-  </div>
-
   <!-- JavaScript -->
   <script>
-	// Maximum number of rows
+	// Maximum number of rows allowed per table
 	const maxRows = 30;
 
-	// Initial row creation on load
+	// Starter rows when page loads
 	document.addEventListener('DOMContentLoaded', () => {
 	  addIncomeDebtRow();
 	  addIncomeDebtRow();
@@ -118,7 +119,7 @@
 	  addMilestoneRow();
 	});
 
-	// Functions for Income/Debt Table
+	// Add a new row to the Income/Debt table
 	function addIncomeDebtRow() {
 	  const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
 	  if (table.rows.length >= maxRows) {
@@ -141,6 +142,7 @@
 		option.innerText = optionText;
 		typeSelect.appendChild(option);
 	  });
+	  typeSelect.onchange = triggerEditAlert;
 	  typeCell.appendChild(typeSelect);
 
 	  // Name Input
@@ -148,6 +150,7 @@
 	  nameInput.type = "text";
 	  nameInput.placeholder = "Enter name...";
 	  nameInput.oninput = sanitizeInputLive;
+	  nameInput.onblur = triggerEditAlert;
 	  nameCell.appendChild(nameInput);
 
 	  // Amount Input
@@ -155,6 +158,7 @@
 	  amountInput.type = "number";
 	  amountInput.placeholder = "$0";
 	  amountInput.oninput = sanitizeInputLive;
+	  amountInput.onblur = triggerEditAlert;
 	  amountCell.appendChild(amountInput);
 
 	  // Delete Button
@@ -164,7 +168,7 @@
 	  deleteCell.appendChild(deleteBtn);
 	}
 
-	// Functions for Milestone Table
+	// Add a new row to the Milestones table
 	function addMilestoneRow() {
 	  const table = document.getElementById('milestone-table').getElementsByTagName('tbody')[0];
 	  if (table.rows.length >= maxRows) {
@@ -176,7 +180,66 @@
 
 	  const milestoneNameCell = row.insertCell(0);
 	  const amountSavedCell = row.insertCell(1);
-	  const goalAmountCell = row.
+	  const goalAmountCell = row.insertCell(2);
+	  const deleteCell = row.insertCell(3);
+
+	  // Milestone Name Input
+	  const milestoneNameInput = document.createElement('input');
+	  milestoneNameInput.type = "text";
+	  milestoneNameInput.placeholder = "Milestone...";
+	  milestoneNameInput.oninput = sanitizeInputLive;
+	  milestoneNameInput.onblur = triggerEditAlert;
+	  milestoneNameCell.appendChild(milestoneNameInput);
+
+	  // Amount Saved Input
+	  const amountSavedInput = document.createElement('input');
+	  amountSavedInput.type = "number";
+	  amountSavedInput.placeholder = "$0";
+	  amountSavedInput.oninput = sanitizeInputLive;
+	  amountSavedInput.onblur = triggerEditAlert;
+	  amountSavedCell.appendChild(amountSavedInput);
+
+	  // Goal Amount Input
+	  const goalAmountInput = document.createElement('input');
+	  goalAmountInput.type = "number";
+	  goalAmountInput.placeholder = "$0";
+	  goalAmountInput.oninput = sanitizeInputLive;
+	  goalAmountInput.onblur = triggerEditAlert;
+	  goalAmountCell.appendChild(goalAmountInput);
+
+	  // Delete Button
+	  const deleteBtn = document.createElement('button');
+	  deleteBtn.innerText = "🗑️";
+	  deleteBtn.onclick = () => row.remove();
+	  deleteCell.appendChild(deleteBtn);
+	}
+
+	// Input Sanitization: Real-time cleaning
+	function sanitizeInputLive(e) {
+	  this.value = this.value.replace(/[<>"'`=\/]/g, '');
+	}
+
+	// Alert Box Functions for Confirming Edits
+	let pendingSaveCallback = null;
+
+	function triggerEditAlert(callback) {
+	  pendingSaveCallback = callback || null;
+	  document.getElementById('customAlertOverlay').style.display = "flex";
+	  document.getElementById('alertMessage').innerText = "Do you want to save your changes?";
+	}
+
+	function confirmSave() {
+	  if (pendingSaveCallback) {
+		pendingSaveCallback();
+		pendingSaveCallback = null;
+	  }
+	  document.getElementById('customAlertOverlay').style.display = "none";
+	}
+
+	function cancelSave() {
+	  pendingSaveCallback = null;
+	  document.getElementById('customAlertOverlay').style.display = "none";
+	}
   </script>
 
 </body>
