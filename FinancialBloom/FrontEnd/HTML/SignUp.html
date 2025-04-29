@@ -25,7 +25,7 @@
 </head>
 
 <body>
-
+<div id="customCursor"></div>
   <!-- Top header bar -->
   <header class="header">
     <img src="../Graphics/logo.png" alt="Financial Bloom logo">
@@ -220,6 +220,12 @@
 	.catch((error) => {
 	  console.error('Error:', error);
 	});
+	  // 🖱️ Custom Cursor Follower Script
+	  const cursor = document.getElementById('customCursor');
+	  document.addEventListener('mousemove', (e) => {
+	    cursor.style.left = `${e.clientX}px`;
+	    cursor.style.top = `${e.clientY}px`;
+	  });
   </script>
 
 </body>
