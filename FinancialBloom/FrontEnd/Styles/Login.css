@@ -1,10 +1,7 @@
-/* 
-  Base layout structure by Chris Lane.
-  Visual design, styling customization, responsive formatting, and animation 
-  enhancements by Laura Estremera.
-*/
-
-/* ------------------ Global & Page Background ------------------ */
+* {
+/* Hides the default cursor and forces use of the custom one */
+  cursor: none !important;
+}
 
 /* Set a full-page garden-themed background image */
 html {
@@ -16,6 +13,22 @@ html {
 body {
     margin: 0;
     line-height: 1.5;
+}
+
+/* ===== Custom Cursor ===== */
+#customCursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  background-image: url('../Graphics/custom-cursor.png'); /* Custom image */
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none; /* So it doesn’t interfere with clicking */
+    z-index: 99999; /* bump it above all other UI */
+  transform: translate(-50%, -50%); /* Centers image on mouse */
+  transition: transform 0.2s ease;
 }
 
 /* ------------------ Typography ------------------ */
