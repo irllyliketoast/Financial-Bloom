@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BudgetEntryRepository extends JpaRepository<BudgetEntry, Long> {
+public interface BudgetEntryRepository extends JpaRepository<BudgetEntry, Integer> {
 
     List<BudgetEntry> findAllByUser(User user);
 
