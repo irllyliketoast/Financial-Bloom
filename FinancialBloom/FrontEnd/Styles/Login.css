@@ -40,6 +40,7 @@ input[type="submit"],
 input[type="text"],
 input[type="password"],
 #SignUp,
+footer,
 section.social-media {
     font-family: 'Silkscreen', sans-serif;
 }
@@ -180,7 +181,7 @@ section.social-media {
 
 .logo-title {
   font-family: 'Silkscreen', sans-serif !important;
-  font-size: 32px;
+  font-size: 40px;
   margin: 0;
   color: white; /* <-- ADD THIS */
 }
