@@ -105,80 +105,100 @@
   </div>
 
   <!-- JS -->
-  <script>
-    const maxRows = 30;
+<script>
+  const maxRows = 30;
 
-    document.addEventListener('DOMContentLoaded', () => {
-      addIncomeDebtRow();
-      addIncomeDebtRow();
-      addMilestoneRow();
-      addMilestoneRow();
+  document.addEventListener('DOMContentLoaded', () => {
+    addIncomeDebtRow();
+    addIncomeDebtRow();
+    addMilestoneRow();
+    addMilestoneRow();
+  });
+
+  function addIncomeDebtRow() {
+    const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
+    if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
+
+    const row = table.insertRow();
+    row.innerHTML = `
+      <td>
+        <select>
+          <option>Income</option>
+          <option>Debt</option>
+          <option>Expense</option>
+        </select>
+      </td>
+      <td><input type="text" oninput="sanitizeInput(this)" /></td>
+      <td><input type="number" oninput="sanitizeInput(this)" /></td>
+      <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
+    `;
+    window.scrollBy({ top: 150, behavior: 'smooth' });
+  }
+
+  function addMilestoneRow() {
+    const table = document.getElementById('milestone-table').getElementsByTagName('tbody')[0];
+    if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
+
+    const row = table.insertRow();
+    row.innerHTML = `
+      <td><input type="text" oninput="sanitizeInput(this)" /></td>
+      <td><input type="number" oninput="sanitizeInput(this)" /></td>
+      <td><input type="number" oninput="sanitizeInput(this)" /></td>
+      <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
+    `;
+    window.scrollBy({ top: 150, behavior: 'smooth' });
+  }
+
+  function sanitizeInput(input) {
+    input.value = input.value.replace(/[<>"'`=\/]/g, '');
+  }
+
+  // Alert Box Functions
+  let pendingSaveCallback = null;
+
+  function triggerEditAlert(callback) {
+    pendingSaveCallback = callback || null;
+    document.getElementById('customAlertOverlay').style.display = "flex";
+  }
+
+  function confirmSave() {
+    if (pendingSaveCallback) pendingSaveCallback();
+    pendingSaveCallback = null;
+    document.getElementById('customAlertOverlay').style.display = "none";
+  }
+
+  function cancelSave() {
+    pendingSaveCallback = null;
+    document.getElementById('customAlertOverlay').style.display = "none";
+
+    // Clean empty rows except first 2
+    cleanEmptyRows("income-debt-table", 2);
+    cleanEmptyRows("milestone-table", 2);
+  }
+
+  function cleanEmptyRows(tableId, preserveCount) {
+    const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+    const rows = Array.from(table.rows);
+
+    rows.forEach((row, index) => {
+      if (index < preserveCount) return;
+
+      const inputs = row.querySelectorAll('input, select');
+      const isEmpty = Array.from(inputs).every(input => input.value === "");
+
+      if (isEmpty) {
+        row.remove();
+      }
     });
+  }
 
-    function addIncomeDebtRow() {
-      const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
-      if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
-
-      const row = table.insertRow();
-      row.innerHTML = `
-        <td>
-          <select>
-            <option>Income</option>
-            <option>Debt</option>
-            <option>Expense</option>
-          </select>
-        </td>
-        <td><input type="text" oninput="sanitizeInput(this)" /></td>
-        <td><input type="number" oninput="sanitizeInput(this)" /></td>
-        <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
-      `;
-      window.scrollBy({ top: 150, behavior: 'smooth' });
-    }
-
-    function addMilestoneRow() {
-      const table = document.getElementById('milestone-table').getElementsByTagName('tbody')[0];
-      if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
-
-      const row = table.insertRow();
-      row.innerHTML = `
-        <td><input type="text" oninput="sanitizeInput(this)" /></td>
-        <td><input type="number" oninput="sanitizeInput(this)" /></td>
-        <td><input type="number" oninput="sanitizeInput(this)" /></td>
-        <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
-      `;
-      window.scrollBy({ top: 150, behavior: 'smooth' });
-    }
-
-    function sanitizeInput(input) {
-      input.value = input.value.replace(/[<>"'`=\/]/g, '');
-    }
-
-    // Alert Box Functions
-    let pendingSaveCallback = null;
-
-    function triggerEditAlert(callback) {
-      pendingSaveCallback = callback || null;
-      document.getElementById('customAlertOverlay').style.display = "flex";
-    }
-
-    function confirmSave() {
-      if (pendingSaveCallback) pendingSaveCallback();
-      pendingSaveCallback = null;
-      document.getElementById('customAlertOverlay').style.display = "none";
-    }
-
-    function cancelSave() {
-      pendingSaveCallback = null;
-      document.getElementById('customAlertOverlay').style.display = "none";
-    }
-	
-    // 🖱️ Custom Cursor Follower Script
-    const cursor = document.getElementById('customCursor');
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-    });
-  </script>
+  // 🖱️ Custom Cursor Follower Script
+  const cursor = document.getElementById('customCursor');
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+  });
+</script>
 
 </body>
 </html>
