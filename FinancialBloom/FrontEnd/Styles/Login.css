@@ -161,7 +161,7 @@ section.social-media {
 }
 /* ------------------ Login Form Styling ------------------ */
 
-#LogIn, #reset {
+#LogIn, .forgot-link {
     margin: 10px auto 0px;
     width: 91%;
     padding: 5px;
@@ -172,7 +172,7 @@ section.social-media {
     cursor: pointer;
 }
 
-#LogIn:hover, #reset:hover {
+#LogIn:hover, .forgot-link:hover {
     background-color: #74984d;
     color: white;
 }
