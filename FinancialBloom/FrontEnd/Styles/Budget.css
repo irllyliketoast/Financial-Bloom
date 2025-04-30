@@ -103,6 +103,11 @@ main {
   gap: 20px;
 }
 
+.percentages {
+  font-family: 'Silkscreen', sans-serif;
+  color: #74984d;
+}
+
 /* Left Section: Tables */
 .left-section {
   flex: 2;
