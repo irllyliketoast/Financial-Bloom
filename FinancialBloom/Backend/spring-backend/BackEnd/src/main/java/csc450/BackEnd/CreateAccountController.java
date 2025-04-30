@@ -4,17 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
+
 @RestController
 @RequestMapping("/api")
 public class CreateAccountController {
 
+    private final CreateAccountService service;
+
     @Autowired
-    private CreateAccountService createAccountService;
+    public CreateAccountController(CreateAccountService service) {
+        this.service = service;
+    }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody CreateAccountRequest request) {
-        String result = createAccountService.registerUser(request);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<?> register(@RequestBody CreateAccountRequest request) {
+        String resultMessage = service.registerUser(request);
+        return ResponseEntity.ok(Collections.singletonMap("message", resultMessage));
     }
 }
+
 

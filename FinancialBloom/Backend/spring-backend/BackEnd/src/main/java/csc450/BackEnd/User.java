@@ -90,6 +90,10 @@ public class User {
     public void setNewUsername(String username) { this.username = username; }
     public void setNewEmail(String newEmail) { this.email = newEmail; }
     public void setNewPassword(String newPass) { this.password = newPass; }
+    public String getPassword() {
+        return this.password;
+    }
+
 
     // NOTE: login logic is normally handled by a service layer or Spring Security
     public boolean login(String emailAttempt, String passAttempt) {

@@ -8,5 +8,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     // Optional custom query methods:
     User findByEmail(String email);
-    User findByEmailAndPassword(String email, String password);
+    User findByUsername(String username);
+
 }
