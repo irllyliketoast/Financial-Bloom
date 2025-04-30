@@ -49,12 +49,13 @@
 		<p><strong>Last Name:</strong> <span id="last-name">Loading...</span></p>
 		<p><strong>Username:</strong> <span id="username">Loading...</span></p>
 		<p><strong>Email Address:</strong> <span id="email">Loading...</span></p>
+		<p><strong>Date Created:</strong> <span id="date-created">Loading...</span></p>
 	  </div>
 
 	  <!-- Avatar Display -->
 	  <div class="avatar-card">
 		<h2>Your Character</h2>
-		<img id="avatar-img" src="../Graphics/avatar-placeholder.png" alt="Character Avatar">
+		<img id="avatar-img" src="../Graphics/avatar.png" alt="Character Avatar">
 	  </div>
 	</section>
   </main>
@@ -75,6 +76,7 @@
 		  document.getElementById('last-name').innerText = user.lastName;
 		  document.getElementById('username').innerText = user.username;
 		  document.getElementById('email').innerText = user.email;
+		  document.getElementById('date-created').innerText = user.dateCreated || "Unavailable";
 		  document.getElementById('avatar-img').src = user.avatarUrl || "../Graphics/avatar-placeholder.png";
 		} catch (error) {
 		  console.error('Failed to load user profile:', error);
