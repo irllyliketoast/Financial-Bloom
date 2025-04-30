@@ -82,69 +82,69 @@
   <!-- JavaScript -->
   <!-- JavaScript -->
 <script>
-	async function validateForm(event) {
-	  event.preventDefault();
+async function validateForm(event) {
+  event.preventDefault();
 
-	  let username = sanitizeInput(document.getElementById("username").value.trim());
-	  let password = document.getElementById("password").value; // no sanitize!
+  let username = sanitizeInput(document.getElementById("username").value.trim());
+  let password = document.getElementById("password").value; // no sanitize!
 
-	  let usernameRegex = /^\S+$/;
-	  let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
+  let usernameRegex = /^\S+$/;
+  let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
 
-	  if (username === "" && password === "") {
-		showAlert("Please enter a username and password.");
-		return false;
-	  }
-	  if (username === "") {
-		showAlert("Please enter a username.");
-		return false;
-	  }
-	  if (password === "") {
-		showAlert("Please enter a password.");
-		return false;
-	  }
-	  if (!usernameRegex.test(username)) {
-		showAlert("Username cannot contain spaces.");
-		return false;
-	  }
-	  if (!passwordRegex.test(password)) {
-		showAlert("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
-		return false;
-	  }
+  if (username === "" && password === "") {
+    showAlert("Please enter a username and password.");
+    return false;
+  }
+  if (username === "") {
+    showAlert("Please enter a username.");
+    return false;
+  }
+  if (password === "") {
+    showAlert("Please enter a password.");
+    return false;
+  }
+  if (!usernameRegex.test(username)) {
+    showAlert("Username cannot contain spaces.");
+    return false;
+  }
+  if (!passwordRegex.test(password)) {
+    showAlert("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
+    return false;
+  }
 
-	  try {
-		showLoading();
+  try {
+    showLoading();
 
-		const response = await fetch('https://your-backend-url.com/api/login', {
-		  method: 'POST',
-		  headers: {
-			'Content-Type': 'application/json',
-		  },
-		  body: JSON.stringify({ username, password })
-		});
+    const response = await fetch('https://your-backend-url.com/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password })
+    });
 
-		hideLoading();
+    hideLoading();
 
-		if (response.ok) {
-		  const result = await response.json();
-		  console.log("Backend response:", result);
+    if (response.ok) {
+      const result = await response.json();
+      console.log("Backend response:", result);
 
-		  if (result.success === true || result.success === "true") {
-			window.location.href = "Dashboard.html";
-		  } else {
-			showAlert("Invalid username or password. Please try again.");
-		  }
-		} else {
-		  showAlert("Server error. Please try again later.");
-		}
-	  } catch (error) {
-		hideLoading();
-		console.error('Login failed:', error);
-		showAlert("Could not connect to server. Please try again later.");
-	  }
+      if (result.success === true || result.success === "true") {
+        window.location.href = "Dashboard.html";
+      } else {
+        showAlert("Invalid username or password. Please try again.");
+      }
+    } else {
+      showAlert("Server error. Please try again later.");
+    }
+  } catch (error) {
+    hideLoading();
+    console.error('Login failed:', error);
+    showAlert("Could not connect to server. Please try again later.");
+  }
 
-	  return false;
-	}
+  return false;
+}
   // 🖱️ Custom Cursor Follower Script
   const cursor = document.getElementById('customCursor');
   document.addEventListener('mousemove', (e) => {
