@@ -31,14 +31,14 @@ public class BudgetController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Budget> getBudgetById(@PathVariable Long id) {
+    public ResponseEntity<Budget> getBudgetById(@PathVariable Integer id) {
         return budgetRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteBudget(@PathVariable Long id) {
+    public ResponseEntity<String> deleteBudget(@PathVariable Integer id) {
         if (budgetRepository.existsById(id)) {
             budgetRepository.deleteById(id);
             return ResponseEntity.ok("Budget deleted.");

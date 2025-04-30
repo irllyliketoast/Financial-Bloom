@@ -104,7 +104,9 @@
   <script>
     async function fetchDashboardData() {
       try {
-        const response = await fetch('/api/dashboardData');
+        const currentUserId = localStorage.getItem("userId");
+        console.log("🌱 Loaded currentUserId from localStorage:", currentUserId);
+        const response = await fetch(`http://localhost:8080/api/budget/user/${currentUserId}`);
         const data = await response.json();
 
         // Update Stats

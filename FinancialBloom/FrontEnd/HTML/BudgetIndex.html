@@ -106,6 +106,7 @@
 
   <!-- JS -->
   <script>
+    const currentUserId = localStorage.getItem("userId");
     const maxRows = 30;
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -161,11 +162,48 @@
       document.getElementById('customAlertOverlay').style.display = "flex";
     }
 
-    function confirmSave() {
-      if (pendingSaveCallback) pendingSaveCallback();
-      pendingSaveCallback = null;
+    async function confirmSave() {
       document.getElementById('customAlertOverlay').style.display = "none";
+
+      const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
+      const rows = table.getElementsByTagName('tr');
+
+      for (let row of rows) {
+        const type = row.cells[0].querySelector('select').value;
+        const name = row.cells[1].querySelector('input').value.trim();
+        const amount = parseFloat(row.cells[2].querySelector('input').value.trim());
+
+        if (!name || isNaN(amount)) {
+          alert("All entries must have a name and valid amount.");
+          continue;
+        }
+
+        const entry = {
+          type: type,
+          name: name,
+          amount: amount,
+          userId: currentUserId  // ✅ include user ID
+        };
+
+        try {
+          const response = await fetch('http://localhost:8080/api/budget/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(entry)
+          });
+
+          if (!response.ok) {
+            throw new Error(`Failed to save: ${response.statusText}`);
+          }
+        } catch (err) {
+          console.error("Save error:", err);
+          alert("An error occurred while saving. Please try again.");
+        }
+      }
+
+      alert("Changes saved to your budget!");
     }
+
 
     function cancelSave() {
       pendingSaveCallback = null;

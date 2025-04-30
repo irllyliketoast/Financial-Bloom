@@ -130,11 +130,13 @@
         console.log("Value of success:", result.success);
 
         if (result.success === true || result.success === "true" || result.success == true) {
-          localStorage.setItem("userId", result.userID);
-          console.log("✅ Login successful, redirecting...");
+          console.log("✅ Login response:", result);
+
+          localStorage.setItem("userId", result.userId);
+          console.log("Logging in with userID:", result.userId);
           window.location.href = "Dashboard.html";
         } else {
-          console.log("❌ Backend said success = false");
+          console.log("Backend said success = false");
           showAlert("Invalid username or password. Please try again.");
         }
       } else {
