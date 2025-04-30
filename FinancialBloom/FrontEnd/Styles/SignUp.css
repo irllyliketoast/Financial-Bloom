@@ -1,7 +1,5 @@
 /* 
-  Base structure and layout organized by Chris Lane.
-  All styling, animation, formatting, and typographic refinements 
-  implemented and customized by Laura Estremera.
+  By Laura Estremera
 */
 
 /* ------------------ Global Layout ------------------ */
@@ -91,7 +89,6 @@ footer,
 /* ------------------ Footer ------------------ */
 
 footer {
-    font-style: italic;
     height: 30px;
     background-color: #74984d;
     width: 100%;
