@@ -1,6 +1,4 @@
 /* By Laura Estremera */
-
-/* By Laura Estremera */
 * {
 /* Hides the default cursor and forces use of the custom one */
   cursor: none !important;
@@ -28,6 +26,10 @@ html, body {
   overflow-y: auto;
   font-family: 'Play', sans-serif;
   background-color: #edffd9;
+}
+
+footer{
+    font-family: 'Silkscreen', sans-serif;
 }
 
 /* Header */
