@@ -18,6 +18,7 @@
   transform: translate(-50%, -50%); /* Centers image on mouse */
   transition: transform 0.2s ease;
 }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -32,6 +33,10 @@ html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+footer{
+    font-family: 'Silkscreen', sans-serif;
 }
 
 /* Header */
