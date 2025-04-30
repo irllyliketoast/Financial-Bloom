@@ -1,28 +1,19 @@
-<!-- By Laura Estremera -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <title>Financial Bloom - Budget Dashboard</title>
-
-  <!-- External CSS -->
   <link rel="stylesheet" href="../Styles/Budget.css">
 
-  <!-- Preconnecting to Google Fonts -->
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Font families used -->
   <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 
-<body class="nav-visible">
-<div id="customCursor"></div>
+<body>
   <!-- Header -->
   <header class="header">
     <img src="../Graphics/logo.png" alt="Financial Bloom logo">
@@ -42,11 +33,9 @@
 
   <main>
     <div class="left-section">
-    <!-- Tables Section -->
       <!-- Income/Debt Tracker -->
       <div class="table-container">
         <h2>Income, Debt, Expenses Tracker</h2>
-        <button onclick="addIncomeDebtRow()">+ Add Row</button>
         <table id="income-debt-table">
           <thead>
             <tr>
@@ -56,16 +45,14 @@
               <th>Delete</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Starter rows injected by JavaScript -->
-          </tbody>
+          <tbody></tbody>
         </table>
+        <button onclick="addIncomeDebtRow()">➕ Add Row</button>
       </div>
 
       <!-- Milestone Tracker -->
       <div class="table-container">
         <h2>Milestones Tracker</h2>
-        <button onclick="addMilestoneRow()">+ Add Row</button>
         <table id="milestone-table">
           <thead>
             <tr>
@@ -75,16 +62,14 @@
               <th>Delete</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Starter rows injected by JavaScript -->
-          </tbody>
+          <tbody></tbody>
         </table>
+        <button onclick="addMilestoneRow()">➕ Add Row</button>
       </div>
-
     </div>
 
     <div class="right-section">
-      <!-- Budgeting Advice Side Panel -->
+      <!-- Advice Panel -->
       <div class="advice-panel">
         <h2>How to Budget?</h2>
         <p>A common rule of thumb in budgeting is called the 50/20/30 rule:</p>
@@ -97,13 +82,15 @@
         <p>Be realistic: Start small, track expenses, adjust as needed. Consistency matters more than perfection!</p>
       </div>
     </div>
-
   </main>
 
+  <!-- Save Button -->
+  <div class="save-container">
+    <button onclick="triggerEditAlert()">💾 Save Changes</button>
+  </div>
+
   <!-- Footer -->
-  <footer>
-    Financial Bloom ™ 2025
-  </footer>
+  <footer>Financial Bloom ™ 2025</footer>
 
   <!-- Alert Overlay -->
   <div id="customAlertOverlay" class="alert-overlay" style="display: none;">
@@ -114,118 +101,55 @@
     </div>
   </div>
 
-  <!-- JavaScript -->
+  <!-- JS -->
   <script>
-	// Maximum number of rows allowed per table
-	const maxRows = 30;
+    const maxRows = 30;
 
-	// Starter rows when page loads
-	document.addEventListener('DOMContentLoaded', () => {
-	  addIncomeDebtRow();
-	  addIncomeDebtRow();
-	  addMilestoneRow();
-	  addMilestoneRow();
-	});
+    document.addEventListener('DOMContentLoaded', () => {
+      addIncomeDebtRow();
+      addIncomeDebtRow();
+      addMilestoneRow();
+      addMilestoneRow();
+    });
 
-	// Add a new row to the Income/Debt table
-	function addIncomeDebtRow() {
-	  const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
-	  if (table.rows.length >= maxRows) {
-		alert("You can only add up to 30 rows.");
-		return;
-	  }
+    function addIncomeDebtRow() {
+      const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
+      if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
 
-	  const row = table.insertRow();
+      const row = table.insertRow();
+      row.innerHTML = `
+        <td>
+          <select>
+            <option>Income</option>
+            <option>Debt</option>
+            <option>Savings</option>
+            <option>Expense</option>
+          </select>
+        </td>
+        <td><input type="text" oninput="sanitizeInput(this)" /></td>
+        <td><input type="number" oninput="sanitizeInput(this)" /></td>
+        <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
+      `;
+      window.scrollBy({ top: 150, behavior: 'smooth' });
+    }
 
-	  const typeCell = row.insertCell(0);
-	  const nameCell = row.insertCell(1);
-	  const amountCell = row.insertCell(2);
-	  const deleteCell = row.insertCell(3);
+    function addMilestoneRow() {
+      const table = document.getElementById('milestone-table').getElementsByTagName('tbody')[0];
+      if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
 
-	  // Dropdown for Type
-	  const typeSelect = document.createElement('select');
-	  ['Income', 'Debt', 'Expense'].forEach(optionText => {
-		const option = document.createElement('option');
-		option.value = optionText;
-		option.innerText = optionText;
-		typeSelect.appendChild(option);
-	  });
-	  typeSelect.onchange = triggerEditAlert;
-	  typeCell.appendChild(typeSelect);
+      const row = table.insertRow();
+      row.innerHTML = `
+        <td><input type="text" oninput="sanitizeInput(this)" /></td>
+        <td><input type="number" oninput="sanitizeInput(this)" /></td>
+        <td><input type="number" oninput="sanitizeInput(this)" /></td>
+        <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
+      `;
+      window.scrollBy({ top: 150, behavior: 'smooth' });
+    }
 
-	  // Name Input
-	  const nameInput = document.createElement('input');
-	  nameInput.type = "text";
-	  nameInput.placeholder = "Enter name...";
-	  nameInput.oninput = sanitizeInputLive;
-	  nameInput.onblur = triggerEditAlert;
-	  nameCell.appendChild(nameInput);
-
-	  // Amount Input
-	  const amountInput = document.createElement('input');
-	  amountInput.type = "number";
-	  amountInput.placeholder = "$0";
-	  amountInput.oninput = sanitizeInputLive;
-	  amountInput.onblur = triggerEditAlert;
-	  amountCell.appendChild(amountInput);
-
-	  // Delete Button
-	  const deleteBtn = document.createElement('button');
-	  deleteBtn.innerText = "🗑️";
-	  deleteBtn.onclick = () => row.remove();
-	  deleteCell.appendChild(deleteBtn);
-	}
-
-	// Add a new row to the Milestones table
-	function addMilestoneRow() {
-	  const table = document.getElementById('milestone-table').getElementsByTagName('tbody')[0];
-	  if (table.rows.length >= maxRows) {
-		alert("You can only add up to 30 rows.");
-		return;
-	  }
-
-	  const row = table.insertRow();
-
-	  const milestoneNameCell = row.insertCell(0);
-	  const amountSavedCell = row.insertCell(1);
-	  const goalAmountCell = row.insertCell(2);
-	  const deleteCell = row.insertCell(3);
-
-	  // Milestone Name Input
-	  const milestoneNameInput = document.createElement('input');
-	  milestoneNameInput.type = "text";
-	  milestoneNameInput.placeholder = "Milestone...";
-	  milestoneNameInput.oninput = sanitizeInputLive;
-	  milestoneNameInput.onblur = triggerEditAlert;
-	  milestoneNameCell.appendChild(milestoneNameInput);
-
-	  // Amount Saved Input
-	  const amountSavedInput = document.createElement('input');
-	  amountSavedInput.type = "number";
-	  amountSavedInput.placeholder = "$0";
-	  amountSavedInput.oninput = sanitizeInputLive;
-	  amountSavedInput.onblur = triggerEditAlert;
-	  amountSavedCell.appendChild(amountSavedInput);
-
-	  // Goal Amount Input
-	  const goalAmountInput = document.createElement('input');
-	  goalAmountInput.type = "number";
-	  goalAmountInput.placeholder = "$0";
-	  goalAmountInput.oninput = sanitizeInputLive;
-	  goalAmountInput.onblur = triggerEditAlert;
-	  goalAmountCell.appendChild(goalAmountInput);
-
-	  // Delete Button
-	  const deleteBtn = document.createElement('button');
-	  deleteBtn.innerText = "🗑️";
-	  deleteBtn.onclick = () => row.remove();
-	  deleteCell.appendChild(deleteBtn);
-	}
-
-	// Input Sanitization: Real-time cleaning
-	function sanitizeInputLive(e) {
-	  this.value = this.value.replace(/[<>"'`=\/]/g, '');
-	}
+    function sanitizeInput(input) {
+      input.value = input.value.replace(/[<>"'`=\/]/g, '');
+    }
 
     // Alert Box Functions
     let pendingSaveCallback = null;
@@ -246,7 +170,7 @@
       document.getElementById('customAlertOverlay').style.display = "none";
     }
 	
-	// 🖱️ Custom Cursor Follower Script
+    // 🖱️ Custom Cursor Follower Script
     const cursor = document.getElementById('customCursor');
     document.addEventListener('mousemove', (e) => {
         cursor.style.left = `${e.clientX}px`;
