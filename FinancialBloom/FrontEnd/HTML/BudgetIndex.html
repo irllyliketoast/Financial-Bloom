@@ -42,8 +42,7 @@
 
   <main>
     <div class="left-section">
-      <!-- Tables Section -->
-
+    <!-- Tables Section -->
       <!-- Income/Debt Tracker -->
       <div class="table-container">
         <h2>Income, Debt, Expenses Tracker</h2>
@@ -66,7 +65,7 @@
       <!-- Milestone Tracker -->
       <div class="table-container">
         <h2>Milestones Tracker</h2>
-        <button onclick="addMilestoneRow()">➕ Add Row</button>
+        <button onclick="addMilestoneRow()">+ Add Row</button>
         <table id="milestone-table">
           <thead>
             <tr>
@@ -105,6 +104,15 @@
   <footer>
     Financial Bloom ™ 2025
   </footer>
+
+  <!-- Alert Overlay -->
+  <div id="customAlertOverlay" class="alert-overlay" style="display: none;">
+    <div id="customAlert" class="alert-box">
+      <p id="alertMessage">Do you want to save your changes?</p>
+      <button onclick="confirmSave()">OK</button>
+      <button onclick="cancelSave()">Cancel</button>
+    </div>
+  </div>
 
   <!-- JavaScript -->
   <script>
@@ -219,33 +227,31 @@
 	  this.value = this.value.replace(/[<>"'`=\/]/g, '');
 	}
 
-	// Alert Box Functions for Confirming Edits
-	let pendingSaveCallback = null;
+    // Alert Box Functions
+    let pendingSaveCallback = null;
 
-	function triggerEditAlert(callback) {
-	  pendingSaveCallback = callback || null;
-	  document.getElementById('customAlertOverlay').style.display = "flex";
-	  document.getElementById('alertMessage').innerText = "Do you want to save your changes?";
-	}
+    function triggerEditAlert(callback) {
+      pendingSaveCallback = callback || null;
+      document.getElementById('customAlertOverlay').style.display = "flex";
+    }
 
-	function confirmSave() {
-	  if (pendingSaveCallback) {
-		pendingSaveCallback();
-		pendingSaveCallback = null;
-	  }
-	  document.getElementById('customAlertOverlay').style.display = "none";
-	}
+    function confirmSave() {
+      if (pendingSaveCallback) pendingSaveCallback();
+      pendingSaveCallback = null;
+      document.getElementById('customAlertOverlay').style.display = "none";
+    }
 
-	function cancelSave() {
-	  pendingSaveCallback = null;
-	  document.getElementById('customAlertOverlay').style.display = "none";
-	}
-	    // 🖱️ Custom Cursor Follower Script
-	const cursor = document.getElementById('customCursor');
-	document.addEventListener('mousemove', (e) => {
-    		cursor.style.left = `${e.clientX}px`;
-		cursor.style.top = `${e.clientY}px`;
-	  });
+    function cancelSave() {
+      pendingSaveCallback = null;
+      document.getElementById('customAlertOverlay').style.display = "none";
+    }
+	
+	// 🖱️ Custom Cursor Follower Script
+    const cursor = document.getElementById('customCursor');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+    });
   </script>
 
 </body>
