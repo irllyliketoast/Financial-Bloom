@@ -19,67 +19,68 @@
 </head>
 
 <body>
-<div id="customCursor"></div>
+  <div id="customCursor"></div>
 
-<!-- Fixed header -->
-<header class="header">
-  <img src="../Graphics/logo.png" alt="Financial Bloom logo">
-  <h1 class="logo-title">Financial Bloom</h1>
-</header>
+  <!-- Fixed header -->
+  <header class="header">
+    <img src="../Graphics/logo.png" alt="Financial Bloom logo">
+    <h1 class="logo-title">Financial Bloom</h1>
+  </header>
 
-<!-- Custom Alert Overlay -->
-<div id="customAlertOverlay" class="alert-overlay">
-  <div id="customAlert" class="alert-box">
-    <p id="alertMessage"></p>
-    <button onclick="closeAlert()">OK</button>
-  </div>
-</div>
-
-<!-- Loading Spinner Overlay -->
-<div id="loadingOverlay" class="alert-overlay" style="display: none;">
-  <div class="alert-box">
-    <p>Loading...</p>
-  </div>
-</div>
-
-<!-- Main login wrapper -->
-<div class="wrapper side-panel-open">
-  <div class="main">
-
-    <!-- Login form -->
-    <form onsubmit="validateForm(event)">
-      <h1>Welcome to Financial Bloom!</h1>
-      <fieldset id="first">
-        <input type="text" name="username" id="username" placeholder="Username" autofocus><br>
-        <input type="password" name="password" id="password" placeholder="Password"><br>
-        <input type="submit" value="Log In" id="LogIn">
-        <a href="Forget.html" class="forgot-link">Forgot username or password?</a>
-      </fieldset>
-    </form>
-
-    <!-- Social Media Section -->
-    <section class="social-media">
-      Follow us on:<br>
-      <img src="../Graphics/faceBook.png" alt="Facebook">
-      <img src="../Graphics/insta.png" alt="Instagram">
-      <img src="../Graphics/x.png" alt="X">
-    </section>
-
-    <!-- Side panel -->
-    <div class="side-panel">
-      <h2>Welcome to Financial Bloom!</h2>
-      <p>Discover a fun and engaging way to take control of your finances through your very own virtual garden.</p>
-      <p>Sign in to get started, set your goals, and cultivate a brighter financial future!</p>
-      <p>Don't have an account?</p>
-      <a href="SignUp.html" id="SignUp">Sign Up</a>
+  <!-- Custom Alert Overlay -->
+  <div id="customAlertOverlay" class="alert-overlay">
+    <div id="customAlert" class="alert-box">
+      <p id="alertMessage"></p>
+      <button onclick="closeAlert()">OK</button>
     </div>
   </div>
-</div>
 
-<!-- Footer -->
-<footer>2025 Financial Bloom &copy; All rights reserved.</footer>
+  <!-- Loading Spinner Overlay -->
+  <div id="loadingOverlay" class="alert-overlay" style="display: none;">
+    <div class="alert-box">
+      <p>Loading...</p>
+    </div>
+  </div>
 
-<!-- JavaScript -->
+  <!-- Main login wrapper -->
+  <div class="wrapper side-panel-open">
+    <div class="main">
+
+      <!-- Login form -->
+      <form onsubmit="validateForm(event)">
+        <h1>Welcome to Financial Bloom!</h1>
+        <fieldset id="first">
+          <input type="text" name="username" id="username" placeholder="Username" autofocus><br>
+          <input type="password" name="password" id="password" placeholder="Password"><br>
+          <input type="submit" value="Log In" id="LogIn">
+          <a href="Forget.html" class="forgot-link">Forgot username or password?</a>
+        </fieldset>
+      </form>
+
+      <!-- Social Media Section -->
+      <section class="social-media">
+        Follow us on:<br>
+        <img src="../Graphics/faceBook.png" alt="Facebook">
+        <img src="../Graphics/insta.png" alt="Instagram">
+        <img src="../Graphics/x.png" alt="X">
+      </section>
+
+      <!-- Side panel -->
+      <div class="side-panel">
+        <h2>Welcome to Financial Bloom!</h2>
+        <p>Discover a fun and engaging way to take control of your finances through your very own virtual garden.</p>
+        <p>Sign in to get started, set your goals, and cultivate a brighter financial future!</p>
+		<div class="spacer"></div>
+        <p>Don't have an account?</p>
+        <a href="SignUp.html" id="SignUp">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
+
+  <!-- JavaScript -->
 <script>
   async function validateForm(event) {
     event.preventDefault();
@@ -130,13 +131,10 @@
         console.log("Value of success:", result.success);
 
         if (result.success === true || result.success === "true" || result.success == true) {
-          console.log("✅ Login response:", result);
-
-          localStorage.setItem("userId", result.userId);
-          console.log("Logging in with userID:", result.userId);
+          console.log("✅ Login successful, redirecting...");
           window.location.href = "Dashboard.html";
         } else {
-          console.log("Backend said success = false");
+          console.log("❌ Backend said success = false");
           showAlert("Invalid username or password. Please try again.");
         }
       } else {
@@ -184,6 +182,6 @@
     cursor.style.top = `${e.clientY}px`;
   });
 </script>
-
+  
 </body>
 </html>

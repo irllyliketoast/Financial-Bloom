@@ -1,3 +1,4 @@
+<!-- By Laura Estremera -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,118 +106,105 @@
   </div>
 
   <!-- JS -->
-  <script>
-    const currentUserId = localStorage.getItem("userId");
-    const maxRows = 30;
+<script>
+  const maxRows = 30;
 
-    document.addEventListener('DOMContentLoaded', () => {
-      addIncomeDebtRow();
-      addIncomeDebtRow();
-      addMilestoneRow();
-      addMilestoneRow();
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    addIncomeDebtRow();
+    addIncomeDebtRow();
+    addMilestoneRow();
+    addMilestoneRow();
+  });
 
-    function addIncomeDebtRow() {
-      const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
-      if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
+  function addIncomeDebtRow() {
+    const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
+    if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
 
-      const row = table.insertRow();
-      row.innerHTML = `
-        <td>
-          <select>
-            <option>Income</option>
-            <option>Debt</option>
-            <option>Expense</option>
-          </select>
-        </td>
-        <td><input type="text" oninput="sanitizeInput(this)" /></td>
-        <td><input type="number" oninput="sanitizeInput(this)" /></td>
-        <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
-      `;
-      window.scrollBy({ top: 150, behavior: 'smooth' });
-    }
+    const row = table.insertRow();
+    row.innerHTML = `
+      <td>
+        <select>
+          <option>Income</option>
+          <option>Debt</option>
+          <option>Expense</option>
+        </select>
+      </td>
+      <td><input type="text" oninput="sanitizeInput(this)" /></td>
+      <td><input type="number" oninput="sanitizeInput(this)" /></td>
+      <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
+    `;
+    window.scrollBy({ top: 150, behavior: 'smooth' });
+  }
 
-    function addMilestoneRow() {
-      const table = document.getElementById('milestone-table').getElementsByTagName('tbody')[0];
-      if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
+  function addMilestoneRow() {
+    const table = document.getElementById('milestone-table').getElementsByTagName('tbody')[0];
+    if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
 
-      const row = table.insertRow();
-      row.innerHTML = `
-        <td><input type="text" oninput="sanitizeInput(this)" /></td>
-        <td><input type="number" oninput="sanitizeInput(this)" /></td>
-        <td><input type="number" oninput="sanitizeInput(this)" /></td>
-        <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
-      `;
-      window.scrollBy({ top: 150, behavior: 'smooth' });
-    }
+    const row = table.insertRow();
+    row.innerHTML = `
+      <td><input type="text" oninput="sanitizeInput(this)" /></td>
+      <td><input type="number" oninput="sanitizeInput(this)" /></td>
+      <td><input type="number" oninput="sanitizeInput(this)" /></td>
+      <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
+    `;
+    window.scrollBy({ top: 150, behavior: 'smooth' });
+  }
 
-    function sanitizeInput(input) {
-      input.value = input.value.replace(/[<>"'`=\/]/g, '');
-    }
+  function sanitizeInput(input) {
+    input.value = input.value.replace(/[<>"'`=\/]/g, '');
+  }
 
-    // Alert Box Functions
-    let pendingSaveCallback = null;
+  // Alert Box Functions
+  let pendingSaveCallback = null;
 
-    function triggerEditAlert(callback) {
-      pendingSaveCallback = callback || null;
-      document.getElementById('customAlertOverlay').style.display = "flex";
-    }
+  function triggerEditAlert(callback) {
+    pendingSaveCallback = callback || null;
+    document.getElementById('customAlertOverlay').style.display = "flex";
+  }
 
-    async function confirmSave() {
-      document.getElementById('customAlertOverlay').style.display = "none";
+  function confirmSave() {
+    if (pendingSaveCallback) pendingSaveCallback();
+    pendingSaveCallback = null;
+    document.getElementById('customAlertOverlay').style.display = "none";
 
-      const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
-      const rows = table.getElementsByTagName('tr');
+    // Clean empty rows after saving
+    cleanEmptyRows("income-debt-table", 2);
+    cleanEmptyRows("milestone-table", 2);
+  }
 
-      for (let row of rows) {
-        const type = row.cells[0].querySelector('select').value;
-        const name = row.cells[1].querySelector('input').value.trim();
-        const amount = parseFloat(row.cells[2].querySelector('input').value.trim());
+  function cancelSave() {
+    pendingSaveCallback = null;
+    document.getElementById('customAlertOverlay').style.display = "none";
 
-        if (!name || isNaN(amount)) {
-          alert("All entries must have a name and valid amount.");
-          continue;
-        }
+    // Clean empty rows on cancel
+    cleanEmptyRows("income-debt-table", 2);
+    cleanEmptyRows("milestone-table", 2);
+  }
 
-        const entry = {
-          type: type,
-          name: name,
-          amount: amount,
-          userId: currentUserId  // ✅ include user ID
-        };
+  function cleanEmptyRows(tableId, preserveCount) {
+    const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+    const rows = Array.from(table.rows);
 
-        try {
-          const response = await fetch('http://localhost:8080/api/budget/add', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(entry)
-          });
+    rows.forEach((row, index) => {
+      if (index < preserveCount) return;
 
-          if (!response.ok) {
-            throw new Error(`Failed to save: ${response.statusText}`);
-          }
-        } catch (err) {
-          console.error("Save error:", err);
-          alert("An error occurred while saving. Please try again.");
-        }
+      // Only look at input fields (ignore selects)
+      const inputs = row.querySelectorAll('input');
+      const isEmpty = Array.from(inputs).every(input => input.value.trim() === "");
+
+      if (isEmpty) {
+        row.remove();
       }
-
-      alert("Changes saved to your budget!");
-    }
-
-
-    function cancelSave() {
-      pendingSaveCallback = null;
-      document.getElementById('customAlertOverlay').style.display = "none";
-    }
-	
-    // 🖱️ Custom Cursor Follower Script
-    const cursor = document.getElementById('customCursor');
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
     });
-  </script>
+  }
+
+  // 🖱️ Custom Cursor Follower Script
+  const cursor = document.getElementById('customCursor');
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+  });
+</script>
 
 </body>
 </html>
