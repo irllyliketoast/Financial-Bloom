@@ -59,6 +59,7 @@ public class BudgetEntryController {
         if (userOpt.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        System.out.println("📥 Fetching budget entries for user ID: " + userId);
 
         List<BudgetEntry> entries = budgetRepo.findAllByUser(userOpt.get());
         return ResponseEntity.ok(entries);
