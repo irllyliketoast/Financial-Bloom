@@ -102,15 +102,25 @@
 
   <!-- JavaScript to Fetch Dashboard Data -->
   <script>
-    const currentUserId = localStorage.getItem("userId");
-    if (!currentUserId) {
+    function getCookie(name) { // returns userid when you do 'getCookie("userId")'
+      const cookieString = document.cookie;
+      const cookies = cookieString.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+          return cookie.substring(name.length + 1);
+        }
+      }
+      return null;
+    }
+    const cookie = getCookie("userId"); // when setting cookie, do this
+    if (!cookie) {
       window.location.replace("Login.html");
     }
 
     async function fetchDashboardData() {
       try {
-        const currentUserId = localStorage.getItem("userId");
-        const response = await fetch(`http://localhost:8080/api/budget/user/${currentUserId}`);
+        const response = await fetch(`http://localhost:8080/api/budget/user/${cookie}`);
         const data = await response.json();
 
         // Update Stats
@@ -166,7 +176,6 @@
 
     // Load dashboard data when page loads
     window.addEventListener('DOMContentLoaded', fetchDashboardData);
-    console.log(document.cookie);
   </script>
 
 </body>
