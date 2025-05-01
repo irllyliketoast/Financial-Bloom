@@ -108,6 +108,7 @@
   <!-- JS -->
 <script src="../Scripts/required.js"></script>
 <script>
+  const userId = getCookie("userId"); //user id from the above required script
   const maxRows = 30;
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -122,6 +123,7 @@
     if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
 
     const row = table.insertRow();
+    // Needs some kind of "required" so empty data isn't sent to database.
     row.innerHTML = `
       <td>
         <select>
@@ -158,7 +160,40 @@
   // Alert Box Functions
   let pendingSaveCallback = null;
 
+  async function saveBudgetChanges() {
+    const rows = document.querySelectorAll("#income-debt-table tbody tr");
+    const formData = [];
+    rows.forEach(element => {
+      const inputSelect = element.querySelectorAll("td select");
+      const inputData = element.querySelectorAll("td input");
+      type = inputSelect[0].value;
+      name = inputData[0].value;
+      amount = inputData[1].value;
+      formData.push({
+        "type": type,
+        "name": name,
+        "amount": amount,
+        "userId": userId,
+      })
+    });
+    formData.forEach(data => postToBudgetEntry(data))
+    
+  }
 
+  async function postToBudgetEntry(data) {
+    try {
+      const response = await fetch("http://localhost:8080/api/budget/add",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   function triggerEditAlert(callback) {
     pendingSaveCallback = callback || null;
@@ -169,6 +204,7 @@
     if (pendingSaveCallback) pendingSaveCallback();
     pendingSaveCallback = null;
     document.getElementById('customAlertOverlay').style.display = "none";
+    saveBudgetChanges();
 
     // Clean empty rows after saving
     cleanEmptyRows("income-debt-table", 2);

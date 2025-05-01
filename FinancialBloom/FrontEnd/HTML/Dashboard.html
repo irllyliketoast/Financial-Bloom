@@ -67,6 +67,7 @@
         <table class="charts-css pie show-heading" id="spending-chart">
           <caption>Expenses</caption>
           <!-- Dynamic Pie Chart slices go here -->
+
         </table>
       </div>
 
@@ -112,11 +113,27 @@
       try {
         const response = await fetch(`http://localhost:8080/api/budget/user/${cookie}`);
         const data = await response.json();
+        let totalIncome = 0;
+        let totalExpenses = 0;
+        let net = 0;
+
+        data.forEach((budget) => {
+            const { amount, type } = budget;
+            if (type === "Income") {
+              totalIncome += amount;
+            } //need to be an elseif when we get milestones working
+            else {
+              totalExpenses += amount;
+            }
+            
+          }
+        )
+        net = totalIncome - totalExpenses;
 
         // Update Stats
-        document.getElementById('income-amount').innerText = `$${data.income || 0}`;
-        document.getElementById('expenses-amount').innerText = `$${data.expenses || 0}`;
-        document.getElementById('net-amount').innerText = `$${data.net || 0}`;
+        document.getElementById('income-amount').innerText = `$${totalIncome}`;
+        document.getElementById('expenses-amount').innerText = `$${totalExpenses}`;
+        document.getElementById('net-amount').innerText = `$${net}`;
 
         // Update Pie Chart
         const chart = document.getElementById('spending-chart');
