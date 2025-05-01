@@ -38,7 +38,7 @@
       <li><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
       <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
       <li><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
-      <li><a href="Login.html"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
+      <li><a href="Login.html" class="logout"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
     </ul>
   </nav>
 
@@ -67,6 +67,7 @@
         <table class="charts-css pie show-heading" id="spending-chart">
           <caption>Expenses</caption>
           <!-- Dynamic Pie Chart slices go here -->
+
         </table>
       </div>
 
@@ -101,22 +102,35 @@
   </footer>
 
   <!-- JavaScript to Fetch Dashboard Data -->
+   <script src="../Scripts/required.js"></script>
   <script>
-    const currentUserId = localStorage.getItem("userId");
-    if (!currentUserId) {
-      window.location.replace("Login.html");
-    }
-
+    // Redirect user if they don't have a userId
+    const userId = verifyUser();
     async function fetchDashboardData() {
       try {
-        const currentUserId = localStorage.getItem("userId");
-        const response = await fetch(`http://localhost:8080/api/budget/user/${currentUserId}`);
+        const response = await fetch(`http://localhost:8080/api/budget/user/${userId}`);
         const data = await response.json();
+        let totalIncome = 0;
+        let totalExpenses = 0;
+        let net = 0;
+
+        data.forEach((budget) => {
+            const { amount, type } = budget;
+            if (type === "Income") {
+              totalIncome += amount;
+            } //need to be an elseif when we get milestones working
+            else {
+              totalExpenses += amount;
+            }
+            
+          }
+        )
+        net = totalIncome - totalExpenses;
 
         // Update Stats
-        document.getElementById('income-amount').innerText = `$${data.income || 0}`;
-        document.getElementById('expenses-amount').innerText = `$${data.expenses || 0}`;
-        document.getElementById('net-amount').innerText = `$${data.net || 0}`;
+        document.getElementById('income-amount').innerText = `$${totalIncome}`;
+        document.getElementById('expenses-amount').innerText = `$${totalExpenses}`;
+        document.getElementById('net-amount').innerText = `$${net}`;
 
         // Update Pie Chart
         const chart = document.getElementById('spending-chart');
@@ -157,16 +171,9 @@
       history.replaceState(null, "", "Login.html");
     });
 
-    // 🖱️ Custom Cursor Follower Script
-        const cursor = document.getElementById('customCursor');
-        document.addEventListener('mousemove', (e) => {
-          cursor.style.left = `${e.clientX}px`;
-          cursor.style.top = `${e.clientY}px`;
-        });
 
     // Load dashboard data when page loads
     window.addEventListener('DOMContentLoaded', fetchDashboardData);
-    console.log(document.cookie);
   </script>
 
 </body>

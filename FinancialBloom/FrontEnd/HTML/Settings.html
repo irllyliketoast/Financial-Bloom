@@ -36,7 +36,7 @@
       <li><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
       <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
       <li id="current"><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
-      <li><a href="Login.html"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
+      <li><a href="Login.html" class="logout"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
     </ul>
   </nav>
 <div class="page-wrapper">
@@ -65,29 +65,25 @@
   <footer>
     2025 Financial Bloom &copy; All rights reserved.
   </footer>
-  
+  <script src="../Scripts/required.js"></script>
   <script>
 	  async function loadUserProfile() {
 		try {
-		  const response = await fetch('/api/userProfile');
+      const userId = verifyUser();
+		  const response = await fetch(`http://localhost:8080/api/users/${userId}`);
 		  const user = await response.json();
 
-		  document.getElementById('first-name').innerText = user.firstName;
-		  document.getElementById('last-name').innerText = user.lastName;
+		  document.getElementById('first-name').innerText = user.fname;
+		  document.getElementById('last-name').innerText = user.lname;
 		  document.getElementById('username').innerText = user.username;
 		  document.getElementById('email').innerText = user.email;
 		  document.getElementById('date-created').innerText = user.dateCreated || "Unavailable";
-		  document.getElementById('avatar-img').src = user.avatarUrl || "../Graphics/avatar-placeholder.png";
+		  document.getElementById('avatar-img').src = user.avatarUrl || "../Graphics/avatar.png";
 		} catch (error) {
 		  console.error('Failed to load user profile:', error);
 		}
 	  }
-	  // 🖱️ Custom Cursor Follower Script
-	  const cursor = document.getElementById('customCursor');
-	  document.addEventListener('mousemove', (e) => {
-	    cursor.style.left = `${e.clientX}px`;
-	    cursor.style.top = `${e.clientY}px`;
-	  });
+
 
 	  window.addEventListener('DOMContentLoaded', loadUserProfile);
   </script>

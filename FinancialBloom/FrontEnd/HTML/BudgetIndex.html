@@ -28,7 +28,7 @@
       <li id="current"><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
       <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
       <li><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
-      <li><a href="Login.html"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
+      <li><a href="Login.html" class="logout"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
     </ul>
   </nav>
 
@@ -106,9 +106,10 @@
   </div>
 
   <!-- JS -->
+<script src="../Scripts/required.js"></script>
 <script>
+  const cookie = verifyUser();
   const maxRows = 30;
-
   document.addEventListener('DOMContentLoaded', () => {
     addIncomeDebtRow();
     addIncomeDebtRow();
@@ -121,6 +122,7 @@
     if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
 
     const row = table.insertRow();
+    // Needs some kind of "required" so empty data isn't sent to database.
     row.innerHTML = `
       <td>
         <select>
@@ -157,6 +159,52 @@
   // Alert Box Functions
   let pendingSaveCallback = null;
 
+  async function saveBudgetChanges() {
+    const rows = document.querySelectorAll("#income-debt-table tbody tr");
+    const formData = [];
+    rows.forEach(element => {
+      const inputSelect = element.querySelectorAll("td select");
+      const inputData = element.querySelectorAll("td input");
+      type = inputSelect[0].value;
+      name = inputData[0].value;
+      amount = inputData[1].value;
+      formData.push({
+        "type": type,
+        "name": name,
+        "amount": amount,
+        "userId": userId,
+      })
+    });
+    formData.forEach(data => postToBudgetEntry(data))
+    
+  }
+  async function saveMilestoneChanges() {
+    const rows = document.querySelectorAll("#milestone-table ")
+  }
+
+  async function postToBudgetEntry(data) {
+    try {
+      const response = await fetch("http://localhost:8080/api/budget/add",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function postToMilestoneChanges() {
+    try{
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   function triggerEditAlert(callback) {
     pendingSaveCallback = callback || null;
     document.getElementById('customAlertOverlay').style.display = "flex";
@@ -166,6 +214,7 @@
     if (pendingSaveCallback) pendingSaveCallback();
     pendingSaveCallback = null;
     document.getElementById('customAlertOverlay').style.display = "none";
+    saveBudgetChanges();
 
     // Clean empty rows after saving
     cleanEmptyRows("income-debt-table", 2);
@@ -198,12 +247,6 @@
     });
   }
 
-  // 🖱️ Custom Cursor Follower Script
-  const cursor = document.getElementById('customCursor');
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = `${e.clientX}px`;
-    cursor.style.top = `${e.clientY}px`;
-  });
 </script>
 
 </body>
