@@ -8,6 +8,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -38,10 +39,13 @@ public class LoginController {
         if (!passwordMatch) {
             return ResponseEntity.status(401).build();
         }
-        Map<String, Object> response = Map.of(
-            "success", true,
-            "UserID", user.getUserID()
-        );
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("userID", user.getUserID()); // 👈 make sure this matches your field name
+
+        System.out.println("✅ Response map: " + response);  // Debug print
+
         return ResponseEntity.ok(response);
     }
 
