@@ -3,90 +3,89 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Financial Bloom - Settings</title>
+    <meta charset="utf-8">
+    <title>Financial Bloom - Settings</title>
 
-  <!-- External CSS -->
-  <link rel="stylesheet" href="../Styles/Settings.css">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../Styles/Settings.css">
 
-  <!-- Preconnecting to Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preconnecting to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Font families used -->
-  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font families used -->
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 
 <body>
 <div id="customCursor"></div>
-  <!-- Header -->
-  <header class="header">
+<!-- Header -->
+<header class="header">
     <img src="../Graphics/logo.png" alt="Financial Bloom logo">
     Financial Bloom
-  </header>
+</header>
 
-  <!-- Sidebar -->
-  <nav>
+<!-- Sidebar -->
+<nav>
     <ul>
-      <li><a href="Dashboard.html"><span class="material-symbols-outlined">home</span> Dashboard</a></li>
-      <li><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
-      <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
-      <li id="current"><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
-      <li><a href="Login.html" class="logout"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
+        <li><a href="Dashboard.html"><span class="material-symbols-outlined">home</span> Dashboard</a></li>
+        <li><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
+        <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
+        <li id="current"><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
+        <li><a href="Login.html" class="logout"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
     </ul>
-  </nav>
+</nav>
 <div class="page-wrapper">
-  <main>
-    <!-- Profile Information Section -->
-	<section class="profile-section">
-	  <h1>Profile</h1>
-	  <div class="profile-info">
-		<p><strong>First Name:</strong> <span id="first-name">Loading...</span></p>
-		<p><strong>Last Name:</strong> <span id="last-name">Loading...</span></p>
-		<p><strong>Username:</strong> <span id="username">Loading...</span></p>
-		<p><strong>Email Address:</strong> <span id="email">Loading...</span></p>
-		<p><strong>Date Created:</strong> <span id="date-created">Loading...</span></p>
-	  </div>
+    <main>
+        <!-- Profile Information Section -->
+        <section class="profile-section">
+            <h1>Profile</h1>
+            <div class="profile-info">
+                <p><strong>First Name:</strong> <span id="first-name">Loading...</span></p>
+                <p><strong>Last Name:</strong> <span id="last-name">Loading...</span></p>
+                <p><strong>Username:</strong> <span id="username">Loading...</span></p>
+                <p><strong>Email Address:</strong> <span id="email">Loading...</span></p>
+                <p><strong>Date Created:</strong> <span id="date-created">Loading...</span></p>
+            </div>
 
-	  <!-- Avatar Display -->
-	  <div class="avatar-card">
-		<h2>Your Character</h2>
-		<img id="avatar-img" src="../Graphics/avatar.png" alt="Character Avatar">
-	  </div>
-	</section>
-  </main>
+            <!-- Avatar Display -->
+            <div class="avatar-card">
+                <h2>Your Character</h2>
+                <img id="avatar-img" src="../Graphics/avatar.png" alt="Character Avatar">
+            </div>
+        </section>
+    </main>
 </div>
 
-  <!-- Footer -->
-  <footer>
+<!-- Footer -->
+<footer>
     2025 Financial Bloom &copy; All rights reserved.
-  </footer>
-  <script src="../Scripts/required.js"></script>
-  <script>
-	  async function loadUserProfile() {
-		try {
-      const userId = verifyUser();
-		  const response = await fetch(`http://localhost:8080/api/users/${userId}`);
-		  const user = await response.json();
+</footer>
+<script src="../Scripts/required.js"></script>
+<script>
+    async function loadUserProfile() {
+        try {
+            const userId = verifyUser();
+            const response = await fetch(`http://localhost:8080/api/users/${userId}`);
+            const user = await response.json();
 
-		  document.getElementById('first-name').innerText = user.fname;
-		  document.getElementById('last-name').innerText = user.lname;
-		  document.getElementById('username').innerText = user.username;
-		  document.getElementById('email').innerText = user.email;
-		  document.getElementById('date-created').innerText = user.dateCreated || "Unavailable";
-		  document.getElementById('avatar-img').src = user.avatarUrl || "../Graphics/avatar.png";
-		} catch (error) {
-		  console.error('Failed to load user profile:', error);
-		}
-	  }
+            document.getElementById('first-name').innerText = user.fname;
+            document.getElementById('last-name').innerText = user.lname;
+            document.getElementById('username').innerText = user.username;
+            document.getElementById('email').innerText = user.email;
+            document.getElementById('date-created').innerText = user.dateCreated || "Unavailable";
+            document.getElementById('avatar-img').src = user.avatarUrl || "../Graphics/avatar.png";
+        } catch (error) {
+            console.error('Failed to load user profile:', error);
+        }
+    }
 
-
-	  window.addEventListener('DOMContentLoaded', loadUserProfile);
-  </script>
+    window.addEventListener('DOMContentLoaded', loadUserProfile);
+</script>
 
 </body>
 </html>

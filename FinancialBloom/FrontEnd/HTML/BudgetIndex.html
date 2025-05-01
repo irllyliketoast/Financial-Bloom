@@ -15,97 +15,97 @@
 </head>
 <div id="customCursor"></div>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <img src="../Graphics/logo.png" alt="Financial Bloom logo">
-    Financial Bloom
-  </header>
+<!-- Header -->
+<header class="header">
+  <img src="../Graphics/logo.png" alt="Financial Bloom logo">
+  Financial Bloom
+</header>
 
-  <!-- Sidebar -->
-  <nav>
-    <ul>
-      <li><a href="Dashboard.html"><span class="material-symbols-outlined">home</span> Dashboard</a></li>
-      <li id="current"><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
-      <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
-      <li><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
-      <li><a href="Login.html" class="logout"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
-    </ul>
-  </nav>
+<!-- Sidebar -->
+<nav>
+  <ul>
+    <li><a href="Dashboard.html"><span class="material-symbols-outlined">home</span> Dashboard</a></li>
+    <li id="current"><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
+    <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
+    <li><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
+    <li><a href="Login.html" class="logout"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
+  </ul>
+</nav>
 
-  <main>
-    <div class="left-section">
-      <!-- Income/Debt Tracker -->
-      <div class="table-container">
-        <h2>Income, Debt, Expenses Tracker</h2>
-        <table id="income-debt-table">
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>Name</th>
-              <th>Amount ($)</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-        <button onclick="addIncomeDebtRow()">+ Add Row</button>
-      </div>
-
-      <!-- Milestone Tracker -->
-      <div class="table-container">
-        <h2>Milestones Tracker</h2>
-        <table id="milestone-table">
-          <thead>
-            <tr>
-              <th>Milestone Name</th>
-              <th>Amount Saved ($)</th>
-              <th>Goal Amount ($)</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-        <button onclick="addMilestoneRow()">+ Add Row</button>
-      </div>
+<main>
+  <div class="left-section">
+    <!-- Income/Debt Tracker -->
+    <div class="table-container">
+      <h2>Income, Debt, Expenses Tracker</h2>
+      <table id="income-debt-table">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Amount ($)</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button onclick="addIncomeDebtRow()">+ Add Row</button>
     </div>
 
-    <div class="right-section">
-      <!-- Advice Panel -->
-      <div class="advice-panel">
-        <h2>How to Budget?</h2>
-        <p>A common rule of thumb in budgeting is called the 50/20/30 rule:</p>
-        <ul>
-          <li><span class="percentages">50%</span> of income for needs (groceries, car, home)</li>
-          <li><span class="percentages">20%</span> of income for savings (debts, savings)</li>
-          <li><span class="percentages">30%</span> for leisure/luxury (eating out, travel, gym)</li>
-        </ul>
-        <p>Emergency Fund: Keep 3-6 months of expenses saved for emergencies like job loss or unexpected bills.</p>
-        <p>Be realistic: Start small, track expenses, adjust as needed. Consistency matters more than perfection!</p>
-	<h2>Saving Milestones</h2>
-	<p>Milestones represent your long-term savings goals — the things you're intentionally working toward over time, like a vacation, laptop, emergency fund, or future investment.</p>
-	<p>Each milestone helps you visualize progress and stay motivated as you set aside money in small, manageable steps.</p>
-      </div>
-    </div>
-  </main>
-
-  <!-- Save Button -->
-  <div class="save-container">
-    <button onclick="triggerEditAlert()">Save Changes</button>
-  </div>
-
-  <!-- Footer -->
-  <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
-
-  <!-- Alert Overlay -->
-  <div id="customAlertOverlay" class="alert-overlay" style="display: none;">
-    <div id="customAlert" class="alert-box">
-      <p id="alertMessage">Do you want to save your changes?</p>
-      <button onclick="confirmSave()">OK</button>
-      <button onclick="cancelSave()">Cancel</button>
+    <!-- Milestone Tracker -->
+    <div class="table-container">
+      <h2>Milestones Tracker</h2>
+      <table id="milestone-table">
+        <thead>
+        <tr>
+          <th>Milestone Name</th>
+          <th>Amount Saved ($)</th>
+          <th>Goal Amount ($)</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button onclick="addMilestoneRow()">+ Add Row</button>
     </div>
   </div>
 
-  <!-- JS -->
+  <div class="right-section">
+    <!-- Advice Panel -->
+    <div class="advice-panel">
+      <h2>How to Budget?</h2>
+      <p>A common rule of thumb in budgeting is called the 50/20/30 rule:</p>
+      <ul>
+        <li><span class="percentages">50%</span> of income for needs (groceries, car, home)</li>
+        <li><span class="percentages">20%</span> of income for savings (debts, savings)</li>
+        <li><span class="percentages">30%</span> for leisure/luxury (eating out, travel, gym)</li>
+      </ul>
+      <p>Emergency Fund: Keep 3-6 months of expenses saved for emergencies like job loss or unexpected bills.</p>
+      <p>Be realistic: Start small, track expenses, adjust as needed. Consistency matters more than perfection!</p>
+      <h2>Saving Milestones</h2>
+      <p>Milestones represent your long-term savings goals — the things you're intentionally working toward over time, like a vacation, laptop, emergency fund, or future investment.</p>
+      <p>Each milestone helps you visualize progress and stay motivated as you set aside money in small, manageable steps.</p>
+    </div>
+  </div>
+</main>
+
+<!-- Save Button -->
+<div class="save-container">
+  <button onclick="triggerEditAlert()">Save Changes</button>
+</div>
+
+<!-- Footer -->
+<footer>2025 Financial Bloom &copy; All rights reserved.</footer>
+
+<!-- Alert Overlay -->
+<div id="customAlertOverlay" class="alert-overlay" style="display: none;">
+  <div id="customAlert" class="alert-box">
+    <p id="alertMessage">Do you want to save your changes?</p>
+    <button onclick="confirmSave()">OK</button>
+    <button onclick="cancelSave()">Cancel</button>
+  </div>
+</div>
+
+<!-- JS -->
 <script src="../Scripts/required.js"></script>
 <script>
   const cookie = verifyUser();
@@ -176,7 +176,7 @@
       })
     });
     formData.forEach(data => postToBudgetEntry(data))
-    
+
   }
   async function saveMilestoneChanges() {
     const rows = document.querySelectorAll("#milestone-table ")
@@ -185,13 +185,13 @@
   async function postToBudgetEntry(data) {
     try {
       const response = await fetch("http://localhost:8080/api/budget/add",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-      })
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+              })
     } catch (error) {
       console.error(error);
     }
