@@ -23,6 +23,7 @@
 </head>
 
 <body>
+
 <div id="customCursor"></div>
   <!-- Top header bar -->
   <header class="header">
@@ -47,13 +48,16 @@
 		  <input type="password" id="confirmPassword" placeholder="Confirm Password" required><br>
 		  <input type="submit" value="Sign Up">
 		</form>
+
     </div>
 
     <!-- Custom alert box overlay -->
     <div id="customAlertOverlaySignUp" class="alert-overlay">
       <div id="customAlertSignUp" class="alert-box">
         <p id="alertMessageSignUp"></p>
-        <button onclick="closeAlertSignUp()">OK</button>
+        <a href="Login.html">
+          <button>OK</button>
+        </a>
       </div>
     </div>
 
@@ -100,28 +104,25 @@
 
   <!-- JavaScript validation and UI control -->
   <script>
-    // Sanitization functions
-    function sanitizeInput(input) {
+      function sanitizeInput(input) {
       return input.replace(/[<>"'`]/g, '');
     }
 
-    function sanitizeName(name) {
+      function sanitizeName(name) {
       return name.replace(/[^a-zA-Z\s\-']/g, '');
     }
 
-    function sanitizeEmail(email) {
+      function sanitizeEmail(email) {
       return email.replace(/[^a-zA-Z0-9@._-]/g, '');
     }
 
-    function isValidEmail(email) {
+      function isValidEmail(email) {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    // Validates the sign-up form fields
-    function validateSignUp(event) {
-      event.preventDefault(); // Prevents form submission
+      async function validateSignUp(event) {
+      event.preventDefault();
 
-      // Sanitize inputs
       let firstName = sanitizeName(document.getElementById("firstName").value.trim());
       let lastName = sanitizeName(document.getElementById("lastName").value.trim());
       let email = sanitizeEmail(document.getElementById("email").value.trim());
@@ -129,96 +130,89 @@
       let password = document.getElementById("password").value;
       let confirmPassword = document.getElementById("confirmPassword").value;
 
-      // Validate names
       if (!/^[a-zA-Z\s\-']+$/.test(firstName) || !/^[a-zA-Z\s\-']+$/.test(lastName)) {
-        showAlertSignUp("Names can only contain letters, spaces, hyphens, and apostrophes.");
-        return false;
-      }
-
-      // Validate email
-      if (!isValidEmail(email)) {
-        showAlertSignUp("Please enter a valid email address.");
-        return false;
-      }
-
-      // Regex for strong password rules
-      let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
-
-      // Check password format
-      if (!passwordRegex.test(password)) {
-        showAlertSignUp("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
-        shakeInput(password, confirmPassword);
-        password.value = "";
-        confirmPassword.value = "";
-        return false;
-      }
-
-      // Check if both passwords match
-      if (password !== confirmPassword) {
-        showAlertSignUp("Passwords do not match.");
-        shakeInput(password, confirmPassword);
-        password.value = "";
-        confirmPassword.value = "";
-        return false;
-      }
-
-      // Redirect to login page on success
-      window.location.href = "Login.html";
+      showAlertSignUp("Names can only contain letters, spaces, hyphens, and apostrophes.");
       return false;
     }
 
-    // Displays the alert box with bounce animation
-    function showAlertSignUp(message) {
+      if (!isValidEmail(email)) {
+      showAlertSignUp("Please enter a valid email address.");
+      return false;
+    }
+
+      let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
+      if (!passwordRegex.test(password)) {
+      showAlertSignUp("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
+      shakeInput(document.getElementById("password"), document.getElementById("confirmPassword"));
+      document.getElementById("password").value = "";
+      document.getElementById("confirmPassword").value = "";
+      return false;
+    }
+
+      if (password !== confirmPassword) {
+      showAlertSignUp("Passwords do not match.");
+      shakeInput(document.getElementById("password"), document.getElementById("confirmPassword"));
+      document.getElementById("password").value = "";
+      document.getElementById("confirmPassword").value = "";
+      return false;
+    }
+
+      try {
+      const response = await fetch('http://localhost:8080/api/register', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json',
+    },
+      body: JSON.stringify({
+      fName: firstName,
+      lName: lastName,
+      email: email,
+      username: username,
+      password: password
+    })
+    });
+
+      const result = await response.json();
+      console.log("Result:", result);
+
+      if (response.ok && result.success) {
+        window.location.href = "Login.html";
+    } else {
+      showAlertSignUp(result.message || "Account creation failed.");
+    }
+    } catch (error) {
+      console.error('Signup error:', error);
+      showAlertSignUp("An error occurred while creating your account.");
+    }
+
+      return false;
+    }
+
+      function showAlertSignUp(message) {
       const alertBox = document.getElementById("customAlertSignUp");
       const overlay = document.getElementById("customAlertOverlaySignUp");
 
       document.getElementById("alertMessageSignUp").innerText = message;
-
-      // Reset and restart animation each time it's shown
       alertBox.style.animation = 'none';
       void alertBox.offsetWidth;
       alertBox.style.animation = 'bounceIn 0.3s ease';
-
-      overlay.style.display = "flex"; // Show alert
+      overlay.style.display = "flex";
     }
 
-    // Closes the alert overlay
-    function closeAlertSignUp() {
+      function closeAlertSignUp() {
       document.getElementById("customAlertOverlaySignUp").style.display = "none";
     }
 
-    // Applies a shake effect to password fields
-    function shakeInput(passwordField, confirmPasswordField) {
+      function shakeInput(passwordField, confirmPasswordField) {
       passwordField.classList.add("shake");
       confirmPasswordField.classList.add("shake");
-
-      // Remove animation class after effect finishes
       setTimeout(() => {
-        passwordField.classList.remove("shake");
-        confirmPasswordField.classList.remove("shake");
-      }, 300);
+      passwordField.classList.remove("shake");
+      confirmPasswordField.classList.remove("shake");
+    }, 300);
     }
-	
-	// Example fetch call to your Spring Boot API
-	fetch('https://your-railway-backend-url.com/api/updateSavings', {
-	  method: 'POST',
-	  headers: {
-		'Content-Type': 'application/json',
-	  },
-	  body: JSON.stringify({
-		username: 'testuser',
-		savings: 500
-	  })
-	})
-	.then(response => response.json())
-	.then(data => {
-	  console.log('Success:', data);
-	  // update Unity iFrame or show a message in frontend
-	})
-	.catch((error) => {
-	  console.error('Error:', error);
-	});
-	  // 🖱️ Custom Cursor Follower Script
+
+      // 🖱️ Custom Cursor Follower Script
 	  const cursor = document.getElementById('customCursor');
 	  document.addEventListener('mousemove', (e) => {
 	    cursor.style.left = `${e.clientX}px`;
