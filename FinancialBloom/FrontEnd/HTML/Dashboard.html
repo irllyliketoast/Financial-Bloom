@@ -102,10 +102,14 @@
 
   <!-- JavaScript to Fetch Dashboard Data -->
   <script>
+    const currentUserId = localStorage.getItem("userId");
+    if (!currentUserId) {
+      window.location.replace("Login.html");
+    }
+
     async function fetchDashboardData() {
       try {
         const currentUserId = localStorage.getItem("userId");
-        console.log("🌱 Loaded currentUserId from localStorage:", currentUserId);
         const response = await fetch(`http://localhost:8080/api/budget/user/${currentUserId}`);
         const data = await response.json();
 
@@ -143,7 +147,17 @@
         console.error('Failed to load dashboard data:', error);
       }
     }
-        // 🖱️ Custom Cursor Follower Script
+    // Logout logic on Exit click
+    document.querySelector('a[href="Login.html"]').addEventListener('click', function (e) {
+      // Clear session (localStorage + cookie)
+      localStorage.removeItem("userId");
+      document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+      // Overwrite history so user can't go back to Dashboard
+      history.replaceState(null, "", "Login.html");
+    });
+
+    // 🖱️ Custom Cursor Follower Script
         const cursor = document.getElementById('customCursor');
         document.addEventListener('mousemove', (e) => {
           cursor.style.left = `${e.clientX}px`;
