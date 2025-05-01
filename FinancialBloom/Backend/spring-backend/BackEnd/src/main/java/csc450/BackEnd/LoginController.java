@@ -47,7 +47,6 @@ public class LoginController {
         System.out.println("✅ Response map: " + response);  // Debug print
 
         return ResponseEntity.ok(response);
-
     }
 
     // Make sure this matches how you hashed it in CreateAccountService
