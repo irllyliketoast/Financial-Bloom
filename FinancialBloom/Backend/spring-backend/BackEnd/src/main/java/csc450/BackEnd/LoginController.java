@@ -8,6 +8,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -37,8 +38,11 @@ public class LoginController {
         if (!passwordMatch) {
             return ResponseEntity.status(401).build();
         }
-
-        return ResponseEntity.ok(Collections.singletonMap("success", true));
+        Map<String, Object> response = Map.of(
+            "success", true,
+            "UserID", user.getUserID()
+        );
+        return ResponseEntity.ok(response);
     }
 
     // Make sure this matches how you hashed it in CreateAccountService

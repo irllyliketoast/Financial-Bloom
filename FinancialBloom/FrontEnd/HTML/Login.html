@@ -132,6 +132,8 @@
 
         if (result.success === true || result.success === "true" || result.success == true) {
           console.log("✅ Login successful, redirecting...");
+          console.log("ere be the results matey", result);
+          document.cookie = `userId=${result.UserID}`;
           window.location.href = "Dashboard.html";
         } else {
           console.log("❌ Backend said success = false");
