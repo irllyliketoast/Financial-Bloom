@@ -106,6 +106,7 @@
   </div>
 
   <!-- JS -->
+<script src="../Scripts/required.js"></script>
 <script>
   const maxRows = 30;
 
@@ -157,6 +158,8 @@
   // Alert Box Functions
   let pendingSaveCallback = null;
 
+
+
   function triggerEditAlert(callback) {
     pendingSaveCallback = callback || null;
     document.getElementById('customAlertOverlay').style.display = "flex";
@@ -198,12 +201,6 @@
     });
   }
 
-  // 🖱️ Custom Cursor Follower Script
-  const cursor = document.getElementById('customCursor');
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = `${e.clientX}px`;
-    cursor.style.top = `${e.clientY}px`;
-  });
 </script>
 
 </body>

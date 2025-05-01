@@ -65,29 +65,25 @@
   <footer>
     2025 Financial Bloom &copy; All rights reserved.
   </footer>
-  
+  <script src="../Scripts/required.js"></script>
   <script>
 	  async function loadUserProfile() {
 		try {
-		  const response = await fetch('/api/userProfile');
+      const cookie = getCookie("userId");
+		  const response = await fetch(`http://localhost:8080/api/users/${cookie}`);
 		  const user = await response.json();
 
-		  document.getElementById('first-name').innerText = user.firstName;
-		  document.getElementById('last-name').innerText = user.lastName;
+		  document.getElementById('first-name').innerText = user.fname;
+		  document.getElementById('last-name').innerText = user.lname;
 		  document.getElementById('username').innerText = user.username;
 		  document.getElementById('email').innerText = user.email;
 		  document.getElementById('date-created').innerText = user.dateCreated || "Unavailable";
-		  document.getElementById('avatar-img').src = user.avatarUrl || "../Graphics/avatar-placeholder.png";
+		  document.getElementById('avatar-img').src = user.avatarUrl || "../Graphics/avatar.png";
 		} catch (error) {
 		  console.error('Failed to load user profile:', error);
 		}
 	  }
-	  // 🖱️ Custom Cursor Follower Script
-	  const cursor = document.getElementById('customCursor');
-	  document.addEventListener('mousemove', (e) => {
-	    cursor.style.left = `${e.clientX}px`;
-	    cursor.style.top = `${e.clientY}px`;
-	  });
+
 
 	  window.addEventListener('DOMContentLoaded', loadUserProfile);
   </script>
