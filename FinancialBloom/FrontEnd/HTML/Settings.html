@@ -36,7 +36,7 @@
       <li><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
       <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
       <li id="current"><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
-      <li><a href="Login.html"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
+      <li><a href="Login.html" class="logout"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
     </ul>
   </nav>
 <div class="page-wrapper">
@@ -69,8 +69,8 @@
   <script>
 	  async function loadUserProfile() {
 		try {
-      const cookie = getCookie("userId");
-		  const response = await fetch(`http://localhost:8080/api/users/${cookie}`);
+      const userId = verifyUser();
+		  const response = await fetch(`http://localhost:8080/api/users/${userId}`);
 		  const user = await response.json();
 
 		  document.getElementById('first-name').innerText = user.fname;

@@ -28,7 +28,7 @@
       <li id="current"><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
       <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
       <li><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
-      <li><a href="Login.html"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
+      <li><a href="Login.html" class="logout"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
     </ul>
   </nav>
 
@@ -108,9 +108,8 @@
   <!-- JS -->
 <script src="../Scripts/required.js"></script>
 <script>
-  const userId = getCookie("userId"); //user id from the above required script
+  const cookie = verifyUser();
   const maxRows = 30;
-
   document.addEventListener('DOMContentLoaded', () => {
     addIncomeDebtRow();
     addIncomeDebtRow();
@@ -179,6 +178,9 @@
     formData.forEach(data => postToBudgetEntry(data))
     
   }
+  async function saveMilestoneChanges() {
+    const rows = document.querySelectorAll("#milestone-table ")
+  }
 
   async function postToBudgetEntry(data) {
     try {
@@ -190,6 +192,14 @@
         },
         body: JSON.stringify(data)
       })
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function postToMilestoneChanges() {
+    try{
+
     } catch (error) {
       console.error(error);
     }
