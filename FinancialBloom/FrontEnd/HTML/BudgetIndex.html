@@ -1,3 +1,4 @@
+<!-- By Laura Estremera -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,13 +166,17 @@
     if (pendingSaveCallback) pendingSaveCallback();
     pendingSaveCallback = null;
     document.getElementById('customAlertOverlay').style.display = "none";
+
+    // Clean empty rows after saving
+    cleanEmptyRows("income-debt-table", 2);
+    cleanEmptyRows("milestone-table", 2);
   }
 
   function cancelSave() {
     pendingSaveCallback = null;
     document.getElementById('customAlertOverlay').style.display = "none";
 
-    // Clean empty rows except first 2
+    // Clean empty rows on cancel
     cleanEmptyRows("income-debt-table", 2);
     cleanEmptyRows("milestone-table", 2);
   }
@@ -183,8 +188,9 @@
     rows.forEach((row, index) => {
       if (index < preserveCount) return;
 
-      const inputs = row.querySelectorAll('input, select');
-      const isEmpty = Array.from(inputs).every(input => input.value === "");
+      // Only look at input fields (ignore selects)
+      const inputs = row.querySelectorAll('input');
+      const isEmpty = Array.from(inputs).every(input => input.value.trim() === "");
 
       if (isEmpty) {
         row.remove();
