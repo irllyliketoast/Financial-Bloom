@@ -55,9 +55,7 @@
     <div id="customAlertOverlaySignUp" class="alert-overlay">
       <div id="customAlertSignUp" class="alert-box">
         <p id="alertMessageSignUp"></p>
-        <a href="Login.html">
-          <button>OK</button>
-        </a>
+        <button onclick="closeAlertSignUp()">OK</button> //now calls close alert function
       </div>
     </div>
 
@@ -144,8 +142,7 @@
       if (!passwordRegex.test(password)) {
       showAlertSignUp("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
       shakeInput(document.getElementById("password"), document.getElementById("confirmPassword"));
-      document.getElementById("password").value = "";
-      document.getElementById("confirmPassword").value = "";
+      document.getElementById("password").focus(); // changed
       return false;
     }
 
@@ -179,6 +176,9 @@
         window.location.href = "Login.html";
     } else {
       showAlertSignUp(result.message || "Account creation failed.");
+      document.getElementById("password").value = "";
+      document.getElementById("confirmPassword").value = "";
+
     }
     } catch (error) {
       console.error('Signup error:', error);
@@ -223,3 +223,4 @@
 </body>
 
 </html>
+
