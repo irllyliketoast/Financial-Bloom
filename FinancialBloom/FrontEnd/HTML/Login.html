@@ -133,7 +133,7 @@
         if (result.success === true || result.success === "true" || result.success == true) {
           console.log("✅ Login successful, redirecting...");
           console.log("ere be the results matey", result);
-          document.cookie = `userId=${result.userID} path=/; max-age=86400; SameSite=Lax`; //updated cookie with max age and storage specified
+          document.cookie = `userId=${result.userID}; path=/; max-age=86400; SameSite=Lax`; //updated cookie with max age and storage specified
           window.location.href = "Dashboard.html";
         } else {
           console.log("❌ Backend said success = false");

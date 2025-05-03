@@ -161,24 +161,7 @@
       console.error('Failed to load dashboard data:', error);
     }
   }
-  // Logout logic on Exit click
-  document.querySelector('a[href="Login.html"]').addEventListener('click', function (e) {
-    // Clear session (localStorage + cookie)
-    localStorage.removeItem("userId");
-    document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-
-    //delay to ensure storage clears
-    await new Promise(resolve => setTimeout(resolve,100));
-
-    window.location.href = "Login.html";
-    window.location.reload(true);
-
-    // Overwrite history so user can't go back to Dashboard
-    history.replaceState(null, "", "Login.html");
-
-  });
-
-
+  //Logout functionality in required.js
   // Load dashboard data when page loads
   window.addEventListener('DOMContentLoaded', fetchDashboardData);
 </script>
