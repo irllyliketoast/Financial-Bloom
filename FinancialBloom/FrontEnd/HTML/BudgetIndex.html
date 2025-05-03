@@ -93,6 +93,8 @@
   <button onclick="triggerEditAlert()">Save Changes</button>
 </div>
 
+<!--kick user back to dashboard -->
+
 <!-- Footer -->
 <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
 
@@ -208,6 +210,7 @@
   function triggerEditAlert(callback) {
     pendingSaveCallback = callback || null;
     document.getElementById('customAlertOverlay').style.display = "flex";
+    window.location.href = "dashboard.html";
   }
 
   function confirmSave() {
