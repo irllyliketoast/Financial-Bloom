@@ -70,28 +70,8 @@
     async function loadUserProfile() {
         try {
             const userId = verifyUser();  //Block page rendering until cookie has been verified
-            if(!userId){
-                clearAuth();
-                window.location.replace("Login.html");
-                throw new Error("Unauthorized access");
-            }
-            //clears cookie
-            function clearAuth();
-                localStorage.removeItem("userId");
-                document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=" + window.location.hostname}
-                //updated secure fetch response
-            const response = await fetch(`http://localhost:8080/api/users/${userId}`, {credentials: 'include', headers: {'Content-Type':'application/json','X-Requested-With':'XMLHttpRequest'}});
-            if (response.status === 401 || response.status === 403){
-                clearAuth();
-                window.location.replace("Login.html");
-                return;
-            }
-            if (!response.ok){
-                throw new Error('HTTP error! status: ${response.status}');
-                }
+            const response = await fetch(`http://localhost:8080/api/users/${userId}`);
             const user = await response.json();
-            console.log(user);
-
             document.getElementById('first-name').innerText = user.fname;
             document.getElementById('last-name').innerText = user.lname;
             document.getElementById('username').innerText = user.username;
@@ -99,13 +79,10 @@
             document.getElementById('date-created').innerText = user.dateCreated || "Unavailable";
             document.getElementById('avatar-img').src = user.avatarUrl || "../Graphics/avatar.png";
         } catch (error) {
-            console.error('Failed to load user profile:', error);
-            window.location.replace("Login.html");
+            console.error(error);
         }
     }
-    if(userId){
     window.addEventListener('DOMContentLoaded', loadUserProfile);
-    }
 </script>
 
 </body>
