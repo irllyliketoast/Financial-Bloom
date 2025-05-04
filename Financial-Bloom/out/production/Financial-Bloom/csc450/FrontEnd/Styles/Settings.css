@@ -1,0 +1,169 @@
+/* By Laura Estremera */
+* {
+/* Hides the default cursor and forces use of the custom one */
+  cursor: none !important;
+}
+/* ===== Custom Cursor ===== */
+#customCursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  background-image: url('../Graphics/custom-cursor.png'); /* Custom image */
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none; /* So it doesn’t interfere with clicking */
+    z-index: 99999; /* bump it above all other UI */
+  transform: translate(-50%, -50%); /* Centers image on mouse */
+  transition: transform 0.2s ease;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  font-family: 'Play', sans-serif;
+  background-color: #edffd9;
+}
+
+/* Page Wrapper Flex Layout */
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #74984d;
+  height: 80px;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  font-family: 'Silkscreen', sans-serif;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.header img {
+  max-width: 60px;
+  margin-right: 10px;
+}
+
+/* Sidebar */
+nav {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 150px;
+  height: calc(100% - 80px);
+  background-color: #74984d;
+  padding-top: 30px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav li {
+  margin-bottom: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-family: 'Silkscreen', sans-serif;
+  transition: background-color 0.3s;
+}
+
+nav a:hover {
+  background-color: #5f7d3b;
+  border-radius: 4px;
+}
+
+#current a {
+  background-color: #edffd9;
+  color: #74984d;
+  border-radius: 4px;
+}
+
+/* Main Content Layout */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 20px 20px 20px;
+  gap: 30px;
+}
+
+/* Profile Section */
+.profile-section {
+  width: 100%;
+  max-width: 700px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.profile-section h1 {
+  font-family: 'Silkscreen', sans-serif;
+  color: #74984d;
+  margin-bottom: 20px;
+}
+
+.profile-info p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.profile-info strong {
+  font-family: 'Silkscreen', sans-serif;
+  color: #5f7d3b;
+}
+
+/* Avatar Section */
+.avatar-card {
+  margin-top: 30px;
+  background-color: #edffd9;
+  border: 1px solid #74984d;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.avatar-card h2 {
+  font-family: 'Silkscreen', sans-serif;
+  color: #74984d;
+  margin-bottom: 10px;
+}
+
+.avatar-card img {
+  max-width: 120px;
+}
+
+/* Footer */
+footer {
+  background-color: #74984d;
+  color: white;
+  text-align: center;
+  height: 30px;
+  padding-top: 5px;
+  width: 100%;
+  font-style: italic;
+}
+

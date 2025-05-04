@@ -1,0 +1,38 @@
+Brainstorming Process: Our team conducted a brainstorming session to generate ideas for our project features. We then categorized these features based on priority—Critical (C), Important (I), or Useful (U). We documented our thought process by discussing which features are essential for core functionality and which enhance the user experience. 
+Non-Functional Requirements:
+•	[System] logs out the user after a certain amount of inactivity.
+•	[System] stores login information securely using a hash table.
+•	[System] sends push notifications with tips, ideas, and encouragement.
+•	[System] offers different plant representations for various categories of expenses.
+•	[System] reduces the size of plants when user priorities stray from their budget.
+•	[System] provides a tutorial feature for users before signing up.
+Home Page Elements (Not Features):
+•	Website name & logo displayed at the top.
+•	Description of the website.
+•	[User] views a combined sign-up/log-in page with a welcome message.
+•	[User] accesses a tutorial to understand how to use the application (Feature: C).
+
+Features (Categorized by Priority):
+Critical Features (C)
+•	[User] logs into the system using MFA.
+•	[User] logs out at any time through a log-out button.
+•	[User] updates, adds, and deletes personal information (bank accounts, budget templates, etc.).
+•	[User] follows preset budgets or creates a custom budget.
+•	[User] sets up milestones and contributes to them within a budget.
+Important Features (I)
+•	[User] chooses from a selection of savings plans.
+•	[User] applies additional income sources (side gigs, odd jobs, gifts, etc.) to a monthly budget.
+•	[User] deducts emergency money from savings/budget.
+•	[User] selects a plant type to represent each milestone.
+Useful Features (U)
+•	[User] edits and customizes the budget template.
+•	[User] customizes their dashboard layout.
+•	[User] compares or shares their financial progress garden with others.
+•	[User] celebrates financial progress by "watering" their garden and logging progress.
+•	[User] logs debts, which are visually represented as rocks in the garden.
+•	[User] opts into daily financial tips to maintain budgeting habits.
+Dashboard Page Features (Functional Requirements):
+•	[User] creates a monthly budget and modifies it at any time.
+•	[User] sets financial milestones (debts, savings goals) and tracks progress.
+•	[User] selects a visual representation (plant/rock) for financial progress.
+•	[User] receives encouragement and budgeting insights through optional notifications.

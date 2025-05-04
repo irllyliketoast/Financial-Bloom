@@ -1,0 +1,50 @@
+﻿Project Overview Statement:
+
+
+Financial Bloom is a budgeting app that helps users manage their finances while fostering positive habits through gamification.
+	Project Name:
+
+
+Financial Bloom: Budgeting App with Habit Growth Integration
+	Group Number: 
+
+
+4
+	Project Manager:
+
+
+Laura Estremera
+	
+
+Problem/Opportunity: 
+
+
+The average American carried a total debt of $104,215 in Q3 of 2023, according to Business Insider. This debt and poor financial planning make it difficult for many Americans to build a proper savings base. For Americans under 35, the average savings balance should be $20,540, but only 41% of Americans could cover a $1,000 emergency purchase. By gamifying responsible financial behaviors, Financial Bloom aims to motivate users to develop sustainable financial habits, empowering them to reduce debt, increase savings, and be more mindful of their spending choices.
+	Goal: To create a user-friendly application that encourages financial growth and responsibility using the metaphor of a garden. Responsible spending and saving habits will produce a rewarding game-like experience.
+	Objectives:
+
+
+1. Users can track their income, expenses, debt, and savings. Implement a tracking system for income, expenses, debt, and savings. 
+2. Users can create and implement a budget plan. Design a budget plan capable of user customization.
+3. Positive financial decisions contribute to the growth of a virtual garden. Link the proposed tracking system to an aesthetically pleasing dynamic virtual garden.
+4. Impulse purchases are tracked and users are notified if they don’t adhere to their personal goals. Establish a notification system for increased active-user retention.
+	Success Criteria:
+1. Achieve a 20% increase in user savings within one year of regular app usage.
+2. Facilitate a 20% reduction in total user debt within the same period.
+3. Support users in successfully paying off debt or reaching a significant financial milestone. A large percentage (60-80%) of users will have been within budget 70% of the year.
+4. Ensure that 80% of users report improved financial habits after one year of consistent app engagement.
+	Assumptions, Risks, Obstacles:
+1. Assumption: The gamification aspect will increase user engagement and retention by offering a visually rewarding experience.
+2. Risk: Storing user financial data requires robust security measures, including encryption and secure authentication protocols. No vulnerable ports will be left open to prevent unauthorized access.
+3. Obstacle: Users may struggle to follow recommendations or make changes based on app notifications, reducing the system's effectiveness.
+4. Assumption: Users will be sensitive and supportive of the financial plan given by the application. (Could be a bit redundant with #3, up to y’all if we keep it)
+5. Risk: Users may lose motivation if their virtual garden withers or dies, negatively impacting long-term engagement. Solutions such as recovery mechanisms or progress resets can mitigate this risk.
+	
+
+Prepared By: Laura Estremera, Mikaela Riggan, Christopher Lane, Temu Galindo, Daniela Luna
+	Date:
+
+
+
+	Approved by: Yi Liu
+	Date: 1/31/25

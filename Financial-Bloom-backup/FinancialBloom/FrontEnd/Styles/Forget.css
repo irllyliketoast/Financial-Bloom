@@ -1,0 +1,393 @@
+/* By Laura Estremera */
+* {
+/* Hides the default cursor and forces use of the custom one */
+  cursor: none !important;
+}
+
+/* Set a full-page garden-themed background image */
+body {
+  background: url('../Graphics/GardenBackground.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-color: #edffd9; /* fallback */
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ===== Custom Cursor ===== */
+#customCursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  background-image: url('../Graphics/custom-cursor.png'); /* Custom image */
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none; /* So it doesn’t interfere with clicking */
+    z-index: 99999; /* bump it above all other UI */
+  transform: translate(-50%, -50%); /* Centers image on mouse */
+  transition: transform 0.2s ease;
+}
+
+/* ------------------ Typography ------------------ */
+
+/* Use 'Silkscreen' font for all major UI elements */
+h1, h2, h3, h4, h5, h6,
+button,
+input[type="submit"],
+input[type="text"],
+input[type="password"],
+footer,
+section.social-media {
+    font-family: 'Silkscreen', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  background-color: #74984d;
+  height: 100px;
+  color: white;
+  font-family: 'Silkscreen', sans-serif; /* ← this is what's missing */
+}
+
+.header img {
+    max-width: 65px;
+    padding-right: 10px;
+}
+
+/* ------------------ Custom Alert Styling ------------------ */
+
+/* Full-screen dark overlay for custom alerts */
+.alert-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Bouncy keyframe animation for alert popups */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Alert box design */
+.alert-box {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    min-width: 300px;
+    max-width: 400px;
+    font-family: 'Play', sans-serif;
+    font-size: 16px;
+    word-wrap: break-word;
+    animation: bounceIn 0.3s ease;
+}
+
+/* OK button in alert box */
+.alert-box button {
+    margin-top: 10px;
+    background-color: #74984d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Silkscreen', sans-serif;
+    font-size: 14px;
+}
+
+.alert-box button:hover {
+    background-color: #5f7d3b;
+}
+
+/* Loading Overlay Styling */
+#loadingOverlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark transparent background */
+  backdrop-filter: blur(3px);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+#loadingOverlay .alert-box {
+  background-color: white;
+  color: black;
+  padding: 20px 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-family: 'Play', sans-serif;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+  text-align: center;
+}
+/* ------------------ Login Form Styling ------------------ */
+
+#LogIn, .forgot-link {
+    margin: 10px auto 0px;
+    width: 91%;
+    padding: 5px;
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+}
+
+#LogIn:hover, .forgot-link:hover {
+    background-color: #74984d;
+    color: white;
+}
+
+/* ------------------ Logo ------------------ */
+
+.logo-title {
+  font-family: 'Silkscreen', sans-serif !important;
+  font-size: 40px;
+  margin: 0;
+  color: white; /* <-- ADD THIS */
+}
+
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  background-color: #74984d;
+  height: 100px;
+  color: white;
+  gap: 10px; /* spacing between logo and text */
+}
+
+.header img {
+  max-width: 65px;
+}
+
+/* ------------------ Form Elements ------------------ */
+
+h1 {
+  font-size: 41px;
+  font-weight: bold;
+  text-align: center;
+  text-wrap: wrap;
+  color: #36454F;
+  font-family: 'Silkscreen', sans-serif;
+}
+
+
+& fieldset {
+    border: none;
+    max-width: 490px;
+    width: 100%;
+    padding-inline-end: 0;
+}
+
+& input[type=text], input[type=password] {
+    margin: 0 auto 10px;
+    width: 90%;
+    padding: 10px 5px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+& #continue {
+    margin: 10px auto;
+    width: 91%;
+    padding: 5px;
+    border: none;
+    border-radius: 4px;
+    background-color: #74984d;
+    color: white;
+}
+
+& input:focus, input:hover {
+    caret-color: black;
+}
+
+/* ------------------ Header & Footer ------------------ */
+
+& header {
+    width: 100%;
+    background-color: #74984d;
+    height: 65px;
+    color: white;
+    font-size: 55px;
+
+    & img {
+        float: left;
+        max-width: 65px;
+        padding-right: 10px;
+    }
+}
+
+& footer {
+    font-style: italic;
+    height: 30px;
+    background-color: #74984d;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding-top: 15px;
+}
+
+/* ------------------ Page Structure ------------------ */
+
+
+/* Main Content */
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 150px;
+  padding-bottom: 40px;
+  text-align: center;
+}
+
+.main {
+  background-color: white; 
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  max-width: 450px;
+}
+
+
+h1 {
+  font-family: 'Silkscreen', sans-serif;
+  color: #74984d;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-family: 'Play', sans-serif;
+  font-weight: bold;
+  color: #5f7d3b;
+}
+
+input[type="email"],
+input[type="submit"] {
+  font-family: 'Play', sans-serif;
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 10px;
+  width: 100%;
+  border: 1px solid #74984d;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input[type="email"]:focus {
+  outline: 2px solid #5f7d3b;
+}
+
+input[type="submit"] {
+  background-color: #74984d;
+  color: white;
+  font-family: 'Silkscreen', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+input[type="submit"]:hover {
+  background-color: #5f7d3b;
+}
+
+/* Custom Alert */
+.alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(3px);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.alert-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  font-family: 'Play', sans-serif;
+  animation: fadeIn 0.3s ease;
+  min-width: 300px;
+}
+
+.alert-box button {
+  background-color: #74984d;
+  color: white;
+  border: none;
+  font-family: 'Silkscreen', sans-serif;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.alert-box button:hover {
+  background-color: #5f7d3b;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+footer {
+  font-style: italic;
+  height: 30px;
+  background-color: #74984d;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding-top: 15px;
+  font-family: 'Play', sans-serif;
+  z-index: 1000;
+}
+
