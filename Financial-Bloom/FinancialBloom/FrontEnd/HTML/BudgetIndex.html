@@ -1,0 +1,256 @@
+<!-- By Laura Estremera -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Financial Bloom - Budget Dashboard</title>
+  <link rel="stylesheet" href="../Styles/Budget.css">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<div id="customCursor"></div>
+<body>
+<!-- Header -->
+<header class="header">
+  <img src="../Graphics/logo.png" alt="Financial Bloom logo">
+  Financial Bloom
+</header>
+
+<!-- Sidebar -->
+<nav>
+  <ul>
+    <li><a href="Dashboard.html"><span class="material-symbols-outlined">home</span> Dashboard</a></li>
+    <li id="current"><a href="BudgetIndex.html"><span class="material-symbols-outlined">wallet</span> Budget</a></li>
+    <li><a href="GardenPath.html"><span class="material-symbols-outlined">flyover</span> Garden Path</a></li>
+    <li><a href="Settings.html"><span class="material-symbols-outlined">settings</span> Settings</a></li>
+    <li><a href="Login.html" class="logout"><span class="material-symbols-outlined">door_back</span> Exit</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="left-section">
+    <!-- Income/Debt Tracker -->
+    <div class="table-container">
+      <h2>Income, Debt, Expenses Tracker</h2>
+      <table id="income-debt-table">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Amount ($)</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button onclick="addIncomeDebtRow()">+ Add Row</button>
+    </div>
+
+    <!-- Milestone Tracker -->
+    <div class="table-container">
+      <h2>Milestones Tracker</h2>
+      <table id="milestone-table">
+        <thead>
+        <tr>
+          <th>Milestone Name</th>
+          <th>Amount Saved ($)</th>
+          <th>Goal Amount ($)</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button onclick="addMilestoneRow()">+ Add Row</button>
+    </div>
+  </div>
+
+  <div class="right-section">
+    <!-- Advice Panel -->
+    <div class="advice-panel">
+      <h2>How to Budget?</h2>
+      <p>A common rule of thumb in budgeting is called the 50/20/30 rule:</p>
+      <ul>
+        <li><span class="percentages">50%</span> of income for needs (groceries, car, home)</li>
+        <li><span class="percentages">20%</span> of income for savings (debts, savings)</li>
+        <li><span class="percentages">30%</span> for leisure/luxury (eating out, travel, gym)</li>
+      </ul>
+      <p>Emergency Fund: Keep 3-6 months of expenses saved for emergencies like job loss or unexpected bills.</p>
+      <p>Be realistic: Start small, track expenses, adjust as needed. Consistency matters more than perfection!</p>
+      <h2>Saving Milestones</h2>
+      <p>Milestones represent your long-term savings goals — the things you're intentionally working toward over time, like a vacation, laptop, emergency fund, or future investment.</p>
+      <p>Each milestone helps you visualize progress and stay motivated as you set aside money in small, manageable steps.</p>
+    </div>
+  </div>
+</main>
+
+<!-- Save Button -->
+<div class="save-container">
+  <button onclick="triggerEditAlert()">Save Changes</button>
+</div>
+
+<!--kick user back to dashboard -->
+
+<!-- Footer -->
+<footer>2025 Financial Bloom &copy; All rights reserved.</footer>
+
+<!-- Alert Overlay -->
+<div id="customAlertOverlay" class="alert-overlay" style="display: none;">
+  <div id="customAlert" class="alert-box">
+    <p id="alertMessage">Do you want to save your changes?</p>
+    <button onclick="confirmSave()">OK</button>
+    <button onclick="cancelSave()">Cancel</button>
+  </div>
+</div>
+
+<!-- JS -->
+<script src="../Scripts/required.js"></script>
+<script>
+  const userId = verifyUser();
+  const maxRows = 30;
+  document.addEventListener('DOMContentLoaded', () => {
+    addIncomeDebtRow();
+    addIncomeDebtRow();
+    addMilestoneRow();
+    addMilestoneRow();
+  });
+
+  function addIncomeDebtRow() {
+    const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
+    if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
+
+    const row = table.insertRow();
+    // Needs some kind of "required" so empty data isn't sent to database.
+    row.innerHTML = `
+      <td>
+        <select>
+          <option>Income</option>
+          <option>Debt</option>
+          <option>Expense</option>
+        </select>
+      </td>
+      <td><input type="text" oninput="sanitizeInput(this)" /></td>
+      <td><input type="number" oninput="sanitizeInput(this)" /></td>
+      <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
+    `;
+    window.scrollBy({ top: 150, behavior: 'smooth' });
+  }
+
+  function addMilestoneRow() {
+    const table = document.getElementById('milestone-table').getElementsByTagName('tbody')[0];
+    if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
+
+    const row = table.insertRow();
+    row.innerHTML = `
+      <td><input type="text" oninput="sanitizeInput(this)" /></td>
+      <td><input type="number" oninput="sanitizeInput(this)" /></td>
+      <td><input type="number" oninput="sanitizeInput(this)" /></td>
+      <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
+    `;
+    window.scrollBy({ top: 150, behavior: 'smooth' });
+  }
+
+  function sanitizeInput(input) {
+    input.value = input.value.replace(/[<>"'`=\/]/g, '');
+  }
+
+  // Alert Box Functions
+  let pendingSaveCallback = null;
+
+  async function saveBudgetChanges() {
+    const rows = document.querySelectorAll("#income-debt-table tbody tr");
+    const formData = [];
+    rows.forEach(element => {
+      const inputSelect = element.querySelectorAll("td select");
+      const inputData = element.querySelectorAll("td input");
+      type = inputSelect[0].value;
+      name = inputData[0].value;
+      amount = inputData[1].value;
+      formData.push({
+        "type": type,
+        "name": name,
+        "amount": amount,
+        "userId": userId,
+      })
+    });
+    formData.forEach(data => postToBudgetEntry(data))
+
+  }
+  async function saveMilestoneChanges() {
+    const rows = document.querySelectorAll("#milestone-table ")
+  }
+
+  async function postToBudgetEntry(data) {
+    try {
+      const response = await fetch("http://localhost:8080/api/budget/add",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+              })
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function postToMilestoneChanges() {
+    try{
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function triggerEditAlert(callback) {
+    pendingSaveCallback = callback || null;
+    document.getElementById('customAlertOverlay').style.display = "flex";
+    window.location.href = "dashboard.html";
+  }
+
+  function confirmSave() {
+    if (pendingSaveCallback) pendingSaveCallback();
+    pendingSaveCallback = null;
+    document.getElementById('customAlertOverlay').style.display = "none";
+    saveBudgetChanges();
+
+    // Clean empty rows after saving
+    cleanEmptyRows("income-debt-table", 2);
+    cleanEmptyRows("milestone-table", 2);
+  }
+
+  function cancelSave() {
+    pendingSaveCallback = null;
+    document.getElementById('customAlertOverlay').style.display = "none";
+
+    // Clean empty rows on cancel
+    cleanEmptyRows("income-debt-table", 2);
+    cleanEmptyRows("milestone-table", 2);
+  }
+
+  function cleanEmptyRows(tableId, preserveCount) {
+    const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+    const rows = Array.from(table.rows);
+
+    rows.forEach((row, index) => {
+      if (index < preserveCount) return;
+
+      // Only look at input fields (ignore selects)
+      const inputs = row.querySelectorAll('input');
+      const isEmpty = Array.from(inputs).every(input => input.value.trim() === "");
+
+      if (isEmpty) {
+        row.remove();
+      }
+    });
+  }
+
+</script>
+
+</body>
+</html>
