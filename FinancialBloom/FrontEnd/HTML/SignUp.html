@@ -25,202 +25,218 @@
 <body>
 
 <div id="customCursor"></div>
-  <!-- Top header bar -->
-  <header class="header">
-    <img src="../Graphics/logo.png" alt="Financial Bloom logo">
-    Financial Bloom
-  </header>
+<!-- Top header bar -->
+<header class="header">
+  <img src="../Graphics/logo.png" alt="Financial Bloom logo">
+  Financial Bloom
+</header>
 
-  <!-- Page wrapper: holds form + information panels -->
-  <div class="wrapper">
+<!-- Page wrapper: holds form + information panels -->
+<div class="wrapper">
 
-    <!-- Left-side sign-up form -->
-    <div class="sign-up-form">
-      <h1>Create an Account</h1>
+  <!-- Left-side sign-up form -->
+  <div class="sign-up-form">
+    <h1>Create an Account</h1>
 
-      <!-- Form with event-based validation -->
-		<form onsubmit="return validateSignUp(event)">
-		  <input type="text" id="firstName" placeholder="First Name" required><br>
-		  <input type="text" id="lastName" placeholder="Last Name" required><br>
-		  <input type="email" id="email" placeholder="Email" required><br>
-		  <input type="text" id="username" placeholder="Username" required><br>
-		  <input type="password" id="password" placeholder="Password" required><br>
-		  <input type="password" id="confirmPassword" placeholder="Confirm Password" required><br>
-		  <input type="submit" value="Sign Up">
-		</form>
+    <!-- Form with event-based validation -->
+    <form onsubmit="return validateSignUp(event)">
+      <input type="text" id="firstName" placeholder="First Name" required><br>
+      <input type="text" id="lastName" placeholder="Last Name" required><br>
+      <input type="email" id="email" placeholder="Email" required><br>
+      <input type="text" id="username" placeholder="Username" required><br>
+      <input type="password" id="password" placeholder="Password" required><br>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required><br>
+      <input type="submit" value="Sign Up">
+    </form>
 
-    </div>
-
-    <!-- Custom alert box overlay -->
-    <div id="customAlertOverlaySignUp" class="alert-overlay">
-      <div id="customAlertSignUp" class="alert-box">
-        <p id="alertMessageSignUp"></p>
-        <button onclick="closeAlertSignUp()">OK</button> //now calls close alert function
-      </div>
-    </div>
-
-    <!-- Right-side informational content -->
-    <div class="info-content">
-      <h3>Welcome to Financial Bloom!</h3>
-      <p>Discover a fun and engaging way to take control of your finances through your very own virtual garden. At Financial Bloom, we guide you on a journey to financial responsibility, where every smart financial decision helps your garden grow.</p>
-
-      <h3>What Makes Us Different?</h3>
-      <p>At Financial Bloom, we believe that managing your money should be more than just a chore – it should be an enjoyable and rewarding experience. By combining financial education with a gamified approach, we turn budgeting, saving, and paying off debt into a game that motivates you to make smart financial choices.</p>
-      <p>As you improve your financial health, watch your virtual garden flourish. Every positive financial decision contributes to the growth of beautiful plants, making your journey to financial wellness not only effective but visually rewarding.</p>
-
-      <h3>How We Help You</h3>
-      <p>Our easy-to-use app helps you track your income, expenses, debt, and savings while allowing you to set personalized budgets. With tailored suggestions and a dynamic garden that reflects your financial habits, you'll receive motivation every step of the way.</p>
-
-      <p>Key Features Include:</p>
-      <ul>
-        <li><strong>Track Your Spending:</strong> Get insights on where your money is going and how to improve.</li>
-        <li><strong>Set Financial Goals:</strong> Create custom budgets, savings plans, and milestones for debt reduction.</li>
-        <li><strong>Visual Garden Growth:</strong> Watch your virtual garden thrive as you meet your financial targets.</li>
-      </ul>
-
-      <h3>Start Your Journey Today</h3>
-      <p>Sign up now to begin cultivating your financial future with the help of Financial Bloom. Whether you're just starting your financial journey or looking to refine your habits, we're here to help you grow and thrive.</p>
-
-      <p>Ready to get started? Create an account or <a href="Login.html">log in</a> to access your personalized dashboard!</p>
-
-      <p><strong>Still have questions?</strong> Check out our <a href="tutorial-link">interactive tutorial</a> to guide you through everything you need to know about the app's features and how to make the most of your experience.</p>
-    </div>
-
-    <!-- Social media icons section -->
-    <section class="info-content">
-      <p class="follow-us">Follow us on:</p>
-      <section class="social-media">
-        <img src="../Graphics/faceBook.png" alt="Facebook">
-        <img src="../Graphics/insta.png" alt="Instagram">
-        <img src="../Graphics/x.png" alt="X">
-      </section>
-    </section>
   </div>
 
-  <!-- Page footer -->
-  <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
+  <!-- Custom alert box overlay -->
+  <div id="customAlertOverlaySignUp" class="alert-overlay">
+    <div id="customAlertSignUp" class="alert-box">
+      <p id="alertMessageSignUp"></p>
+      <button onclick="closeAlertSignUp()">OK</button>
+    </div>
+  </div>
 
-  <!-- JavaScript validation and UI control -->
-  <script>
-      function sanitizeInput(input) {
-      return input.replace(/[<>"'`]/g, '');
-    }
+  <!-- Right-side informational content -->
+  <div class="info-content">
+    <h3>Welcome to Financial Bloom!</h3>
+    <p>Discover a fun and engaging way to take control of your finances through your very own virtual garden. At Financial Bloom, we guide you on a journey to financial responsibility, where every smart financial decision helps your garden grow.</p>
 
-      function sanitizeName(name) {
-      return name.replace(/[^a-zA-Z\s\-']/g, '');
-    }
+    <h3>What Makes Us Different?</h3>
+    <p>At Financial Bloom, we believe that managing your money should be more than just a chore – it should be an enjoyable and rewarding experience. By combining financial education with a gamified approach, we turn budgeting, saving, and paying off debt into a game that motivates you to make smart financial choices.</p>
+    <p>As you improve your financial health, watch your virtual garden flourish. Every positive financial decision contributes to the growth of beautiful plants, making your journey to financial wellness not only effective but visually rewarding.</p>
 
-      function sanitizeEmail(email) {
-      return email.replace(/[^a-zA-Z0-9@._-]/g, '');
-    }
+    <h3>How We Help You</h3>
+    <p>Our easy-to-use app helps you track your income, expenses, debt, and savings while allowing you to set personalized budgets. With tailored suggestions and a dynamic garden that reflects your financial habits, you'll receive motivation every step of the way.</p>
 
-      function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
+    <p>Key Features Include:</p>
+    <ul>
+      <li><strong>Track Your Spending:</strong> Get insights on where your money is going and how to improve.</li>
+      <li><strong>Set Financial Goals:</strong> Create custom budgets, savings plans, and milestones for debt reduction.</li>
+      <li><strong>Visual Garden Growth:</strong> Watch your virtual garden thrive as you meet your financial targets.</li>
+    </ul>
 
-      async function validateSignUp(event) {
-      event.preventDefault();
+    <h3>Start Your Journey Today</h3>
+    <p>Sign up now to begin cultivating your financial future with the help of Financial Bloom. Whether you're just starting your financial journey or looking to refine your habits, we're here to help you grow and thrive.</p>
 
-      let firstName = sanitizeName(document.getElementById("firstName").value.trim());
-      let lastName = sanitizeName(document.getElementById("lastName").value.trim());
-      let email = sanitizeEmail(document.getElementById("email").value.trim());
-      let username = sanitizeInput(document.getElementById("username").value.trim());
-      let password = document.getElementById("password").value;
-      let confirmPassword = document.getElementById("confirmPassword").value;
+    <p>Ready to get started? Create an account or <a href="Login.html">log in</a> to access your personalized dashboard!</p>
 
-      if (!/^[a-zA-Z\s\-']+$/.test(firstName) || !/^[a-zA-Z\s\-']+$/.test(lastName)) {
+    <p><strong>Still have questions?</strong> Check out our <a href="tutorial-link">interactive tutorial</a> to guide you through everything you need to know about the app's features and how to make the most of your experience.</p>
+  </div>
+
+  <!-- Social media icons section -->
+  <section class="info-content">
+    <p class="follow-us">Follow us on:</p>
+    <section class="social-media">
+      <img src="../Graphics/faceBook.png" alt="Facebook">
+      <img src="../Graphics/insta.png" alt="Instagram">
+      <img src="../Graphics/x.png" alt="X">
+    </section>
+  </section>
+</div>
+
+<!-- Page footer -->
+<footer>2025 Financial Bloom &copy; All rights reserved.</footer>
+
+<!-- JavaScript validation and UI control -->
+<script>
+  function sanitizeInput(input) {
+    return input.replace(/[<>"'`]/g, '');
+  }
+
+  function sanitizeName(name) {
+    return name.replace(/[^a-zA-Z\s\-']/g, '');
+  }
+
+  function sanitizeEmail(email) {
+    return email.replace(/[^a-zA-Z0-9@._-]/g, '');
+  }
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function clearFormFields() {
+    document.getElementById("firstName").value = "";
+    document.getElementById("lastName").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("confirmPassword").value = "";
+  }
+
+  async function validateSignUp(event) {
+    event.preventDefault();
+
+    // Get form elements
+    const firstNameField = document.getElementById("firstName");
+    const lastNameField = document.getElementById("lastName");
+    const emailField = document.getElementById("email");
+    const usernameField = document.getElementById("username");
+    const passwordField = document.getElementById("password");
+    const confirmPasswordField = document.getElementById("confirmPassword");
+
+    // Sanitize and trim inputs
+    let firstName = sanitizeName(firstNameField.value.trim());
+    let lastName = sanitizeName(lastNameField.value.trim());
+    let email = sanitizeEmail(emailField.value.trim());
+    let username = sanitizeInput(usernameField.value.trim());
+    let password = passwordField.value;
+    let confirmPassword = confirmPasswordField.value;
+
+    // Validation checks
+    if (!/^[a-zA-Z\s\-']+$/.test(firstName) || !/^[a-zA-Z\s\-']+$/.test(lastName)) {
       showAlertSignUp("Names can only contain letters, spaces, hyphens, and apostrophes.");
       return false;
     }
 
-      if (!isValidEmail(email)) {
+    if (!isValidEmail(email)) {
       showAlertSignUp("Please enter a valid email address.");
       return false;
     }
 
-      let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
-      if (!passwordRegex.test(password)) {
+    let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{6,}$/;
+    if (!passwordRegex.test(password)) {
       showAlertSignUp("Password must be at least 6 characters long, contain an uppercase letter, a lowercase letter, a special character, and cannot contain spaces.");
-      shakeInput(document.getElementById("password"), document.getElementById("confirmPassword"));
-      document.getElementById("password").focus(); // changed
+      shakeInput(passwordField, confirmPasswordField);
+      passwordField.focus();
       return false;
     }
 
-      if (password !== confirmPassword) {
+    if (password !== confirmPassword) {
       showAlertSignUp("Passwords do not match.");
-      shakeInput(document.getElementById("password"), document.getElementById("confirmPassword"));
-      document.getElementById("password").value = "";
-      document.getElementById("confirmPassword").value = "";
+      shakeInput(passwordField, confirmPasswordField);
+      passwordField.value = "";
+      confirmPasswordField.value = "";
       return false;
     }
 
-      try {
+    try {
       const response = await fetch('http://localhost:8080/api/register', {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json',
-    },
-      body: JSON.stringify({
-      fName: firstName,
-      lName: lastName,
-      email: email,
-      username: username,
-      password: password
-    })
-    });
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fName: firstName,
+          lName: lastName,
+          email: email,
+          username: username,
+          password: password
+        })
+      });
 
       const result = await response.json();
-      console.log("Result:", result);
 
       if (response.ok && result.success) {
         window.location.href = "Login.html";
-    } else {
-      showAlertSignUp(result.message || "Account creation failed.");
-      document.getElementById("password").value = "";
-      document.getElementById("confirmPassword").value = "";
-
-    }
+      } else {
+        clearFormFields();
+        showAlertSignUp(result.message || "Account creation failed.");
+      }
     } catch (error) {
       console.error('Signup error:', error);
+      clearFormFields();
       showAlertSignUp("An error occurred while creating your account.");
     }
 
-      return false;
-    }
+    return false;
+  }
 
-      function showAlertSignUp(message) {
-      const alertBox = document.getElementById("customAlertSignUp");
-      const overlay = document.getElementById("customAlertOverlaySignUp");
+  function showAlertSignUp(message) {
+    const alertBox = document.getElementById("customAlertSignUp");
+    const overlay = document.getElementById("customAlertOverlaySignUp");
 
-      document.getElementById("alertMessageSignUp").innerText = message;
-      alertBox.style.animation = 'none';
-      void alertBox.offsetWidth;
-      alertBox.style.animation = 'bounceIn 0.3s ease';
-      overlay.style.display = "flex";
-    }
+    document.getElementById("alertMessageSignUp").innerText = message;
+    alertBox.style.animation = 'none';
+    void alertBox.offsetWidth;
+    alertBox.style.animation = 'bounceIn 0.3s ease';
+    overlay.style.display = "flex";
+  }
 
-      function closeAlertSignUp() {
-      document.getElementById("customAlertOverlaySignUp").style.display = "none";
-    }
+  function closeAlertSignUp() {
+    document.getElementById("customAlertOverlaySignUp").style.display = "none";
+  }
 
-      function shakeInput(passwordField, confirmPasswordField) {
-      passwordField.classList.add("shake");
-      confirmPasswordField.classList.add("shake");
-      setTimeout(() => {
+  function shakeInput(passwordField, confirmPasswordField) {
+    passwordField.classList.add("shake");
+    confirmPasswordField.classList.add("shake");
+    setTimeout(() => {
       passwordField.classList.remove("shake");
       confirmPasswordField.classList.remove("shake");
     }, 300);
-    }
+  }
 
-      // 🖱️ Custom Cursor Follower Script
-	  const cursor = document.getElementById('customCursor');
-	  document.addEventListener('mousemove', (e) => {
-	    cursor.style.left = `${e.clientX}px`;
-	    cursor.style.top = `${e.clientY}px`;
-	  });
-  </script>
+  // 🖱️ Custom Cursor Follower Script
+  const cursor = document.getElementById('customCursor');
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+  });
+</script>
 
 </body>
 
 </html>
-
