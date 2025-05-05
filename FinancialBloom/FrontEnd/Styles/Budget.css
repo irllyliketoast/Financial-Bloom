@@ -1,6 +1,5 @@
 /* By Laura Estremera */
 
-/* By Laura Estremera */
 * {
 /* Hides the default cursor and forces use of the custom one */
   cursor: none !important;
@@ -282,6 +281,12 @@ footer {
   cursor: pointer;
   font-family: 'Silkscreen', sans-serif;
   font-size: 14px;
+}
+
+.budget-warning {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 2px solid red;
+  transition: background-color 0.5s ease, border 0.5s ease;
 }
 
 .alert-box button:hover {
