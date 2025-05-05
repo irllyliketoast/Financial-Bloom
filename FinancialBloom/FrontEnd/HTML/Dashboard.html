@@ -1,4 +1,4 @@
-<!-- By Laura Estremera -->
+<!-- HTML by: Laura Estremera, Javascript by: Temo Galindo, Daniela Luna, Mikaela Riggan -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +21,9 @@
 
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+  <!--Pi-Chart Library-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -64,11 +67,7 @@
     <!-- Pie Chart -->
     <div class="chart-container">
       <h2>Spending Breakdown</h2>
-      <table class="charts-css pie show-heading" id="spending-chart">
-        <caption>Expenses</caption>
-        <!-- Dynamic Pie Chart slices go here -->
-
-      </table>
+      <canvas id="spendingPieChart" width="300" height="300"></canvas>
     </div>
 
     <!-- Milestone Contributions -->
@@ -78,7 +77,7 @@
         <thead>
         <tr>
           <th>Milestone</th>
-          <th>Contribution</th>
+          <th>Total Saved</th>
         </tr>
         </thead>
         <tbody id="milestone-body">
@@ -108,60 +107,134 @@
   const userId = verifyUser();
   async function fetchDashboardData() {
     try {
-      const response = await fetch(`http://localhost:8080/api/budget/user/${userId}`);
+      const response = await fetch(`http://localhost:8080/api/dashboard-data/${userId}`);
       const data = await response.json();
+
       let totalIncome = 0;
       let totalExpenses = 0;
-      let net = 0;
+      let totalSavings = 0;
 
-      data.forEach((budget) => {
-                const { amount, type } = budget;
-                if (type === "Income") {
-                  totalIncome += amount;
-                } //need to be an elseif when we get milestones working
-                else {
-                  totalExpenses += amount;
-                }
+      // First pass to calculate totals
+      data.budgetData.forEach(entry => {
+        if (entry.type === "Income") totalIncome += entry.amount;
+        else if (entry.type === "Expense") totalExpenses += entry.amount;
+      });
 
-              }
-      )
-      net = totalIncome - totalExpenses;
-
-      // Update Stats
-      document.getElementById('income-amount').innerText = `$${totalIncome}`;
-      document.getElementById('expenses-amount').innerText = `$${totalExpenses}`;
-      document.getElementById('net-amount').innerText = `$${net}`;
-
-      // Update Pie Chart
-      const chart = document.getElementById('spending-chart');
-      chart.innerHTML = '<caption>Expenses</caption>'; // Reset
-      let start = 0;
-      if (data.pieData && data.pieData.length > 0) {
-        data.pieData.forEach(item => {
-          const percent = item.amount / data.expenses;
-          const end = start + percent;
-          const tr = document.createElement('tr');
-          tr.innerHTML = `<td style="--start: ${start}; --end: ${end};"><span>${item.name}</span></td>`;
-          chart.appendChild(tr);
-          start = end;
+      // Group milestones by lowercase name and sum amounts
+      const groupedMilestones = {};
+      if (data.milestone) {
+        data.milestone.forEach(m => {
+          const normalizedName = m.name.trim().toLowerCase(); // Normalize to lowercase
+          if (!groupedMilestones[normalizedName]) {
+            groupedMilestones[normalizedName] = {
+              displayName: m.name.trim(), // Keep original formatting for display
+              amountSaved: 0
+            };
+          }
+          groupedMilestones[normalizedName].amountSaved += m.amountSaved;
+          totalSavings += m.amountSaved;
         });
       }
 
-      // Update Milestone Contributions
+      const net = totalIncome - totalExpenses;
+
+      // Update Stats
+      document.getElementById('income-amount').innerText = `$${totalIncome.toFixed(2)}`;
+      document.getElementById('expenses-amount').innerText = `$${totalExpenses.toFixed(2)}`;
+      document.getElementById('net-amount').innerText = `$${net.toFixed(2)}`;
+
+      // Group expenses by lowercase name and sum amounts
+      const expenseCategories = {};
+      data.budgetData.forEach(entry => {
+          if (entry.type === "Expense") {
+              const normalizedName = entry.name.trim().toLowerCase();
+              if (!expenseCategories[normalizedName]) {
+                  expenseCategories[normalizedName] = {
+                      displayName: entry.name.trim(),
+                      amount: 0
+                  };
+              }
+              expenseCategories[normalizedName].amount += entry.amount;
+          }
+      });
+
+      // Prepare chart data using original display names but grouped amounts
+      const expenseLabels = Object.values(expenseCategories).map(cat => cat.displayName);
+      const expenseData = Object.values(expenseCategories).map(cat => cat.amount);
+
+      // Generate colors for each category
+      const generateColors = (count) => {
+          const colors = [];
+          const hueStep = 360 / count;
+          for (let i = 0; i < count; i++) {
+              const hue = (i * hueStep) % 360;
+              colors.push(`hsl(${hue}, 70%, 60%)`);
+          }
+          return colors;
+      };
+
+      const backgroundColors = generateColors(expenseLabels.length);
+
+      if (window.myPieChart) {
+          window.myPieChart.destroy();
+      }
+
+      // Only create chart if there are expenses to show
+      if (expenseLabels.length > 0) {
+          const ctx = document.getElementById('spendingPieChart').getContext('2d');
+          window.myPieChart = new Chart(ctx, {
+              type: 'pie',
+              data: {
+                  labels: expenseLabels,
+                  datasets: [{
+                      data: expenseData,
+                      backgroundColor: backgroundColors,
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  plugins: {
+                      legend: {
+                          position: 'bottom',
+                          labels: {
+                              font: {
+                                  family: 'Play',
+                                  size: 14
+                              }
+                          }
+                      },
+                      tooltip: {
+                          callbacks: {
+                              label: function(context) {
+                                  let label = context.label || '';
+                                  if (label) {
+                                      label += ': ';
+                                  }
+                                  label += '$' + context.raw.toFixed(2);
+                                  return label;
+                              }
+                          }
+                      }
+                  }
+              }
+          });
+      }
+
       const milestoneBody = document.getElementById('milestone-body');
-      milestoneBody.innerHTML = ''; // Reset
-      if (data.milestones && data.milestones.length > 0) {
-        data.milestones.forEach(entry => {
-          const row = `<tr><td>${entry.name}</td><td>$${entry.contribution}</td></tr>`;
+      milestoneBody.innerHTML = '';
+
+      // Use the grouped milestones data
+      if (groupedMilestones) {
+        Object.values(groupedMilestones).forEach(entry => {
+          const row = `<tr><td>${entry.displayName}</td><td>$${entry.amountSaved.toFixed(2)}</td></tr>`;
           milestoneBody.innerHTML += row;
         });
       }
-
     } catch (error) {
       console.error('Failed to load dashboard data:', error);
     }
   }
-  //Logout functionality in required.js
+
   // Load dashboard data when page loads
   window.addEventListener('DOMContentLoaded', fetchDashboardData);
 </script>
