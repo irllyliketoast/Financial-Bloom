@@ -1,48 +1,65 @@
 /* By Laura Estremera */
 
 * {
-/* Hides the default cursor and forces use of the custom one */
   cursor: none !important;
 }
-/* ===== Custom Cursor ===== */
 #customCursor {
   position: fixed;
   top: 0;
   left: 0;
   width: 32px;
   height: 32px;
-  background-image: url('../Graphics/custom-cursor.png'); /* Custom image */
+  background-image: url('../Graphics/custom-cursor.png');
   background-size: contain;
   background-repeat: no-repeat;
-  pointer-events: none; /* So it doesn’t interfere with clicking */
-    z-index: 99999; /* bump it above all other UI */
-  transform: translate(-50%, -50%); /* Centers image on mouse */
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
   transition: transform 0.2s ease;
 }
-
-html {
-    background: url('../Graphics/GardenBackground.jpg') no-repeat center center fixed;
-    background-size: cover;
+:root {
+  --bg-header: #74984d;
+  --bg-sidebar: #74984d;
+  --bg-table: white;
+  --bg-panel: white;
+  --border: #74984d;
+  --text-main: black;
+  --text-inverse: white;
+  --accent: #5f7d3b;
+  --accent-hover: #4b632c;
 }
-
+body.budget-warning {
+  --bg-header: #a02222;
+  --bg-sidebar: #a02222;
+  --bg-table: #ffe6e6;
+  --bg-panel: #fff0f0;
+  --border: #b30000;
+  --text-main: #330000;
+  --text-inverse: white;
+  --accent: #b30000;
+  --accent-hover: #800000;
+}
+html {
+  background: url('../Graphics/GardenBackground.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   overflow-y: auto;
   font-family: 'Play', sans-serif;
+  color: var(--text-main);
 }
-
-/* Header */
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #74984d;
+  background-color: var(--bg-header);
   height: 80px;
   font-size: 30px;
   font-weight: bold;
-  color: white;
+  color: var(--text-inverse);
   font-family: 'Silkscreen', sans-serif;
   position: fixed;
   width: 100%;
@@ -51,76 +68,61 @@ html, body {
   z-index: 1000;
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.25);
 }
-
 .header img {
   max-width: 60px;
   margin-right: 10px;
 }
-
-/* Sidebar */
 nav {
   position: fixed;
   top: 80px;
   left: 0;
   width: 150px;
   height: calc(100% - 80px);
-  background-color: #74984d;
+  background-color: var(--bg-sidebar);
   padding-top: 30px;
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.25);
 }
-
 nav ul {
   list-style: none;
   padding: 0;
 }
-
 nav li {
   margin-bottom: 20px;
 }
-
 nav a {
   text-decoration: none;
-  color: white;
+  color: var(--text-inverse);
   display: flex;
   align-items: center;
   padding: 10px;
   font-family: 'Silkscreen', sans-serif;
   transition: background-color 0.3s;
 }
-
 nav a:hover {
-  background-color: #5f7d3b;
+  background-color: var(--accent-hover);
   border-radius: 4px;
 }
-
 #current a {
   background-color: #edffd9;
   color: #74984d;
   border-radius: 4px;
 }
-
-/* Main Layout */
 main {
   margin-left: 160px;
   padding: 100px 20px 20px 20px;
   display: flex;
   gap: 20px;
 }
-
 .percentages {
   font-family: 'Silkscreen', sans-serif;
   color: #74984d;
 }
-
-/* Left Section: Tables */
 .left-section {
   flex: 2;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-
-/* Right Section: Advice Panel */
 .right-section {
   flex: 1;
   display: flex;
@@ -128,86 +130,70 @@ main {
   align-items: flex-start;
   padding-top: 5px;
 }
-
 .advice-panel {
-  background-color: white;
-  border: 1px solid #74984d;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   max-width: 350px;
 }
-
 .advice-panel h2 {
   font-family: 'Silkscreen', sans-serif;
-  color: #74984d;
+  color: var(--border);
 }
-
 .advice-panel p, .advice-panel ul {
   font-family: 'Play', sans-serif;
   font-size: 16px;
   margin-bottom: 10px;
 }
-
 .advice-panel ul {
   padding-left: 20px;
 }
-
-/* Table Containers */
 .table-container {
-  background-color: white;
+  background-color: var(--bg-table);
   padding: 20px;
-  border: 1px solid #74984d;
+  border: 1px solid var(--border);
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   position: relative;
 }
-
-/* Table Styling */
 table {
   width: 100%;
   border-collapse: collapse;
 }
-
 th, td {
-  border: 1px solid #74984d;
+  border: 1px solid var(--border);
   padding: 10px;
   text-align: center;
   font-family: 'Play', sans-serif;
 }
-
 input, select {
   width: 90%;
   padding: 5px;
   font-family: 'Play', sans-serif;
 }
-
-/* Add Row Button Styling */
 .table-container button {
   margin-top: 15px;
-  background-color: #74984d;
-  color: white;
+  background-color: var(--accent);
+  color: var(--text-inverse);
   border: none;
   border-radius: 4px;
   padding: 8px 12px;
   font-family: 'Silkscreen', sans-serif;
   cursor: pointer;
 }
-
 .table-container button:hover {
-  background-color: #5f7d3b;
+  background-color: var(--accent-hover);
 }
-
-/* Save Button Section */
 .save-container {
   text-align: center;
   margin-top: 20px;
   margin-bottom: 40px;
 }
-
 .save-container button {
-  background-color: #5f7d3b;
-  color: white;
+  background-color: var(--accent);
+  color: var(--text-inverse);
   border: none;
   padding: 12px 20px;
   font-size: 16px;
@@ -216,17 +202,14 @@ input, select {
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-
 .save-container button:hover {
-  background-color: #4b632c;
+  background-color: var(--accent-hover);
 }
-
-/* Footer */
 footer {
   font-family: 'Silkscreen', sans-serif;
   margin-top: auto;
-  background-color: #74984d;
-  color: white;
+  background-color: var(--bg-header);
+  color: var(--text-inverse);
   text-align: center;
   height: 30px;
   padding-top: 5px;
@@ -235,8 +218,6 @@ footer {
   width: 100%;
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.25);
 }
-
-/* Alert Overlay */
 .alert-overlay {
   display: none;
   position: fixed;
@@ -250,10 +231,9 @@ footer {
   justify-content: center;
   align-items: center;
 }
-
 .alert-box {
-  background-color: white;
-  color: black;
+  background-color: var(--bg-panel);
+  color: var(--text-main);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
@@ -264,17 +244,15 @@ footer {
   min-width: 300px;
   max-width: 400px;
 }
-
 @keyframes bounceIn {
   0% { transform: scale(0.8); opacity: 0; }
   60% { transform: scale(1.05); opacity: 1; }
   100% { transform: scale(1); }
 }
-
 .alert-box button {
   margin-top: 10px;
-  background-color: #74984d;
-  color: white;
+  background-color: var(--accent);
+  color: var(--text-inverse);
   border: none;
   padding: 8px 15px;
   border-radius: 4px;
@@ -282,13 +260,6 @@ footer {
   font-family: 'Silkscreen', sans-serif;
   font-size: 14px;
 }
-
-.budget-warning {
-  background-color: rgba(255, 0, 0, 0.1);
-  border: 2px solid red;
-  transition: background-color 0.5s ease, border 0.5s ease;
-}
-
 .alert-box button:hover {
-  background-color: #5f7d3b;
+  background-color: var(--accent-hover);
 }
