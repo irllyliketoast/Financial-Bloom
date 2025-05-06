@@ -100,6 +100,14 @@
   2025 Financial Bloom &copy; All rights reserved.
 </footer>
 
+<!-- Inactivity Alert Box (Inserted) -->
+<div id="customAlertOverlay" class="alert-overlay" style="display: none;">
+  <div id="customAlert" class="alert-box">
+    <p id="alertMessage">Do you want to save your changes?</p>
+    <button onclick="logoutUser()">OK</button>
+  </div>
+</div>
+
 <!-- JavaScript to Fetch Dashboard Data -->
 <script src="../Scripts/required.js"></script>
 <script>
@@ -237,6 +245,56 @@
 
   // Load dashboard data when page loads
   window.addEventListener('DOMContentLoaded', fetchDashboardData);
+  
+  // ========== Inactivity Timeout Script ==========
+	let inactivityTimer;
+	let countdownInterval;
+	let warningShown = false;
+
+	function showInactivityWarning() {
+	  const overlay = document.getElementById("customAlertOverlay");
+	  const alertBox = document.getElementById("customAlert");
+	  const msg = document.getElementById("alertMessage");
+
+	  overlay.style.display = "flex";
+	  msg.innerHTML = `You’ll be logged out in <span id="countdown">60</span> seconds due to inactivity.`;
+
+	  let timeLeft = 60;
+	  countdownInterval = setInterval(() => {
+		timeLeft--;
+		const countdown = document.getElementById("countdown");
+		if (countdown) countdown.textContent = timeLeft;
+		if (timeLeft <= 0) {
+		  clearInterval(countdownInterval);
+		  logoutUser();
+		}
+	  }, 1000);
+	}
+
+	function logoutUser() {
+	  localStorage.clear();
+	  window.location.href = "Login.html";
+	}
+
+	function resetInactivityTimer() {
+	  clearTimeout(inactivityTimer);
+	  clearInterval(countdownInterval);
+	  if (warningShown) {
+		document.getElementById("customAlertOverlay").style.display = "none";
+		warningShown = false;
+	  }
+	  inactivityTimer = setTimeout(() => {
+		warningShown = true;
+		showInactivityWarning();
+	  }, 14 * 60 * 1000); // 14 minutes
+	}
+
+	// Register user activity events
+	["click", "keydown", "mousemove", "scroll"].forEach(evt =>
+	  document.addEventListener(evt, resetInactivityTimer)
+	);
+
+	resetInactivityTimer();
 </script>
 
 </body>
