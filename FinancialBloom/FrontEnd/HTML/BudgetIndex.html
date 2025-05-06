@@ -107,23 +107,28 @@
   </div>
 </div>
 
-<!-- JS -->
+<!-- Script -->
 <script src="../Scripts/required.js"></script>
 <script>
   const userId = verifyUser();
   const maxRows = 30;
+
   document.addEventListener('DOMContentLoaded', () => {
-	const stored = localStorage.getItem("budgetData");
-	loadFromLocalStorage();
+    const storedBudget = localStorage.getItem("budgetData");
+    loadFromLocalStorage();
 
-	// If no saved budget rows exist, add two fresh ones
-	if (!stored || JSON.parse(stored).length === 0) {
-		addIncomeDebtRow();
-		addIncomeDebtRow();
-	}
+    if (!storedBudget || JSON.parse(storedBudget).length === 0) {
+      addIncomeDebtRow();
+      addIncomeDebtRow();
+    }
 
-	addMilestoneRow();
-	addMilestoneRow();
+    const storedMilestones = localStorage.getItem("milestoneData");
+    loadMilestonesFromLocalStorage();
+
+    if (!storedMilestones || JSON.parse(storedMilestones).length === 0) {
+      addMilestoneRow();
+      addMilestoneRow();
+    }
   });
 
   function addIncomeDebtRow() {
@@ -131,18 +136,17 @@
     if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
 
     const row = table.insertRow();
-    // Needs some kind of "required" so empty data isn't sent to database.
     row.innerHTML = `
       <td>
-        <select>
+        <select onchange="checkBudgetBalance(); saveToLocalStorage();">
           <option>Income</option>
           <option>Debt</option>
           <option>Expense</option>
         </select>
       </td>
-      <td><input type="text" oninput="sanitizeInput(this)" /></td>
-      <td><input type="number" oninput="sanitizeInput(this)" /></td>
-      <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
+      <td><input type="text" oninput="sanitizeInput(this); saveToLocalStorage();" /></td>
+      <td><input type="number" oninput="sanitizeInput(this); checkBudgetBalance(); saveToLocalStorage();" /></td>
+      <td><button onclick="this.closest('tr').remove(); saveToLocalStorage(); checkBudgetBalance();">🗑️</button></td>
     `;
     window.scrollBy({ top: 150, behavior: 'smooth' });
   }
@@ -153,10 +157,10 @@
 
     const row = table.insertRow();
     row.innerHTML = `
-      <td><input type="text" oninput="sanitizeInput(this)" /></td>
-      <td><input type="number" oninput="sanitizeInput(this)" /></td>
-      <td><input type="number" oninput="sanitizeInput(this)" /></td>
-      <td><button onclick="this.closest('tr').remove()">🗑️</button></td>
+      <td><input type="text" oninput="sanitizeInput(this); saveMilestonesToLocalStorage();" /></td>
+      <td><input type="number" oninput="sanitizeInput(this); saveMilestonesToLocalStorage();" /></td>
+      <td><input type="number" oninput="sanitizeInput(this); saveMilestonesToLocalStorage();" /></td>
+      <td><button onclick="this.closest('tr').remove(); saveMilestonesToLocalStorage();">🗑️</button></td>
     `;
     window.scrollBy({ top: 150, behavior: 'smooth' });
   }
@@ -174,41 +178,26 @@
     rows.forEach(element => {
       const inputSelect = element.querySelectorAll("td select");
       const inputData = element.querySelectorAll("td input");
-      type = inputSelect[0].value;
-      name = inputData[0].value;
-      amount = inputData[1].value;
+      const type = inputSelect[0].value;
+      const name = inputData[0].value;
+      const amount = inputData[1].value;
       formData.push({
-        "type": type,
-        "name": name,
-        "amount": amount,
-        "userId": userId,
-      })
+        type,
+        name,
+        amount,
+        userId,
+      });
     });
-    formData.forEach(data => postToBudgetEntry(data))
-
-  }
-  async function saveMilestoneChanges() {
-    const rows = document.querySelectorAll("#milestone-table ")
+    formData.forEach(data => postToBudgetEntry(data));
   }
 
   async function postToBudgetEntry(data) {
     try {
-      const response = await fetch("http://localhost:8080/api/budget/add",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data)
-              })
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function postToMilestoneChanges() {
-    try{
-
+      await fetch("http://localhost:8080/api/budget/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
     } catch (error) {
       console.error(error);
     }
@@ -225,8 +214,6 @@
     pendingSaveCallback = null;
     document.getElementById('customAlertOverlay').style.display = "none";
     saveBudgetChanges();
-
-    // Clean empty rows after saving
     cleanEmptyRows("income-debt-table", 2);
     cleanEmptyRows("milestone-table", 2);
   }
@@ -234,8 +221,6 @@
   function cancelSave() {
     pendingSaveCallback = null;
     document.getElementById('customAlertOverlay').style.display = "none";
-
-    // Clean empty rows on cancel
     cleanEmptyRows("income-debt-table", 2);
     cleanEmptyRows("milestone-table", 2);
   }
@@ -243,96 +228,115 @@
   function cleanEmptyRows(tableId, preserveCount) {
     const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
     const rows = Array.from(table.rows);
-
     rows.forEach((row, index) => {
       if (index < preserveCount) return;
-
-      // Only look at input fields (ignore selects)
       const inputs = row.querySelectorAll('input');
       const isEmpty = Array.from(inputs).every(input => input.value.trim() === "");
-
-      if (isEmpty) {
-        row.remove();
-      }
+      if (isEmpty) row.remove();
     });
   }
-  
-	// ========== Expense vs Income Monitoring ==========
-	let budgetWarningActive = false;
 
-	function checkBudgetBalance() {
-	  const rows = document.querySelectorAll("#income-debt-table tbody tr");
-	  let income = 0;
-	  let expenses = 0;
+  // Budget Warning
+  let budgetWarningActive = false;
 
-	  rows.forEach(row => {
-		const type = row.querySelector("select").value;
-		const amount = parseFloat(row.querySelectorAll("input")[1]?.value) || 0;
+  function checkBudgetBalance() {
+    const rows = document.querySelectorAll("#income-debt-table tbody tr");
+    let income = 0;
+    let expenses = 0;
 
-		if (type === "Income") income += amount;
-		if (type === "Expense") expenses += amount;
-	  });
+    rows.forEach(row => {
+      const type = row.querySelector("select").value;
+      const amount = parseFloat(row.querySelectorAll("input")[1]?.value) || 0;
+      if (type === "Income") income += amount;
+      if (type === "Expense") expenses += amount;
+    });
 
-	  const container = document.querySelector(".left-section");
+    const container = document.querySelector(".left-section");
 
-	  if (expenses > income && !budgetWarningActive) {
-		alert("Warning: Your expenses exceed your income!");
-		container.classList.add("budget-warning");
-		budgetWarningActive = true;
-	  } else if (expenses <= income && budgetWarningActive) {
-		container.classList.remove("budget-warning");
-		budgetWarningActive = false;
-	  }
-	}
+    if (expenses > income && !budgetWarningActive) {
+      alert("Warning: Your expenses exceed your income!");
+      container.classList.add("budget-warning");
+      budgetWarningActive = true;
+    } else if (expenses <= income && budgetWarningActive) {
+      container.classList.remove("budget-warning");
+      budgetWarningActive = false;
+    }
+  }
 
-	// ========== Local Storage Persistence ==========
-	// Save table data
-	function saveToLocalStorage() {
-	  const data = [];
-	  const rows = document.querySelectorAll("#income-debt-table tbody tr");
+  // === Local Storage: Budget Table ===
+  function saveToLocalStorage() {
+    const data = [];
+    const rows = document.querySelectorAll("#income-debt-table tbody tr");
+    rows.forEach(row => {
+      const type = row.querySelector("select").value;
+      const name = row.querySelectorAll("input")[0].value;
+      const amount = row.querySelectorAll("input")[1].value;
+      data.push({ type, name, amount });
+    });
+    localStorage.setItem("budgetData", JSON.stringify(data));
+  }
 
-	  rows.forEach(row => {
-		const type = row.querySelector("select").value;
-		const name = row.querySelectorAll("input")[0].value;
-		const amount = row.querySelectorAll("input")[1].value;
-		data.push({ type, name, amount });
-	  });
+  function loadFromLocalStorage() {
+    const data = JSON.parse(localStorage.getItem("budgetData")) || [];
+    const tableBody = document.querySelector("#income-debt-table tbody");
+    tableBody.innerHTML = "";
 
-	  localStorage.setItem("budgetData", JSON.stringify(data));
-	}
+    data.forEach(entry => {
+      const row = tableBody.insertRow();
+      row.innerHTML = `
+        <td>
+          <select onchange="checkBudgetBalance(); saveToLocalStorage();">
+            <option ${entry.type === "Income" ? "selected" : ""}>Income</option>
+            <option ${entry.type === "Debt" ? "selected" : ""}>Debt</option>
+            <option ${entry.type === "Expense" ? "selected" : ""}>Expense</option>
+          </select>
+        </td>
+        <td><input type="text" value="${entry.name}" oninput="sanitizeInput(this); saveToLocalStorage();" /></td>
+        <td><input type="number" value="${entry.amount}" oninput="sanitizeInput(this); checkBudgetBalance(); saveToLocalStorage();" /></td>
+        <td><button onclick="this.closest('tr').remove(); saveToLocalStorage(); checkBudgetBalance();">🗑️</button></td>
+      `;
+    });
 
-	// Load table data
-	function loadFromLocalStorage() {
-	  const data = JSON.parse(localStorage.getItem("budgetData")) || [];
-	  const tableBody = document.querySelector("#income-debt-table tbody");
-	  tableBody.innerHTML = ""; // clear default rows
+    checkBudgetBalance();
+  }
 
-	  data.forEach(entry => {
-		const row = tableBody.insertRow();
-		row.innerHTML = `
-		  <td>
-			<select onchange="checkBudgetBalance(); saveToLocalStorage();">
-			  <option ${entry.type === "Income" ? "selected" : ""}>Income</option>
-			  <option ${entry.type === "Debt" ? "selected" : ""}>Debt</option>
-			  <option ${entry.type === "Expense" ? "selected" : ""}>Expense</option>
-			</select>
-		  </td>
-		  <td><input type="text" value="${entry.name}" oninput="sanitizeInput(this); saveToLocalStorage();" /></td>
-		  <td><input type="number" value="${entry.amount}" oninput="sanitizeInput(this); checkBudgetBalance(); saveToLocalStorage();" /></td>
-		  <td><button onclick="this.closest('tr').remove(); saveToLocalStorage(); checkBudgetBalance();">🗑️</button></td>
-		`;
-	  });
+  // === Local Storage: Milestones ===
+  function saveMilestonesToLocalStorage() {
+    const data = [];
+    const rows = document.querySelectorAll("#milestone-table tbody tr");
+    rows.forEach(row => {
+      const inputs = row.querySelectorAll("input");
+      const name = inputs[0].value;
+      const saved = inputs[1].value;
+      const goal = inputs[2].value;
+      data.push({ name, saved, goal });
+    });
+    localStorage.setItem("milestoneData", JSON.stringify(data));
+  }
 
-	  checkBudgetBalance();
-	}
+  function loadMilestonesFromLocalStorage() {
+    const data = JSON.parse(localStorage.getItem("milestoneData")) || [];
+    const tableBody = document.querySelector("#milestone-table tbody");
+    tableBody.innerHTML = "";
 
-	// Override your existing addIncomeDebtRow to include listeners
-	const originalAddIncomeDebtRow = addIncomeDebtRow;
-	addIncomeDebtRow = function() {
-	  originalAddIncomeDebtRow();
-	  saveToLocalStorage();
-	  checkBudgetBalance();
-	};
+    data.forEach(entry => {
+      const row = tableBody.insertRow();
+      row.innerHTML = `
+        <td><input type="text" value="${entry.name}" oninput="sanitizeInput(this); saveMilestonesToLocalStorage();" /></td>
+        <td><input type="number" value="${entry.saved}" oninput="sanitizeInput(this); saveMilestonesToLocalStorage();" /></td>
+        <td><input type="number" value="${entry.goal}" oninput="sanitizeInput(this); saveMilestonesToLocalStorage();" /></td>
+        <td><button onclick="this.closest('tr').remove(); saveMilestonesToLocalStorage();">🗑️</button></td>
+      `;
+    });
+  }
+
+  // Override addIncomeDebtRow to also trigger save + check
+  const originalAddIncomeDebtRow = addIncomeDebtRow;
+  addIncomeDebtRow = function () {
+    originalAddIncomeDebtRow();
+    saveToLocalStorage();
+    checkBudgetBalance();
+  };
 </script>
 
 </body>
