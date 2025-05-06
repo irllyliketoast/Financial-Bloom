@@ -113,10 +113,17 @@
   const userId = verifyUser();
   const maxRows = 30;
   document.addEventListener('DOMContentLoaded', () => {
-    addIncomeDebtRow();
-    addIncomeDebtRow();
-    addMilestoneRow();
-    addMilestoneRow();
+	const stored = localStorage.getItem("budgetData");
+	loadFromLocalStorage();
+
+	// If no saved budget rows exist, add two fresh ones
+	if (!stored || JSON.parse(stored).length === 0) {
+		addIncomeDebtRow();
+		addIncomeDebtRow();
+	}
+
+	addMilestoneRow();
+	addMilestoneRow();
   });
 
   function addIncomeDebtRow() {
@@ -249,7 +256,83 @@
       }
     });
   }
+  
+	// ========== Expense vs Income Monitoring ==========
+	let budgetWarningActive = false;
 
+	function checkBudgetBalance() {
+	  const rows = document.querySelectorAll("#income-debt-table tbody tr");
+	  let income = 0;
+	  let expenses = 0;
+
+	  rows.forEach(row => {
+		const type = row.querySelector("select").value;
+		const amount = parseFloat(row.querySelectorAll("input")[1]?.value) || 0;
+
+		if (type === "Income") income += amount;
+		if (type === "Expense") expenses += amount;
+	  });
+
+	  const container = document.querySelector(".left-section");
+
+	  if (expenses > income && !budgetWarningActive) {
+		alert("Warning: Your expenses exceed your income!");
+		container.classList.add("budget-warning");
+		budgetWarningActive = true;
+	  } else if (expenses <= income && budgetWarningActive) {
+		container.classList.remove("budget-warning");
+		budgetWarningActive = false;
+	  }
+	}
+
+	// ========== Local Storage Persistence ==========
+	// Save table data
+	function saveToLocalStorage() {
+	  const data = [];
+	  const rows = document.querySelectorAll("#income-debt-table tbody tr");
+
+	  rows.forEach(row => {
+		const type = row.querySelector("select").value;
+		const name = row.querySelectorAll("input")[0].value;
+		const amount = row.querySelectorAll("input")[1].value;
+		data.push({ type, name, amount });
+	  });
+
+	  localStorage.setItem("budgetData", JSON.stringify(data));
+	}
+
+	// Load table data
+	function loadFromLocalStorage() {
+	  const data = JSON.parse(localStorage.getItem("budgetData")) || [];
+	  const tableBody = document.querySelector("#income-debt-table tbody");
+	  tableBody.innerHTML = ""; // clear default rows
+
+	  data.forEach(entry => {
+		const row = tableBody.insertRow();
+		row.innerHTML = `
+		  <td>
+			<select onchange="checkBudgetBalance(); saveToLocalStorage();">
+			  <option ${entry.type === "Income" ? "selected" : ""}>Income</option>
+			  <option ${entry.type === "Debt" ? "selected" : ""}>Debt</option>
+			  <option ${entry.type === "Expense" ? "selected" : ""}>Expense</option>
+			</select>
+		  </td>
+		  <td><input type="text" value="${entry.name}" oninput="sanitizeInput(this); saveToLocalStorage();" /></td>
+		  <td><input type="number" value="${entry.amount}" oninput="sanitizeInput(this); checkBudgetBalance(); saveToLocalStorage();" /></td>
+		  <td><button onclick="this.closest('tr').remove(); saveToLocalStorage(); checkBudgetBalance();">🗑️</button></td>
+		`;
+	  });
+
+	  checkBudgetBalance();
+	}
+
+	// Override your existing addIncomeDebtRow to include listeners
+	const originalAddIncomeDebtRow = addIncomeDebtRow;
+	addIncomeDebtRow = function() {
+	  originalAddIncomeDebtRow();
+	  saveToLocalStorage();
+	  checkBudgetBalance();
+	};
 </script>
 
 </body>
