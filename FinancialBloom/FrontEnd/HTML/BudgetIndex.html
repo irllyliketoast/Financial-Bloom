@@ -361,6 +361,13 @@
 		showInactivityWarning();
 	  }, 14 * 60 * 1000); // 14 minutes
 	}
+	
+	// Register user activity events
+	["click", "keydown", "mousemove", "scroll"].forEach(evt =>
+	  document.addEventListener(evt, resetInactivityTimer)
+	);
+
+	resetInactivityTimer();
 </script>
 
 </body>
