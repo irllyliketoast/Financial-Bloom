@@ -34,7 +34,6 @@
 
 <main>
   <div class="left-section">
-    <!-- Income/Debt Tracker -->
     <div class="table-container">
       <h2>Income, Debt, Expenses Tracker</h2>
       <table id="income-debt-table">
@@ -51,7 +50,6 @@
       <button onclick="addIncomeDebtRow()">+ Add Row</button>
     </div>
 
-    <!-- Milestone Tracker -->
     <div class="table-container">
       <h2>Milestones Tracker</h2>
       <table id="milestone-table">
@@ -70,7 +68,6 @@
   </div>
 
   <div class="right-section">
-    <!-- Advice Panel -->
     <div class="advice-panel">
       <h2>How to Budget?</h2>
       <p>A common rule of thumb in budgeting is called the 50/20/30 rule:</p>
@@ -88,17 +85,12 @@
   </div>
 </main>
 
-<!-- Save Button -->
 <div class="save-container">
   <button onclick="triggerEditAlert()">Save Changes</button>
 </div>
 
-<!--kick user back to dashboard -->
-
-<!-- Footer -->
 <footer>2025 Financial Bloom &copy; All rights reserved.</footer>
 
-<!-- Alert Overlay -->
 <div id="customAlertOverlay" class="alert-overlay" style="display: none;">
   <div id="customAlert" class="alert-box">
     <p id="alertMessage">Do you want to save your changes?</p>
@@ -107,16 +99,15 @@
   </div>
 </div>
 
-<!-- Script -->
 <script src="../Scripts/required.js"></script>
 <script>
   const userId = verifyUser();
   const maxRows = 30;
+  let budgetWarningActive = false;
 
   document.addEventListener('DOMContentLoaded', () => {
     const storedBudget = localStorage.getItem("budgetData");
     loadFromLocalStorage();
-
     if (!storedBudget || JSON.parse(storedBudget).length === 0) {
       addIncomeDebtRow();
       addIncomeDebtRow();
@@ -124,7 +115,6 @@
 
     const storedMilestones = localStorage.getItem("milestoneData");
     loadMilestonesFromLocalStorage();
-
     if (!storedMilestones || JSON.parse(storedMilestones).length === 0) {
       addMilestoneRow();
       addMilestoneRow();
@@ -134,7 +124,6 @@
   function addIncomeDebtRow() {
     const table = document.getElementById('income-debt-table').getElementsByTagName('tbody')[0];
     if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
-
     const row = table.insertRow();
     row.innerHTML = `
       <td>
@@ -154,7 +143,6 @@
   function addMilestoneRow() {
     const table = document.getElementById('milestone-table').getElementsByTagName('tbody')[0];
     if (table.rows.length >= maxRows) return alert("Limit of 30 rows.");
-
     const row = table.insertRow();
     row.innerHTML = `
       <td><input type="text" oninput="sanitizeInput(this); saveMilestonesToLocalStorage();" /></td>
@@ -169,23 +157,17 @@
     input.value = input.value.replace(/[<>"'`=\/]/g, '');
   }
 
-  // Alert Box Functions
-  let pendingSaveCallback = null;
-
-  async function saveBudgetChanges() {
+  function saveBudgetChanges() {
     const rows = document.querySelectorAll("#income-debt-table tbody tr");
     const formData = [];
-    rows.forEach(element => {
-      const inputSelect = element.querySelectorAll("td select");
-      const inputData = element.querySelectorAll("td input");
-      const type = inputSelect[0].value;
-      const name = inputData[0].value;
-      const amount = inputData[1].value;
+    rows.forEach(row => {
+      const [select] = row.querySelectorAll("td select");
+      const [nameInput, amountInput] = row.querySelectorAll("td input");
       formData.push({
-        type,
-        name,
-        amount,
-        userId,
+        type: select.value,
+        name: nameInput.value,
+        amount: amountInput.value,
+        userId
       });
     });
     formData.forEach(data => postToBudgetEntry(data));
@@ -227,17 +209,14 @@
 
   function cleanEmptyRows(tableId, preserveCount) {
     const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
-    const rows = Array.from(table.rows);
-    rows.forEach((row, index) => {
-      if (index < preserveCount) return;
+    Array.from(table.rows).forEach((row, i) => {
+      if (i < preserveCount) return;
       const inputs = row.querySelectorAll('input');
-      const isEmpty = Array.from(inputs).every(input => input.value.trim() === "");
-      if (isEmpty) row.remove();
+      if (Array.from(inputs).every(input => input.value.trim() === "")) {
+        row.remove();
+      }
     });
   }
-
-  // Budget Warning
-  let budgetWarningActive = false;
 
   function checkBudgetBalance() {
     const rows = document.querySelectorAll("#income-debt-table tbody tr");
@@ -251,7 +230,7 @@
       if (type === "Expense") expenses += amount;
     });
 
-    const container = document.querySelector(".left-section");
+    const container = document.body;
 
     if (expenses > income && !budgetWarningActive) {
       alert("Warning: Your expenses exceed your income!");
@@ -263,7 +242,6 @@
     }
   }
 
-  // === Local Storage: Budget Table ===
   function saveToLocalStorage() {
     const data = [];
     const rows = document.querySelectorAll("#income-debt-table tbody tr");
@@ -300,16 +278,16 @@
     checkBudgetBalance();
   }
 
-  // === Local Storage: Milestones ===
   function saveMilestonesToLocalStorage() {
     const data = [];
     const rows = document.querySelectorAll("#milestone-table tbody tr");
     rows.forEach(row => {
       const inputs = row.querySelectorAll("input");
-      const name = inputs[0].value;
-      const saved = inputs[1].value;
-      const goal = inputs[2].value;
-      data.push({ name, saved, goal });
+      data.push({
+        name: inputs[0].value,
+        saved: inputs[1].value,
+        goal: inputs[2].value
+      });
     });
     localStorage.setItem("milestoneData", JSON.stringify(data));
   }
@@ -330,7 +308,6 @@
     });
   }
 
-  // Override addIncomeDebtRow to also trigger save + check
   const originalAddIncomeDebtRow = addIncomeDebtRow;
   addIncomeDebtRow = function () {
     originalAddIncomeDebtRow();
