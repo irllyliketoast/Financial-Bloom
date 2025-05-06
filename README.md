@@ -70,7 +70,7 @@ To create a user-friendly application that encourages financial growth and respo
 - **Frameworks & Libraries:** SpringBoot, Unity
 - **Database:** MySQL 
 - **API:** RESTful, JavaFetch
-- **Authentication:** DUO
+- **Authentication:** Cookies
 
 ---
 
@@ -100,7 +100,6 @@ To create a user-friendly application that encourages financial growth and respo
 ---
 
 ## **Critical, Important, Useful Features:**  
-- **Users log into the system with MFA (Critical)**  
 - **Users may log out at any time through a log-out button (Critical)**  
 - **Users can update, add, and delete their own information (Critical)**  
 - **Users can customize their budget template (Useful)**  
