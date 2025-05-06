@@ -101,9 +101,9 @@
 </footer>
 
 <!-- Inactivity Alert Box (Inserted) -->
-<div id="customAlertOverlay" class="alert-overlay" style="display: none;">
-  <div id="customAlert" class="alert-box">
-    <p id="alertMessage">Do you want to save your changes?</p>
+<div id="inactivityAlertOverlay" class="alert-overlay" style="display: none;">
+  <div class="alert-box">
+    <p>You’ll be logged out in <span id="countdown">60</span> seconds due to inactivity.</p>
     <button onclick="logoutUser()">OK</button>
   </div>
 </div>
@@ -252,18 +252,15 @@
 	let warningShown = false;
 
 	function showInactivityWarning() {
-	  const overlay = document.getElementById("customAlertOverlay");
-	  const alertBox = document.getElementById("customAlert");
-	  const msg = document.getElementById("alertMessage");
+	  const overlay = document.getElementById("inactivityAlertOverlay");
+	  const countdownSpan = document.getElementById("countdown");
 
 	  overlay.style.display = "flex";
-	  msg.innerHTML = `You’ll be logged out in <span id="countdown">60</span> seconds due to inactivity.`;
-
 	  let timeLeft = 60;
+
 	  countdownInterval = setInterval(() => {
 		timeLeft--;
-		const countdown = document.getElementById("countdown");
-		if (countdown) countdown.textContent = timeLeft;
+		countdownSpan.textContent = timeLeft;
 		if (timeLeft <= 0) {
 		  clearInterval(countdownInterval);
 		  logoutUser();
@@ -280,7 +277,7 @@
 	  clearTimeout(inactivityTimer);
 	  clearInterval(countdownInterval);
 	  if (warningShown) {
-		document.getElementById("customAlertOverlay").style.display = "none";
+		document.getElementById("inactivityAlertOverlay").style.display = "none";
 		warningShown = false;
 	  }
 	  inactivityTimer = setTimeout(() => {
