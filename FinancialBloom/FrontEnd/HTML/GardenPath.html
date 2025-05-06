@@ -71,9 +71,63 @@
 <!-- Footer -->
 <footer>
   2025 Financial Bloom &copy; All rights reserved.  </footer>
+
+<div id="inactivityAlertOverlay" class="alert-overlay" style="display: none;">
+  <div class="alert-box">
+    <p>You’ll be logged out in <span id="countdown">60</span> seconds due to inactivity.</p>
+    <button onclick="logoutUser()">OK</button>
+  </div>
+</div>  
+
 <script src="../Scripts/required.js"></script>
 <script>
   verifyUser();
+      // Inactivity timeout logic
+  let inactivityTimer;
+  let countdownInterval;
+  let warningShown = false;
+
+	function showInactivityWarning() {
+	  const overlay = document.getElementById("inactivityAlertOverlay");
+	  const countdownSpan = document.getElementById("countdown");
+
+	  overlay.style.display = "flex";
+	  let timeLeft = 60;
+
+	  countdownInterval = setInterval(() => {
+		timeLeft--;
+		countdownSpan.textContent = timeLeft;
+		if (timeLeft <= 0) {
+		  clearInterval(countdownInterval);
+		  logoutUser();
+		}
+	  }, 1000);
+	}
+
+	function logoutUser() {
+	  localStorage.clear();
+	  window.location.href = "Login.html";
+	}
+
+	function resetInactivityTimer() {
+	  clearTimeout(inactivityTimer);
+	  clearInterval(countdownInterval);
+	  if (warningShown) {
+		document.getElementById("inactivityAlertOverlay").style.display = "none";
+		warningShown = false;
+	  }
+	  inactivityTimer = setTimeout(() => {
+		warningShown = true;
+		showInactivityWarning();
+	  }, 14 * 60 * 1000); // 14 minutes
+	}
+	
+	// Register user activity events
+	["click", "keydown", "mousemove", "scroll"].forEach(evt =>
+	  document.addEventListener(evt, resetInactivityTimer)
+	);
+
+	resetInactivityTimer();
 </script>
 </body>
 </html>
